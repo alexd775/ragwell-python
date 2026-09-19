@@ -43,6 +43,16 @@ def test_distributions_include_sources_typing_and_license(
         "pyproject.toml",
         "uv.lock",
         "tests/test_packaging.py",
+        "contracts/2026-09-19.1/openapi.json",
+        "contracts/2026-09-19.1/manifest.json",
+        "contracts/operations.json",
+        "docs/generation.md",
+        "docs/http-qualification.md",
+        "examples/sync_search.py",
+        "examples/async_search.py",
+        "qualification/http_runner.py",
+        "scripts/generate.py",
+        "openapi-python-client.yaml",
     } <= source_files
 
     with ZipFile(wheel) as archive:
@@ -66,15 +76,12 @@ def test_wheel_imports_with_typing_marker_in_clean_environment(
     )
     subprocess.run(
         [
-            str(python),
-            "-I",
-            "-m",
+            "uv",
             "pip",
-            "--isolated",
-            "--disable-pip-version-check",
             "install",
-            "--no-index",
-            "--no-deps",
+            "--offline",
+            "--python",
+            str(python),
             str(wheel),
         ],
         cwd=tmp_path,
@@ -98,7 +105,19 @@ assert files(ragwell).joinpath("py.typed").is_file()
 package = distribution("ragwell")
 assert package.metadata["Name"] == "ragwell"
 assert package.metadata["License-Expression"] == "MIT"
-assert not package.requires, "Development dependencies leaked into runtime metadata"
+requirements = package.requires or []
+assert requirements == [
+    "attrs<26,>=22.2",
+    "httpx<0.29,>=0.27.2",
+    "python-dateutil<3,>=2.8.2",
+]
+assert all("pytest" not in item and "ruff" not in item and "mypy" not in item for item in requirements)
+assert str(distribution("httpx").version)
+assert str(distribution("attrs").version)
+assert str(distribution("python-dateutil").version)
+with ragwell.Ragwell(base_url="https://api.example.test", api_key="test-key") as client:
+    project = client.project("00000000-0000-0000-0000-000000000001")
+    assert str(project.id) == "00000000-0000-0000-0000-000000000001"
 print("Clean installed-package import and typing marker passed")
 """,
         ],

@@ -1,0 +1,140 @@
+{
+  "api_info_version": "0.1.0",
+  "artifact_version": "2026-09-19.1",
+  "canonical_sha256": "fcbf93d2fe26cb7e54738dad8a7661611e8d762ec74361c79a75ffb7730b970a",
+  "compatibility_notes": "See contracts/machine/README.md. Artifact identity is its digest, not runtime version equality. Installed Python SDK qualification and public publication remain separate release gates.",
+  "machine_sha256": "06d0efac740946c21f0ddfa3d873e2197cf4924487ed512d08b8c2fd824978bd",
+  "operation_count": 26,
+  "operations": [
+    {
+      "method": "GET",
+      "operation_id": "get_document_upload_policy_v1_document_upload_policy_get",
+      "path": "/v1/document-upload-policy"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_project_v1_projects__project_id__get",
+      "path": "/v1/projects/{project_id}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+      "path": "/v1/projects/{project_id}/document-deletions/{receipt_id}"
+    },
+    {
+      "method": "POST",
+      "operation_id": "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+      "path": "/v1/projects/{project_id}/document-deletions/{receipt_id}/retry"
+    },
+    {
+      "method": "GET",
+      "operation_id": "list_documents_v1_projects__project_id__documents_get",
+      "path": "/v1/projects/{project_id}/documents"
+    },
+    {
+      "method": "DELETE",
+      "operation_id": "delete_document_v1_projects__project_id__documents__document_id__delete",
+      "path": "/v1/projects/{project_id}/documents/{document_id}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_document_v1_projects__project_id__documents__document_id__get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/activity"
+    },
+    {
+      "method": "POST",
+      "operation_id": "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/exports"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/exports/{export_id}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/exports/{export_id}/parts/{part_number}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/generations"
+    },
+    {
+      "method": "GET",
+      "operation_id": "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/generations/{generation_id}/chunks"
+    },
+    {
+      "method": "GET",
+      "operation_id": "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/generations/{generation_id}/sources/{source_id}"
+    },
+    {
+      "method": "GET",
+      "operation_id": "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/inspection"
+    },
+    {
+      "method": "PUT",
+      "operation_id": "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+      "path": "/v1/projects/{project_id}/documents/{document_id}/metadata"
+    },
+    {
+      "method": "GET",
+      "operation_id": "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+      "path": "/v1/projects/{project_id}/embedding-connection"
+    },
+    {
+      "method": "GET",
+      "operation_id": "list_jobs_v1_projects__project_id__jobs_get",
+      "path": "/v1/projects/{project_id}/jobs"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_job_v1_projects__project_id__jobs__job_id__get",
+      "path": "/v1/projects/{project_id}/jobs/{job_id}"
+    },
+    {
+      "method": "POST",
+      "operation_id": "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+      "path": "/v1/projects/{project_id}/jobs/{job_id}/cancel"
+    },
+    {
+      "method": "POST",
+      "operation_id": "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+      "path": "/v1/projects/{project_id}/jobs/{job_id}/retry"
+    },
+    {
+      "method": "POST",
+      "operation_id": "search_v1_projects__project_id__search_post",
+      "path": "/v1/projects/{project_id}/search"
+    },
+    {
+      "method": "POST",
+      "operation_id": "create_upload_v1_projects__project_id__uploads_post",
+      "path": "/v1/projects/{project_id}/uploads"
+    },
+    {
+      "method": "GET",
+      "operation_id": "get_upload_state",
+      "path": "/v1/projects/{project_id}/uploads/{upload_id}"
+    },
+    {
+      "method": "PUT",
+      "operation_id": "upload_content_v1_projects__project_id__uploads__upload_id__content_put",
+      "path": "/v1/projects/{project_id}/uploads/{upload_id}/content"
+    },
+    {
+      "method": "POST",
+      "operation_id": "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+      "path": "/v1/projects/{project_id}/uploads/{upload_id}/finalize"
+    }
+  ]
+}

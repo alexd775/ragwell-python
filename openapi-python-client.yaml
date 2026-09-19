@@ -1,0 +1,11 @@
+package_name_override: _generated
+project_name_override: ragwell-generated
+post_hooks: []
+docstrings_on_attributes: true
+literal_enums: false
+use_path_prefixes_for_title_model_names: false
+content_type_overrides:
+  application/pdf: application/octet-stream
+  application/x-ndjson: application/octet-stream
+  text/markdown: application/octet-stream
+  text/plain: application/octet-stream

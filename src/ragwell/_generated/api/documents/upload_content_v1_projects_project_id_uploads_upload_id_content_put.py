@@ -1,0 +1,281 @@
+from http import HTTPStatus
+from typing import Any
+from urllib.parse import quote
+from uuid import UUID
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.error_response import ErrorResponse
+from ...models.upload_session_response import UploadSessionResponse
+from ...types import UNSET, File, Response, Unset
+
+
+def _get_kwargs(
+    project_id: UUID,
+    upload_id: UUID,
+    *,
+    body: File | File | File | Unset = UNSET,
+    content_type: None | str | Unset = UNSET,
+    content_length: int | None | Unset = UNSET,
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+    if not isinstance(content_type, Unset):
+        headers["Content-Type"] = content_type
+
+    if not isinstance(content_length, Unset):
+        headers["Content-Length"] = content_length
+
+    _kwargs: dict[str, Any] = {
+        "method": "put",
+        "url": "/v1/projects/{project_id}/uploads/{upload_id}/content".format(
+            project_id=quote(str(project_id), safe=""),
+            upload_id=quote(str(upload_id), safe=""),
+        ),
+    }
+
+    if isinstance(body, File):
+        _kwargs["content"] = body.payload
+        headers["Content-Type"] = "application/pdf"
+    if isinstance(body, File):
+        _kwargs["content"] = body.payload
+        headers["Content-Type"] = "text/markdown"
+    if isinstance(body, File):
+        _kwargs["content"] = body.payload
+        headers["Content-Type"] = "text/plain"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ErrorResponse | UploadSessionResponse | None:
+    if response.status_code == 200:
+        response_200 = UploadSessionResponse.from_dict(response.json())
+
+        return response_200
+
+    if response.status_code == 401:
+        response_401 = ErrorResponse.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = ErrorResponse.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = ErrorResponse.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 409:
+        response_409 = ErrorResponse.from_dict(response.json())
+
+        return response_409
+
+    if response.status_code == 415:
+        response_415 = ErrorResponse.from_dict(response.json())
+
+        return response_415
+
+    if response.status_code == 422:
+        response_422 = ErrorResponse.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = ErrorResponse.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = ErrorResponse.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 503:
+        response_503 = ErrorResponse.from_dict(response.json())
+
+        return response_503
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ErrorResponse | UploadSessionResponse]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    project_id: UUID,
+    upload_id: UUID,
+    *,
+    client: AuthenticatedClient,
+    body: File | File | File | Unset = UNSET,
+    content_type: None | str | Unset = UNSET,
+    content_length: int | None | Unset = UNSET,
+) -> Response[ErrorResponse | UploadSessionResponse]:
+    """Upload Content
+
+    Args:
+        project_id (UUID):
+        upload_id (UUID):
+        content_type (None | str | Unset):
+        content_length (int | None | Unset):
+        body (File):
+        body (File):
+        body (File):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[ErrorResponse | UploadSessionResponse]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+        upload_id=upload_id,
+        body=body,
+        content_type=content_type,
+        content_length=content_length,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    project_id: UUID,
+    upload_id: UUID,
+    *,
+    client: AuthenticatedClient,
+    body: File | File | File | Unset = UNSET,
+    content_type: None | str | Unset = UNSET,
+    content_length: int | None | Unset = UNSET,
+) -> ErrorResponse | UploadSessionResponse | None:
+    """Upload Content
+
+    Args:
+        project_id (UUID):
+        upload_id (UUID):
+        content_type (None | str | Unset):
+        content_length (int | None | Unset):
+        body (File):
+        body (File):
+        body (File):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        ErrorResponse | UploadSessionResponse
+    """
+
+    return sync_detailed(
+        project_id=project_id,
+        upload_id=upload_id,
+        client=client,
+        body=body,
+        content_type=content_type,
+        content_length=content_length,
+    ).parsed
+
+
+async def asyncio_detailed(
+    project_id: UUID,
+    upload_id: UUID,
+    *,
+    client: AuthenticatedClient,
+    body: File | File | File | Unset = UNSET,
+    content_type: None | str | Unset = UNSET,
+    content_length: int | None | Unset = UNSET,
+) -> Response[ErrorResponse | UploadSessionResponse]:
+    """Upload Content
+
+    Args:
+        project_id (UUID):
+        upload_id (UUID):
+        content_type (None | str | Unset):
+        content_length (int | None | Unset):
+        body (File):
+        body (File):
+        body (File):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[ErrorResponse | UploadSessionResponse]
+    """
+
+    kwargs = _get_kwargs(
+        project_id=project_id,
+        upload_id=upload_id,
+        body=body,
+        content_type=content_type,
+        content_length=content_length,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    project_id: UUID,
+    upload_id: UUID,
+    *,
+    client: AuthenticatedClient,
+    body: File | File | File | Unset = UNSET,
+    content_type: None | str | Unset = UNSET,
+    content_length: int | None | Unset = UNSET,
+) -> ErrorResponse | UploadSessionResponse | None:
+    """Upload Content
+
+    Args:
+        project_id (UUID):
+        upload_id (UUID):
+        content_type (None | str | Unset):
+        content_length (int | None | Unset):
+        body (File):
+        body (File):
+        body (File):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        ErrorResponse | UploadSessionResponse
+    """
+
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            upload_id=upload_id,
+            client=client,
+            body=body,
+            content_type=content_type,
+            content_length=content_length,
+        )
+    ).parsed
