@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling>=1.32.3,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ragwell"
+version = "0.1.0.dev0"
+description = "Python SDK for Ragwell managed retrieval (initial scaffold)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = []
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/alexd775/ragwell-python"
+Issues = "https://github.com/alexd775/ragwell-python/issues"
+
+[dependency-groups]
+dev = [
+    "build>=1.6.1,<2",
+    "hatchling>=1.32.3,<2",
+    "mypy>=2.3.1,<3",
+    "pytest>=9.1.1,<10",
+    "ruff>=0.16.8,<0.17",
+]
+
+[tool.uv]
+required-version = "==0.12.17"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ragwell"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/AGENTS.md",
+    "/CONTRIBUTING.md",
+    "/LICENSE",
+    "/README.md",
+    "/pyproject.toml",
+    "/uv.lock",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--import-mode=importlib", "--strict-config", "--strict-markers", "-ra"]
+filterwarnings = ["error"]
