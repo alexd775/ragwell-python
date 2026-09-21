@@ -48,7 +48,7 @@ def installed_identity(wheel: Path) -> tuple[dict[str, Any], dict[str, Any]]:
             if not installed.is_file() or installed.read_bytes() != archive.read(name):
                 raise ValueError("Installed package differs from the supplied wheel")
         actual = {
-            str(path.relative_to(site))
+            path.relative_to(site).as_posix()
             for path in package.parent.rglob("*")
             if path.is_file() and "__pycache__" not in path.parts
         }

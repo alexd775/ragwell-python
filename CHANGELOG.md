@@ -13,6 +13,8 @@ The development SDK is not published to PyPI. These changes prepare the first
   accepted-intake recovery identifiers and redacted protocol/transport failures.
 - Reviewed contract packaged in the wheel, installed-package identity verification,
   complete local HTTP fixture qualification, and endpoint-only test ownership.
+- Normalize installed-package inventory paths across Windows and POSIX during
+  wheel verification, retaining modified-file and unexpected-file checks.
 - Opt-in beta lifecycle validation against an independently prepared account/project,
   with private credentials, bounded synthetic usage and checkpointed cleanup reports.
 - API reference, lifecycle examples, compatibility/security guidance and local release

@@ -174,8 +174,9 @@ def test_distributions_include_sources_typing_and_license(
     )
 
 
+@pytest.mark.parametrize("inventory_path_style", ["native", "windows"])
 def test_wheel_imports_with_typing_marker_in_clean_environment(
-    distributions: tuple[Path, Path], tmp_path: Path
+    distributions: tuple[Path, Path], tmp_path: Path, inventory_path_style: str
 ) -> None:
     _, wheel = distributions
     environment = tmp_path / "venv"
@@ -251,12 +252,31 @@ print("Clean installed-package import and typing marker passed")
             "-c",
             """
 import sys
-from pathlib import Path
+from contextlib import nullcontext
+from pathlib import Path, PureWindowsPath
+from unittest.mock import patch
 sys.path.insert(0, sys.argv[2])
 from evidence import installed_identity
 import ragwell
 wheel = Path(sys.argv[1])
-identity, contract = installed_identity(wheel)
+native_relative_to = Path.relative_to
+
+
+def windows_relative_to(path, *args, **kwargs):
+    return PureWindowsPath(native_relative_to(path, *args, **kwargs))
+
+
+def verified_identity():
+    # Exercise Windows inventory paths even when this test runs on POSIX.
+    context = (
+        patch.object(Path, "relative_to", windows_relative_to)
+        if sys.argv[3] == "windows" else nullcontext()
+    )
+    with context:
+        return installed_identity(wheel)
+
+
+identity, contract = verified_identity()
 assert identity["operation_count"] == 26
 assert len(contract["paths"]) > 10
 package_file = Path(ragwell.__file__)
@@ -264,9 +284,9 @@ original = package_file.read_bytes()
 try:
     package_file.write_bytes(original + b"\\n# altered installation\\n")
     try:
-        installed_identity(wheel)
-    except ValueError:
-        pass
+        verified_identity()
+    except ValueError as exc:
+        assert str(exc) == "Installed package differs from the supplied wheel"
     else:
         raise AssertionError("Modified installed wheel was accepted")
 finally:
@@ -275,17 +295,18 @@ extra = package_file.parent / "unaccounted.py"
 try:
     extra.write_text("# leftover file")
     try:
-        installed_identity(wheel)
-    except ValueError:
-        pass
+        verified_identity()
+    except ValueError as exc:
+        assert str(exc) == "Installed package contains unaccounted files"
     else:
         raise AssertionError("Unaccounted installed file was accepted")
 finally:
     extra.unlink()
-installed_identity(wheel)
+verified_identity()
 """,
             str(wheel),
             str(qualification),
+            inventory_path_style,
         ],
         cwd=tmp_path,
         check=True,
