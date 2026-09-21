@@ -19,8 +19,10 @@ from ._common import (
     UploadInput,
     as_uuid_list,
     create_temporary_destination,
+    discard_temporary,
+    file_call,
     finalize_temporary,
-    prepare_upload,
+    prepare_upload_async,
     query_params,
     remove_temporary,
     repeated_cursor,
@@ -30,6 +32,7 @@ from ._common import (
 from ._common import (
     idempotency_key as _make_idempotency_key,
 )
+from ._deadline import finite_seconds
 from ._generated.models import (
     CreateDocumentExportRequest,
     CreateUploadRequest,
@@ -63,13 +66,11 @@ from ._generated.models import (
 from ._generated.types import UNSET, Unset
 from ._transport import AsyncByteStream, AsyncTransport
 from .errors import (
-    ApiError,
     DownloadIntegrityError,
     IntegrityMismatch,
     OperationFailedError,
     PaginationError,
-    ProtocolError,
-    TransportError,
+    RagwellError,
     WaitTimeoutError,
 )
 from .types import DownloadResult, UploadCompletion
@@ -80,10 +81,8 @@ def _path_id(value: UUID | str, name: str) -> str:
 
 
 def _wait_values(timeout: float, initial_interval: float) -> tuple[float, float]:
-    if timeout < 0:
-        raise ValueError("timeout must be non-negative")
-    if initial_interval <= 0:
-        raise ValueError("initial_interval must be positive")
+    finite_seconds(timeout, "timeout", zero=True)
+    finite_seconds(initial_interval, "initial_interval")
     return timeout, initial_interval
 
 
@@ -105,8 +104,8 @@ class AsyncRagwell:
         resolved_url, resolved_key = resolve_configuration(
             base_url=base_url, api_key=api_key
         )
-        if operation_timeout <= 0 or transfer_timeout <= 0:
-            raise ValueError("operation and transfer timeouts must be positive")
+        finite_seconds(operation_timeout, "operation_timeout")
+        finite_seconds(transfer_timeout, "transfer_timeout")
         if http_client is not None and transport is not None:
             raise ValueError("transport cannot be combined with http_client")
         if http_client is None:
@@ -501,45 +500,64 @@ class AsyncDocumentsResource:
         tags: builtins.list[str] | Unset = UNSET,
         idempotency_key: str | None = None,
     ) -> FinalizedIntakeResponse:
-        key = _make_idempotency_key(idempotency_key)
-        prepared = await asyncio.to_thread(
-            prepare_upload,
-            file,
-            filename=filename,
-            media_type=media_type,
-        )
-        uploads = AsyncUploadsResource(self._transport, self._project_id)
-        try:
-            request = CreateUploadRequest(
-                original_filename=prepared.filename,
-                declared_media_type=CreateUploadRequestDeclaredMediaType(
-                    prepared.media_type
-                ),
-                declared_size_bytes=prepared.size,
-                declared_sha256=prepared.sha256,
-                metadata=metadata,
-                tags=tags,
+        with self._transport.scope(
+            self._transport.transfer_timeout, "documents.upload"
+        ) as budget:
+            key = _make_idempotency_key(idempotency_key)
+            prepared = await prepare_upload_async(
+                file,
+                filename=filename,
+                media_type=media_type,
+                check=budget.check,
             )
+            uploads = AsyncUploadsResource(self._transport, self._project_id)
             try:
-                upload = await uploads.create(request, idempotency_key=key)
-            except (ApiError, TransportError, ProtocolError) as exc:
-                raise exc.with_identifiers(
-                    project_id=self._project_id, idempotency_key=key
-                ) from None
-            try:
-                await uploads.upload_content(
-                    upload.id,
-                    content=prepared.stream,
-                    content_type=prepared.media_type,
-                    content_length=prepared.size,
+                request = CreateUploadRequest(
+                    original_filename=prepared.filename,
+                    declared_media_type=CreateUploadRequestDeclaredMediaType(
+                        prepared.media_type
+                    ),
+                    declared_size_bytes=prepared.size,
+                    declared_sha256=prepared.sha256,
+                    metadata=metadata,
+                    tags=tags,
                 )
-                return await uploads.finalize(upload.id)
-            except (ApiError, TransportError, ProtocolError) as exc:
+                try:
+                    upload = await uploads.create(request, idempotency_key=key)
+                except RagwellError as exc:
+                    raise exc.with_identifiers(
+                        project_id=self._project_id, idempotency_key=key
+                    ) from None
+                try:
+                    await uploads.upload_content(
+                        upload.id,
+                        content=prepared.stream,
+                        content_type=prepared.media_type,
+                        content_length=prepared.size,
+                    )
+                    intake = await uploads.finalize(upload.id)
+                except RagwellError as exc:
+                    raise exc.with_identifiers(
+                        project_id=self._project_id,
+                        upload_id=upload.id,
+                        document_id=upload.document_id,
+                        version_id=upload.document_version_id,
+                        job_id=upload.job_id,
+                        idempotency_key=key,
+                    ) from None
+            finally:
+                await file_call(prepared.close)
+            try:
+                budget.check()
+            except RagwellError as exc:
                 raise exc.with_identifiers(
-                    project_id=self._project_id, upload_id=upload.id
+                    project_id=self._project_id,
+                    upload_id=intake.upload.id,
+                    document_id=intake.document.id,
+                    version_id=intake.version.id,
+                    job_id=intake.job_id,
                 ) from None
-        finally:
-            await asyncio.to_thread(prepared.close)
+            return intake
 
     async def upload_and_wait(
         self,
@@ -553,6 +571,7 @@ class AsyncDocumentsResource:
         wait_timeout: float = 300.0,
         initial_interval: float = 1.0,
     ) -> UploadCompletion:
+        _wait_values(wait_timeout, initial_interval)
         intake = await self.upload(
             file=file,
             filename=filename,
@@ -567,12 +586,13 @@ class AsyncDocumentsResource:
                 timeout=wait_timeout,
                 initial_interval=initial_interval,
             )
-        except WaitTimeoutError as exc:
-            exc.identifiers.update(
-                {
-                    "document_id": str(intake.document.id),
-                    "upload_id": str(intake.upload.id),
-                }
+        except RagwellError as exc:
+            exc.with_identifiers(
+                project_id=self._project_id,
+                upload_id=intake.upload.id,
+                document_id=intake.document.id,
+                version_id=intake.version.id,
+                job_id=intake.job_id,
             )
             raise
         return UploadCompletion(intake=intake, job=job)
@@ -808,30 +828,39 @@ class AsyncJobsResource:
     ) -> IngestionJobResponse:
         timeout, interval = _wait_values(timeout, initial_interval)
         job_uuid = resource_id(job_id, "job_id")
-        deadline = self._transport.monotonic() + timeout
-        observing = {"queued", "running", "retry_wait", "cancellation_requested"}
-        while True:
-            job = await self.get(job_uuid)
-            state = job.status.value
-            if state == "succeeded":
-                return job
-            if state not in observing:
-                raise OperationFailedError(
-                    "ingestion job",
-                    state,
-                    identifiers={"project_id": self._project_id, "job_id": job_uuid},
-                    error_code=job.error_code,
-                    resource_value=job,
-                )
-            remaining = deadline - self._transport.monotonic()
-            if remaining <= 0:
-                raise WaitTimeoutError(
-                    "ingestion job",
-                    identifiers={"project_id": self._project_id, "job_id": job_uuid},
-                    timeout=timeout,
-                )
-            await self._transport.sleep(min(interval, remaining))
-            interval = min(5.0, interval * 1.5)
+        identifiers: dict[str, object] = {
+            "project_id": self._project_id,
+            "job_id": job_uuid,
+        }
+        with self._transport.scope(
+            timeout,
+            "wait",
+            error=lambda: WaitTimeoutError(
+                "ingestion job", identifiers=identifiers, timeout=timeout
+            ),
+        ) as budget:
+            observing = {"queued", "running", "retry_wait", "cancellation_requested"}
+            while True:
+                budget.check()
+                job = await self.get(job_uuid)
+                budget.check()
+                state = job.status.value
+                if state == "succeeded":
+                    return job
+                if state not in observing:
+                    raise OperationFailedError(
+                        "ingestion job",
+                        state,
+                        identifiers={
+                            "project_id": self._project_id,
+                            "job_id": job_uuid,
+                        },
+                        error_code=job.error_code,
+                        resource_value=job,
+                    )
+                remaining = budget.remaining()
+                await self._transport.sleep(min(interval, remaining))
+                interval = min(5.0, interval * 1.5)
 
 
 class AsyncDeletionsResource:
@@ -881,37 +910,40 @@ class AsyncDeletionsResource:
     ) -> DocumentDeletionResponse:
         timeout, interval = _wait_values(timeout, initial_interval)
         receipt_uuid = resource_id(receipt_id, "receipt_id")
-        deadline = self._transport.monotonic() + timeout
-        while True:
-            receipt = await self.get(receipt_uuid)
-            state = receipt.state.value
-            if state == "completed":
-                return receipt
-            if state not in {"pending", "running", "retry_wait"}:
-                raise OperationFailedError(
-                    "document deletion",
-                    state,
-                    identifiers={
-                        "project_id": self._project_id,
-                        "receipt_id": receipt_uuid,
-                        "document_id": receipt.document_id,
-                    },
-                    error_code=receipt.error_code,
-                    resource_value=receipt,
-                )
-            remaining = deadline - self._transport.monotonic()
-            if remaining <= 0:
-                raise WaitTimeoutError(
-                    "document deletion",
-                    identifiers={
-                        "project_id": self._project_id,
-                        "receipt_id": receipt_uuid,
-                        "document_id": receipt.document_id,
-                    },
-                    timeout=timeout,
-                )
-            await self._transport.sleep(min(interval, remaining))
-            interval = min(5.0, interval * 1.5)
+        identifiers: dict[str, object] = {
+            "project_id": self._project_id,
+            "receipt_id": receipt_uuid,
+        }
+        with self._transport.scope(
+            timeout,
+            "wait",
+            error=lambda: WaitTimeoutError(
+                "document deletion", identifiers=identifiers, timeout=timeout
+            ),
+        ) as budget:
+            while True:
+                budget.check()
+                receipt = await self.get(receipt_uuid)
+                budget.check()
+                identifiers["document_id"] = receipt.document_id
+                state = receipt.state.value
+                if state == "completed":
+                    return receipt
+                if state not in {"pending", "running", "retry_wait"}:
+                    raise OperationFailedError(
+                        "document deletion",
+                        state,
+                        identifiers={
+                            "project_id": self._project_id,
+                            "receipt_id": receipt_uuid,
+                            "document_id": receipt.document_id,
+                        },
+                        error_code=receipt.error_code,
+                        resource_value=receipt,
+                    )
+                remaining = budget.remaining()
+                await self._transport.sleep(min(interval, remaining))
+                interval = min(5.0, interval * 1.5)
 
 
 class AsyncExportsResource:
@@ -966,37 +998,40 @@ class AsyncExportsResource:
         timeout, interval = _wait_values(timeout, initial_interval)
         document_uuid = resource_id(document_id, "document_id")
         export_uuid = resource_id(export_id, "export_id")
-        deadline = self._transport.monotonic() + timeout
-        while True:
-            export = await self.get(document_uuid, export_uuid)
-            state = export.state.value
-            if state == "succeeded":
-                return export
-            if state not in {"queued", "running"}:
-                raise OperationFailedError(
-                    "document export",
-                    state,
-                    identifiers={
-                        "project_id": self._project_id,
-                        "document_id": document_uuid,
-                        "export_id": export_uuid,
-                    },
-                    error_code=export.error_code,
-                    resource_value=export,
-                )
-            remaining = deadline - self._transport.monotonic()
-            if remaining <= 0:
-                raise WaitTimeoutError(
-                    "document export",
-                    identifiers={
-                        "project_id": self._project_id,
-                        "document_id": document_uuid,
-                        "export_id": export_uuid,
-                    },
-                    timeout=timeout,
-                )
-            await self._transport.sleep(min(interval, remaining))
-            interval = min(5.0, interval * 1.5)
+        identifiers: dict[str, object] = {
+            "project_id": self._project_id,
+            "document_id": document_uuid,
+            "export_id": export_uuid,
+        }
+        with self._transport.scope(
+            timeout,
+            "wait",
+            error=lambda: WaitTimeoutError(
+                "document export", identifiers=identifiers, timeout=timeout
+            ),
+        ) as budget:
+            while True:
+                budget.check()
+                export = await self.get(document_uuid, export_uuid)
+                budget.check()
+                state = export.state.value
+                if state == "succeeded":
+                    return export
+                if state not in {"queued", "running"}:
+                    raise OperationFailedError(
+                        "document export",
+                        state,
+                        identifiers={
+                            "project_id": self._project_id,
+                            "document_id": document_uuid,
+                            "export_id": export_uuid,
+                        },
+                        error_code=export.error_code,
+                        resource_value=export,
+                    )
+                remaining = budget.remaining()
+                await self._transport.sleep(min(interval, remaining))
+                interval = min(5.0, interval * 1.5)
 
     async def stream_part(
         self,
@@ -1021,43 +1056,63 @@ class AsyncExportsResource:
         *,
         overwrite: bool = False,
     ) -> DownloadResult:
-        destination_path = Path(destination).expanduser()
-        output, temporary = await asyncio.to_thread(
-            create_temporary_destination, destination_path, overwrite=overwrite
-        )
-        digest = hashlib.sha256()
-        size = 0
-        try:
-            stream = await self.stream_part(document_id, export_id, part.part_number)
-            try:
-                async for chunk in stream.iter_bytes():
-                    await asyncio.to_thread(output.write, chunk)
-                    digest.update(chunk)
-                    size += len(chunk)
-                await asyncio.to_thread(output.flush)
-                await asyncio.to_thread(os.fsync, output.fileno())
-            finally:
-                await stream.aclose()
-                await asyncio.to_thread(output.close)
-            actual_sha = digest.hexdigest()
-            if size != part.byte_size or actual_sha != part.sha256:
-                raise DownloadIntegrityError(
-                    IntegrityMismatch(
-                        expected_size=part.byte_size,
-                        actual_size=size,
-                        expected_sha256=part.sha256,
-                        actual_sha256=actual_sha,
-                    )
-                )
-            await asyncio.to_thread(
-                finalize_temporary, temporary, destination_path, overwrite=overwrite
+        with self._transport.scope(
+            self._transport.transfer_timeout, "exports.download_part"
+        ) as budget:
+            destination_path = Path(destination).expanduser()
+            output, temporary = await file_call(
+                create_temporary_destination,
+                destination_path,
+                overwrite=overwrite,
+                _cancel_result=discard_temporary,
             )
-        except BaseException:
-            if not output.closed:
-                await asyncio.to_thread(output.close)
-            await asyncio.to_thread(remove_temporary, temporary)
-            raise
-        return DownloadResult(path=destination_path, part=part)
+            digest = hashlib.sha256()
+            size = 0
+            try:
+                stream = await self.stream_part(
+                    document_id, export_id, part.part_number
+                )
+                try:
+                    async for chunk in stream.iter_bytes():
+                        if size + len(chunk) > part.byte_size:
+                            raise DownloadIntegrityError(
+                                IntegrityMismatch(
+                                    expected_size=part.byte_size,
+                                    actual_size=size + len(chunk),
+                                    expected_sha256=part.sha256,
+                                    actual_sha256=digest.hexdigest(),
+                                )
+                            )
+                        await file_call(output.write, chunk)
+                        digest.update(chunk)
+                        size += len(chunk)
+                    budget.check()
+                    await file_call(output.flush)
+                    await file_call(os.fsync, output.fileno())
+                finally:
+                    await stream.aclose()
+                    await file_call(output.close)
+                budget.check()
+                actual_sha = digest.hexdigest()
+                if size != part.byte_size or actual_sha != part.sha256:
+                    raise DownloadIntegrityError(
+                        IntegrityMismatch(
+                            expected_size=part.byte_size,
+                            actual_size=size,
+                            expected_sha256=part.sha256,
+                            actual_sha256=actual_sha,
+                        )
+                    )
+                await file_call(
+                    finalize_temporary, temporary, destination_path, overwrite=overwrite
+                )
+            except BaseException:
+                if not output.closed:
+                    await file_call(output.close)
+                await file_call(remove_temporary, temporary)
+                raise
+            budget.check()
+            return DownloadResult(path=destination_path, part=part)
 
 
 __all__ = ["AsyncProject", "AsyncRagwell"]

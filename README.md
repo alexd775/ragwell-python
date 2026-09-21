@@ -106,6 +106,9 @@ response fields through `additional_properties`.
   verifies manifest byte size and SHA-256, then replaces atomically. Overwrite is
   opt-in.
 
+See [deadlines, bounds and recovery](docs/reliability.md) for timeout-zero behavior,
+transfer budgets, cancellation, decoded-body caps and accepted-intake recovery IDs.
+
 Errors derive from `RagwellError`. `ApiError` preserves safe status/code, field
 errors, quota detail, retry hints, operation ID, and server `X-Request-ID`. Transport,
 protocol, wait-timeout, terminal-operation, pagination, and integrity failures are
@@ -130,8 +133,9 @@ See [contract provenance](contracts/README.md),
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
 credentials, provider calls, private repository, or model downloads.
 
-Public artifact hosting, installed-wheel HTTP qualification, package ownership,
-TestPyPI/PyPI publication, and service deployment remain separate release gates.
+The reviewed artifact is available in the public repository. Installed-wheel HTTP
+qualification, package ownership, TestPyPI/PyPI publication and service availability
+remain separate release gates.
 
 ## License
 

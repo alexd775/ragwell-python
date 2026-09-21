@@ -8,10 +8,10 @@ import io
 import os
 import re
 import tempfile
-from collections.abc import AsyncIterator, Iterable, Iterator, Mapping
+from collections.abc import AsyncIterator, Callable, Iterable, Iterator, Mapping
 from pathlib import Path
 from types import TracebackType
-from typing import Any, BinaryIO, Self, TypeAlias
+from typing import Any, BinaryIO, Self, TypeAlias, TypeVar
 from urllib.parse import urlsplit
 from uuid import UUID, uuid4
 
@@ -157,7 +157,7 @@ class AsyncFileContent(httpx.AsyncByteStream):
 
     async def __aiter__(self) -> AsyncIterator[bytes]:
         while True:
-            chunk = await asyncio.to_thread(self.stream.read, self.chunk_size)
+            chunk = await file_call(self.stream.read, self.chunk_size)
             if not chunk:
                 return
             yield chunk
@@ -184,7 +184,9 @@ def prepare_upload(
     filename: str | None,
     media_type: str | None,
     chunk_size: int = 1024 * 1024,
+    check: Callable[[], None] = lambda: None,
 ) -> PreparedUpload:
+    check()
     owned = False
     if isinstance(source, bytes):
         if not filename:
@@ -227,7 +229,9 @@ def prepare_upload(
     size = 0
     try:
         while True:
+            check()
             chunk = stream.read(chunk_size)
+            check()
             if not chunk:
                 break
             if not isinstance(chunk, bytes):
@@ -316,3 +320,74 @@ __all__ = [
     "resolve_configuration",
     "resource_id",
 ]
+
+
+FileT = TypeVar("FileT")
+
+
+async def file_call(
+    function: Callable[..., FileT],
+    *args: Any,
+    _cancel_result: Callable[[FileT], None] | None = None,
+    **kwargs: Any,
+) -> FileT:
+    """Join in-flight file I/O before restoring/closing its handle on cancellation."""
+    task = asyncio.create_task(asyncio.to_thread(function, *args, **kwargs))
+    try:
+        return await asyncio.shield(task)
+    except asyncio.CancelledError:
+        try:
+            value = await _join_file(task)
+        except Exception:
+            pass
+        else:
+            if _cancel_result is not None:
+                _cancel_result(value)
+        raise
+
+
+async def prepare_upload_async(
+    source: UploadInput,
+    *,
+    filename: str | None,
+    media_type: str | None,
+    check: Callable[[], None],
+) -> PreparedUpload:
+    # A worker owns preparation until handoff. Cancellation must not lose an
+    # opened SDK file or leave a caller's cursor at the end of the hash pass.
+    task = asyncio.create_task(
+        asyncio.to_thread(
+            prepare_upload,
+            source,
+            filename=filename,
+            media_type=media_type,
+            check=check,
+        )
+    )
+    try:
+        return await asyncio.shield(task)
+    except asyncio.CancelledError:
+        try:
+            prepared = await _join_file(task)
+        except Exception:
+            pass
+        else:
+            await file_call(prepared.close)
+        raise
+
+
+async def _join_file(task: asyncio.Task[FileT]) -> FileT:
+    while True:
+        try:
+            return await asyncio.shield(task)
+        except asyncio.CancelledError:
+            if task.cancelled():
+                raise
+
+
+def discard_temporary(value: tuple[BinaryIO, Path]) -> None:
+    output, temporary = value
+    try:
+        output.close()
+    finally:
+        remove_temporary(temporary)

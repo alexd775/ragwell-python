@@ -4,13 +4,30 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Self
 
 from ._generated.models import FieldError, PlanLimitErrorDetail
 
 
 class RagwellError(Exception):
     """Base class for all SDK-originated failures."""
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        self.identifiers: dict[str, str] = {}
+        self.request_id: str | None = None
+        self.operation_id: str | None = None
+
+    def with_identifiers(self, **identifiers: object) -> Self:
+        """Retain recovery identity without replacing the original exception."""
+        self.identifiers.update(
+            {
+                name: str(value)
+                for name, value in identifiers.items()
+                if value is not None
+            }
+        )
+        return self
 
 
 class ConfigurationError(RagwellError, ValueError):
@@ -25,16 +42,6 @@ class ProtocolError(RagwellError):
         self.operation_id = operation_id
         self.identifiers: dict[str, str] = {}
 
-    def with_identifiers(self, **identifiers: object) -> ProtocolError:
-        self.identifiers.update(
-            {
-                name: str(value)
-                for name, value in identifiers.items()
-                if value is not None
-            }
-        )
-        return self
-
 
 class TransportError(RagwellError):
     """A request could not be completed at the HTTP transport boundary."""
@@ -43,16 +50,6 @@ class TransportError(RagwellError):
         super().__init__(message)
         self.operation_id = operation_id
         self.identifiers: dict[str, str] = {}
-
-    def with_identifiers(self, **identifiers: object) -> TransportError:
-        self.identifiers.update(
-            {
-                name: str(value)
-                for name, value in identifiers.items()
-                if value is not None
-            }
-        )
-        return self
 
 
 class TransportTimeout(TransportError):
@@ -85,17 +82,6 @@ class ApiError(RagwellError):
         self.retry_after = retry_after
         self.quota = quota
         self.identifiers = dict(identifiers or {})
-
-    def with_identifiers(self, **identifiers: object) -> ApiError:
-        """Attach already-known resource identifiers without changing the error."""
-        self.identifiers.update(
-            {
-                name: str(value)
-                for name, value in identifiers.items()
-                if value is not None
-            }
-        )
-        return self
 
     def __repr__(self) -> str:
         return (

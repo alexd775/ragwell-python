@@ -275,10 +275,18 @@ def test_wait_timeout_can_resume_without_remote_cancellation() -> None:
         api_key="test-key",
         transport=httpx.MockTransport(handler),
     ) as client:
+        clock = [0.0]
+        client._transport.monotonic = lambda: clock[0]
+        client._transport.sleep = lambda seconds: clock.__setitem__(
+            0, clock[0] + seconds
+        )
         jobs = client.project(PROJECT_ID).jobs
         with pytest.raises(WaitTimeoutError) as captured:
             jobs.wait(JOB_ID, timeout=0)
+        assert not requests
         assert captured.value.identifiers["job_id"] == JOB_ID
+        with pytest.raises(WaitTimeoutError):
+            jobs.wait(JOB_ID, timeout=1)
         assert jobs.wait(JOB_ID, timeout=1).status.value == "succeeded"
     assert [request.method for request in requests] == ["GET", "GET"]
     assert all(not request.url.path.endswith("/cancel") for request in requests)

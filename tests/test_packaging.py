@@ -18,7 +18,7 @@ import pytest
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
-RUNTIME_REQUIREMENTS = ("attrs", "httpx", "python-dateutil")
+RUNTIME_REQUIREMENTS = ("attrs", "httpcore", "httpx", "python-dateutil")
 
 
 def _runtime_dependency_closure() -> list[Distribution]:
@@ -209,6 +209,7 @@ assert package.metadata["License-Expression"] == "MIT"
 requirements = package.requires or []
 assert requirements == [
     "attrs<26,>=22.2",
+    "httpcore<1.1,>=1.0.9",
     "httpx<0.29,>=0.27.2",
     "python-dateutil<3,>=2.8.2",
 ]
