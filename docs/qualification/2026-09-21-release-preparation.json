@@ -1,0 +1,155 @@
+{
+  "artifacts": {
+    "beta_wheel": {
+      "filename": "ragwell-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "d6b1961c75629f7a8d1b6d261c1e44e422dcfa79bef0f3ffd989064d852c5769"
+    },
+    "docs_sdist": {
+      "filename": "ragwell-0.1.0.dev0.tar.gz",
+      "sha256": "ec291c94aef729da46a7ce7802c323022acd7e9907855b19c064e902428ef30c"
+    },
+    "docs_wheel": {
+      "filename": "ragwell-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "571bef0d6ae770bdd029b622791f396d624272ef78e4a10f4fd2b1dc94a428ac"
+    }
+  },
+  "beta_evidence": "2026-09-21-beta-lifecycle.json",
+  "date": "2026-09-21",
+  "dependency_audit": {
+    "packages": 41,
+    "report": "2026-09-21-dependency-audit.json",
+    "skipped": 0,
+    "source": "uv.lock; every platform; excludes the local project",
+    "tool": "pip-audit 2.10.1",
+    "vulnerabilities": 0
+  },
+  "publication": {
+    "hosted_ci": "deferred",
+    "private_vulnerability_reporting": "verified disabled",
+    "published": false,
+    "pypi_ownership": "unverified",
+    "trusted_publisher": "not configured by this work"
+  },
+  "quality": {
+    "generation": "passed; unchanged generated code",
+    "lock": "passed; no dependency changes",
+    "mypy": "passed; 144 source files",
+    "ruff_check": "passed",
+    "ruff_format": "passed"
+  },
+  "runtime_comparison": "All ragwell/ files, including the packaged contract, are byte-identical between beta-tested and documentation-updated wheels; distribution metadata differs.",
+  "runtime_licenses": "2026-09-21-runtime-licenses.json",
+  "sdk_version": "0.1.0.dev0",
+  "secret_scan": {
+    "rules": "default plus explicit Ragwell credential pattern",
+    "tool": "gitleaks 8.30.1",
+    "triage": [
+      {
+        "confirmed_secrets": 0,
+        "findings": [
+          {
+            "file": "contracts/README.md",
+            "line": 10,
+            "reason": "Public API source commit digest; not a credential",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 47,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 62,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 78,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 93,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "docs/qualification/2026-09-21-local-http.json",
+            "line": 2,
+            "reason": "Public API source commit digest; not a credential",
+            "rule": "generic-api-key"
+          }
+        ],
+        "raw_findings": 6,
+        "scope": "source-only"
+      },
+      {
+        "confirmed_secrets": 0,
+        "findings": [
+          {
+            "file": "contracts/README.md",
+            "line": 10,
+            "reason": "Public API source commit digest; not a credential",
+            "rule": "generic-api-key"
+          }
+        ],
+        "raw_findings": 1,
+        "scope": "history"
+      },
+      {
+        "confirmed_secrets": 0,
+        "findings": [
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/contracts/README.md",
+            "line": 10,
+            "reason": "Public API source commit digest; not a credential",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 47,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 62,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 78,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/docs/qualification/2026-09-21-beta-lifecycle.json",
+            "line": 93,
+            "reason": "Run-owned idempotency identifier; cannot authenticate",
+            "rule": "generic-api-key"
+          },
+          {
+            "file": "ragwell-0.1.0.dev0.tar.gz!ragwell-0.1.0.dev0/docs/qualification/2026-09-21-local-http.json",
+            "line": 2,
+            "reason": "Public API source commit digest; not a credential",
+            "rule": "generic-api-key"
+          }
+        ],
+        "raw_findings": 6,
+        "scope": "distribution"
+      }
+    ]
+  },
+  "source_baseline": "f1382129a09c4a586dbcdf9710097cafd1807c27 plus uncommitted SDK qualification/documentation changes",
+  "status": "local_preparation_complete_external_gates_pending",
+  "tests": {
+    "cpython_3_11_16": 156,
+    "cpython_3_14_0": 156
+  },
+  "twine": "7.0.0; check --strict passed on wheel and sdist"
+}

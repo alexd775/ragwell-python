@@ -1,0 +1,440 @@
+{
+  "api_commit": "e8055ae5d9b92fe8f1f73e437b5a9b3e79ff05d8",
+  "configuration": {
+    "database": "disposable-postgres-pgvector",
+    "environment": "test",
+    "plan_fixture": "starter-v1 assignment; no billing provider",
+    "profile": "basic-whitespace-800-100-v1",
+    "providers": "deterministic",
+    "storage": "disposable-filesystem"
+  },
+  "evidence_module_sha256": "5e918d96846e7496eea06a82c8bb6682c33473ba13ae9929460e406d250fcac0",
+  "fixture_cleanup": {
+    "api_stopped": true,
+    "database_removed": true,
+    "private_fixtures_removed": true
+  },
+  "fixture_revision": "sdk-http-fixtures-v1",
+  "fixture_service_sha256": "d0e207b0ea32e1acc103d92ee4972427a47b3ae0eca29a17af3b7de049dbd4d2",
+  "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+  "manifest_sha256": "1ca24e94b513da6e2ec670dc54fb1a426c35e5f9608d5563a85e2008ec914e2f",
+  "operation_count": 26,
+  "platform": "Darwin arm64",
+  "postgres_image": "pgvector/pgvector:0.8.6-pg18-bookworm@sha256:2ba9ca5f2e7daa0f0e7723cba1ee9167bab54efd3640516a44ac1a928dd67e7a",
+  "python_version": "3.11.16",
+  "runner_sha256": "0e2210f13c0f60965367d4361f28ca10fecec7d08e234888ebb6eef493e2221d",
+  "runtime_contract_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+  "runtime_dependencies": {
+    "attrs": "25.4.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "python-dateutil": "2.9.0.post0"
+  },
+  "sdk_version": "0.1.0.dev0",
+  "status": "passed",
+  "styles": {
+    "async": {
+      "checks": [
+        "two-tenant objects, nested ownership, every operation scope, revoked key",
+        "PDF/text/Markdown, intake recovery, revision conflict and replay, retrieval citations, exports with and without vectors",
+        "filtered document/job keyset pages and reserved authorization filters",
+        "timeout/resume, cancellation, failed-job retry, expired export, failed-deletion retry, final erasure"
+      ],
+      "cleanup": [
+        {
+          "document_id": "d7a36e82-6400-47e8-946f-a76e126ec142",
+          "receipt_id": "ce1d8945-8945-4984-9d39-e285d96b2956",
+          "status": "deleted"
+        },
+        {
+          "document_id": "34aee13f-92d6-4b4b-9a6c-d14cc3aa8d24",
+          "receipt_id": "892b6dde-0602-455a-8ee0-769a4be6eb1c",
+          "status": "deleted"
+        },
+        {
+          "document_id": "18d5ae42-3f7a-4aa9-a21d-a84003f38169",
+          "receipt_id": "888a74c8-fb6a-464f-b35f-566f8f1ffb66",
+          "status": "deleted"
+        }
+      ],
+      "denials": {
+        "foreign_objects": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "foreign_project": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "create_upload_v1_projects__project_id__uploads_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_project_v1_projects__project_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "list_documents_v1_projects__project_id__documents_get",
+          "list_jobs_v1_projects__project_id__jobs_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "search_v1_projects__project_id__search_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "missing_scope": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "create_upload_v1_projects__project_id__uploads_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_project_v1_projects__project_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "list_documents_v1_projects__project_id__documents_get",
+          "list_jobs_v1_projects__project_id__jobs_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "search_v1_projects__project_id__search_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "positive": [
+          "get_document_v1_projects__project_id__documents__document_id__get"
+        ],
+        "revoked": [
+          "get_project_v1_projects__project_id__get"
+        ]
+      },
+      "intakes": [
+        {
+          "chunk_count": 473,
+          "document_id": "d7a36e82-6400-47e8-946f-a76e126ec142",
+          "exports": [
+            {
+              "chunk_count": 473,
+              "id": "d6839750-f952-4d31-9cf9-908f9c50f47f",
+              "include_embeddings": false,
+              "part_count": 5
+            },
+            {
+              "chunk_count": 473,
+              "id": "40e1fc8f-7c0c-456c-8cf8-3839f639541f",
+              "include_embeddings": true,
+              "part_count": 5
+            }
+          ],
+          "fixture_sha256": "b1ae5d0a384ea08ed0c2884480c9c6bb9af59dd406e3b3372a183bdf79791434",
+          "format": ".txt",
+          "generation_id": "8e1bbcd9-827f-56a5-96d6-cd1b4ae433bb",
+          "job_id": "9665cac8-cfac-4161-a614-f28e145e17f6",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "e995dd20-51d4-4750-b1d2-26f7f23a1348",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "ffab6dcc-64b4-47da-9b4e-1756e3b6d7d1"
+        },
+        {
+          "chunk_count": 474,
+          "document_id": "34aee13f-92d6-4b4b-9a6c-d14cc3aa8d24",
+          "fixture_sha256": "b4c08a5bf1c07f00c8ecef1e322cb9ee83f420759a660f8503669257c9bb2fba",
+          "format": ".md",
+          "generation_id": "afa00079-28bd-5e83-b012-68a010485b39",
+          "job_id": "8b190f26-4041-4a19-a1a7-f69b172dd18d",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "74173c9e-7d64-41f6-8646-4c29c7dbadd2",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "984fe208-366d-4de8-ad06-ee4122ba6b80"
+        },
+        {
+          "chunk_count": 6,
+          "document_id": "18d5ae42-3f7a-4aa9-a21d-a84003f38169",
+          "fixture_sha256": "14de467b33527c259451458b00a74b7710f4bc0cc7db40f65af289b564039079",
+          "format": ".pdf",
+          "generation_id": "2c6a072a-169e-5310-8426-7ac12fd0d4c6",
+          "job_id": "9754c684-e9f4-43a8-8787-92cbd9d6781d",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "e8604341-278a-44b7-8228-7ba2e04a7d96",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "22053536-c58c-4a1a-9da3-364e59860fed"
+        }
+      ],
+      "lost_response_operations": [
+        "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+        "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+        "create_upload_v1_projects__project_id__uploads_post",
+        "delete_document_v1_projects__project_id__documents__document_id__delete",
+        "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+        "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+        "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+        "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+        "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+      ],
+      "status": "passed",
+      "step": "controlled lifecycle states",
+      "successful_operations": [
+        "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+        "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+        "create_upload_v1_projects__project_id__uploads_post",
+        "delete_document_v1_projects__project_id__documents__document_id__delete",
+        "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+        "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+        "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+        "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+        "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+        "get_document_upload_policy_v1_document_upload_policy_get",
+        "get_document_v1_projects__project_id__documents__document_id__get",
+        "get_job_v1_projects__project_id__jobs__job_id__get",
+        "get_project_v1_projects__project_id__get",
+        "get_upload_state",
+        "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+        "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+        "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+        "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+        "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+        "list_documents_v1_projects__project_id__documents_get",
+        "list_jobs_v1_projects__project_id__jobs_get",
+        "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+        "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+        "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+        "search_v1_projects__project_id__search_post",
+        "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+      ]
+    },
+    "sync": {
+      "checks": [
+        "two-tenant objects, nested ownership, every operation scope, revoked key",
+        "PDF/text/Markdown, intake recovery, revision conflict and replay, retrieval citations, exports with and without vectors",
+        "filtered document/job keyset pages and reserved authorization filters",
+        "timeout/resume, cancellation, failed-job retry, expired export, failed-deletion retry, final erasure"
+      ],
+      "cleanup": [
+        {
+          "document_id": "e95ee6cd-8bc7-4329-a9ef-40869ea107d2",
+          "receipt_id": "a310f249-78d9-423b-a52d-c480ce74e647",
+          "status": "deleted"
+        },
+        {
+          "document_id": "707889e7-ab5d-451d-90f9-58b33809eb08",
+          "receipt_id": "e141f103-2d2c-4a4c-abaf-1dcb72224478",
+          "status": "deleted"
+        },
+        {
+          "document_id": "52b9c3c5-8796-4aa1-942d-98dcfbdaa144",
+          "receipt_id": "30e4b899-3531-4297-a1c0-3f15d962715e",
+          "status": "deleted"
+        }
+      ],
+      "denials": {
+        "foreign_objects": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "foreign_project": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "create_upload_v1_projects__project_id__uploads_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_project_v1_projects__project_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "list_documents_v1_projects__project_id__documents_get",
+          "list_jobs_v1_projects__project_id__jobs_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "search_v1_projects__project_id__search_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "missing_scope": [
+          "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+          "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+          "create_upload_v1_projects__project_id__uploads_post",
+          "delete_document_v1_projects__project_id__documents__document_id__delete",
+          "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+          "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+          "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+          "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+          "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+          "get_document_v1_projects__project_id__documents__document_id__get",
+          "get_job_v1_projects__project_id__jobs__job_id__get",
+          "get_project_v1_projects__project_id__get",
+          "get_upload_state",
+          "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+          "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+          "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+          "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+          "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+          "list_documents_v1_projects__project_id__documents_get",
+          "list_jobs_v1_projects__project_id__jobs_get",
+          "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+          "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+          "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+          "search_v1_projects__project_id__search_post",
+          "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+        ],
+        "positive": [
+          "get_document_v1_projects__project_id__documents__document_id__get"
+        ],
+        "revoked": [
+          "get_project_v1_projects__project_id__get"
+        ]
+      },
+      "intakes": [
+        {
+          "chunk_count": 473,
+          "document_id": "e95ee6cd-8bc7-4329-a9ef-40869ea107d2",
+          "exports": [
+            {
+              "chunk_count": 473,
+              "id": "a4b84a67-ea2b-43b4-8696-412556bc286f",
+              "include_embeddings": false,
+              "part_count": 5
+            },
+            {
+              "chunk_count": 473,
+              "id": "0adffd9b-4da4-45de-8a61-bbe50999f07b",
+              "include_embeddings": true,
+              "part_count": 5
+            }
+          ],
+          "fixture_sha256": "b1ae5d0a384ea08ed0c2884480c9c6bb9af59dd406e3b3372a183bdf79791434",
+          "format": ".txt",
+          "generation_id": "adbb6850-8798-5f09-95f5-a35d696d8a13",
+          "job_id": "921baf1b-3143-4fcd-907f-bf7c1286c0e8",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "e94ba41d-0e15-4316-a93b-1117f77aee37",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "0b7640c2-dfe7-4114-97e6-d4b98fd9610f"
+        },
+        {
+          "chunk_count": 474,
+          "document_id": "707889e7-ab5d-451d-90f9-58b33809eb08",
+          "fixture_sha256": "b4c08a5bf1c07f00c8ecef1e322cb9ee83f420759a660f8503669257c9bb2fba",
+          "format": ".md",
+          "generation_id": "724aea12-e410-559c-b7f7-e1ad29d38aa3",
+          "job_id": "7f5467e5-b65e-41fe-90e2-b7c181a38042",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "3b7cc2fe-4150-48c1-8cac-30015062e875",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "d34acca1-e8b4-4a0b-8ee7-c74aac225ebe"
+        },
+        {
+          "chunk_count": 6,
+          "document_id": "52b9c3c5-8796-4aa1-942d-98dcfbdaa144",
+          "fixture_sha256": "14de467b33527c259451458b00a74b7710f4bc0cc7db40f65af289b564039079",
+          "format": ".pdf",
+          "generation_id": "7aaeed07-0d1a-529f-bc91-3ff2c55b8494",
+          "job_id": "10e2c478-b685-422c-852a-813bf0159658",
+          "profile_id": "managed-pdf-text-markdown-v1-codepoint-800-100-openai-te3s-384-cosine-v1",
+          "retrieval_id": "5b46fba0-efef-40e8-97d7-0c46e712e574",
+          "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5",
+          "upload_id": "2a29b518-7439-47f2-8e69-df2847aa2956"
+        }
+      ],
+      "lost_response_operations": [
+        "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+        "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+        "create_upload_v1_projects__project_id__uploads_post",
+        "delete_document_v1_projects__project_id__documents__document_id__delete",
+        "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+        "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+        "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+        "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+        "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+      ],
+      "status": "passed",
+      "step": "controlled lifecycle states",
+      "successful_operations": [
+        "cancel_job_v1_projects__project_id__jobs__job_id__cancel_post",
+        "create_document_export_v1_projects__project_id__documents__document_id__exports_post",
+        "create_upload_v1_projects__project_id__uploads_post",
+        "delete_document_v1_projects__project_id__documents__document_id__delete",
+        "download_document_export_part_v1_projects__project_id__documents__document_id__exports__export_id__parts__part_number__get",
+        "finalize_upload_v1_projects__project_id__uploads__upload_id__finalize_post",
+        "get_document_activity_v1_projects__project_id__documents__document_id__activity_get",
+        "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",
+        "get_document_export_v1_projects__project_id__documents__document_id__exports__export_id__get",
+        "get_document_upload_policy_v1_document_upload_policy_get",
+        "get_document_v1_projects__project_id__documents__document_id__get",
+        "get_job_v1_projects__project_id__jobs__job_id__get",
+        "get_project_v1_projects__project_id__get",
+        "get_upload_state",
+        "inspect_document_source_v1_projects__project_id__documents__document_id__generations__generation_id__sources__source_id__get",
+        "inspect_document_v1_projects__project_id__documents__document_id__inspection_get",
+        "inspect_embedding_connection_v1_projects__project_id__embedding_connection_get",
+        "list_document_chunks_v1_projects__project_id__documents__document_id__generations__generation_id__chunks_get",
+        "list_document_generations_v1_projects__project_id__documents__document_id__generations_get",
+        "list_documents_v1_projects__project_id__documents_get",
+        "list_jobs_v1_projects__project_id__jobs_get",
+        "replace_document_metadata_v1_projects__project_id__documents__document_id__metadata_put",
+        "retry_document_deletion_v1_projects__project_id__document_deletions__receipt_id__retry_post",
+        "retry_job_v1_projects__project_id__jobs__job_id__retry_post",
+        "search_v1_projects__project_id__search_post",
+        "upload_content_v1_projects__project_id__uploads__upload_id__content_put"
+      ]
+    }
+  },
+  "wheel_sha256": "759f2f9432347e891e6d3562d2e93154b43d0d7dcd536d28ce097b66441f4c5b"
+}

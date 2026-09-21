@@ -47,6 +47,10 @@ required-version = "==0.12.17"
 [tool.hatch.build.targets.wheel]
 packages = ["src/ragwell"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"contracts/2026-09-19.1/openapi.json" = "ragwell/_contract/openapi.json"
+"contracts/2026-09-19.1/manifest.json" = "ragwell/_contract/manifest.json"
+
 [tool.hatch.build.targets.sdist]
 include = [
     "/src",
@@ -58,6 +62,8 @@ include = [
     "/scripts",
     "/AGENTS.md",
     "/CONTRIBUTING.md",
+    "/SECURITY.md",
+    "/CHANGELOG.md",
     "/LICENSE",
     "/README.md",
     "/openapi-python-client.yaml",

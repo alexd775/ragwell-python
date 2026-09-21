@@ -4833,7 +4833,7 @@
                 }
               }
             },
-            "description": "A required dependency is unavailable.",
+            "description": "Service Unavailable",
             "headers": {
               "Retry-After": {
                 "$ref": "#/components/headers/RetryAfter"

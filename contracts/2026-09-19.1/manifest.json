@@ -1,9 +1,9 @@
 {
   "api_info_version": "0.1.0",
   "artifact_version": "2026-09-19.1",
-  "canonical_sha256": "fcbf93d2fe26cb7e54738dad8a7661611e8d762ec74361c79a75ffb7730b970a",
+  "canonical_sha256": "57a1f942f7ca8b89186753a20320588b57e2425663b8529b36037066c02328bb",
   "compatibility_notes": "See contracts/machine/README.md. Artifact identity is its digest, not runtime version equality. Installed Python SDK qualification and public publication remain separate release gates.",
-  "machine_sha256": "06d0efac740946c21f0ddfa3d873e2197cf4924487ed512d08b8c2fd824978bd",
+  "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
   "operation_count": 26,
   "operations": [
     {

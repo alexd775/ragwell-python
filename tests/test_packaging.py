@@ -135,6 +135,8 @@ def test_distributions_include_sources_typing_and_license(
         "LICENSE",
         "README.md",
         "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CHANGELOG.md",
         "pyproject.toml",
         "uv.lock",
         "tests/test_packaging.py",
@@ -143,16 +145,29 @@ def test_distributions_include_sources_typing_and_license(
         "contracts/operations.json",
         "docs/generation.md",
         "docs/http-qualification.md",
+        "docs/beta-validation.md",
+        "docs/api-reference.md",
+        "docs/compatibility.md",
+        "docs/releasing.md",
         "examples/sync_search.py",
         "examples/async_search.py",
+        "examples/sync_lifecycle.py",
+        "examples/async_lifecycle.py",
         "qualification/http_runner.py",
+        "qualification/beta_runner.py",
+        "qualification/evidence.py",
         "scripts/generate.py",
         "openapi-python-client.yaml",
     } <= source_files
 
     with ZipFile(wheel) as archive:
         wheel_files = set(archive.namelist())
-    assert {"ragwell/__init__.py", "ragwell/py.typed"} <= wheel_files
+    assert {
+        "ragwell/__init__.py",
+        "ragwell/py.typed",
+        "ragwell/_contract/openapi.json",
+        "ragwell/_contract/manifest.json",
+    } <= wheel_files
     assert any(name.endswith(".dist-info/licenses/LICENSE") for name in wheel_files)
     assert all(
         name.startswith("ragwell/") or ".dist-info/" in name for name in wheel_files
@@ -217,12 +232,60 @@ assert all("pytest" not in item and "ruff" not in item and "mypy" not in item fo
 assert str(distribution("httpx").version)
 assert str(distribution("attrs").version)
 assert str(distribution("python-dateutil").version)
-assert all(find_spec(name) is None for name in ("mypy", "pytest", "ruff"))
+assert all(find_spec(name) is None for name in ("mypy", "pytest", "ruff", "rag_api"))
 with ragwell.Ragwell(base_url="https://api.example.test", api_key="test-key") as client:
     project = client.project("00000000-0000-0000-0000-000000000001")
     assert str(project.id) == "00000000-0000-0000-0000-000000000001"
 print("Clean installed-package import and typing marker passed")
 """,
+        ],
+        cwd=tmp_path,
+        check=True,
+    )
+
+    qualification = Path(__file__).resolve().parents[1] / "qualification"
+    subprocess.run(
+        [
+            str(python),
+            "-I",
+            "-c",
+            """
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[2])
+from evidence import installed_identity
+import ragwell
+wheel = Path(sys.argv[1])
+identity, contract = installed_identity(wheel)
+assert identity["operation_count"] == 26
+assert len(contract["paths"]) > 10
+package_file = Path(ragwell.__file__)
+original = package_file.read_bytes()
+try:
+    package_file.write_bytes(original + b"\\n# altered installation\\n")
+    try:
+        installed_identity(wheel)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Modified installed wheel was accepted")
+finally:
+    package_file.write_bytes(original)
+extra = package_file.parent / "unaccounted.py"
+try:
+    extra.write_text("# leftover file")
+    try:
+        installed_identity(wheel)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Unaccounted installed file was accepted")
+finally:
+    extra.unlink()
+installed_identity(wheel)
+""",
+            str(wheel),
+            str(qualification),
         ],
         cwd=tmp_path,
         check=True,

@@ -33,11 +33,11 @@ GitHub Actions now defines Linux CPython 3.11–3.14 checks and macOS/Windows sm
 jobs at Python 3.11 and 3.14. Those hosted jobs were configured but not run locally,
 so this document does not claim their results.
 
-No isolated matching real-service endpoint or scoped fixtures were supplied. The
-installed-wheel runner is prepared in `qualification/http_runner.py`, but live HTTP
-qualification remains open and mocks are not counted as server evidence. Public
-artifact hosting, TestPyPI/PyPI, provenance publication, and service deployment also
-remain separate release prerequisites.
+At this initial checkpoint no isolated matching real-service endpoint or scoped
+fixtures were supplied. The installed-wheel runner was prepared in
+`qualification/http_runner.py`, but live HTTP qualification remained open; mocks
+were not counted as server evidence. The later 2026-09-21 result is recorded below.
+Publication and hosted qualification remain separate release prerequisites.
 
 
 ## Reliability follow-up — 2026-09-21
@@ -62,7 +62,102 @@ with the locked tooling and temporary caches/output directories. On macOS:
 
 The last verified hosted matrix passed at baseline `a4437d4`
 ([CI run 35465095490](https://github.com/alexd775/ragwell-python/actions/runs/35465095490)).
-The new local changes have not been committed/pushed, so their hosted Linux
-3.11–3.14 and Windows/macOS jobs remain pending. No new hosted result is claimed.
-The public reviewed contract artifact already exists in this repository. Real
-installed-wheel service qualification and package publication remain open.
+The hardening changes were committed as `f138212`. On 2026-09-21 Alex explicitly
+deferred push and hosted CI to start HTTP qualification. The hosted Linux
+3.11–3.14 and Windows/macOS jobs remain a pre-release gate; no new hosted result
+is claimed.
+The public reviewed contract artifact already exists in this repository. At this
+checkpoint HTTP qualification and publication remained open; later evidence follows.
+
+## 2026-09-21 installed-wheel HTTP qualification
+
+The full local HTTP matrix passed from the installed wheel in both client styles:
+26 successful operations, 25 foreign-project and 25 missing-scope operation denials,
+nested tenant isolation, all three document formats, nine lost-response mutation
+kinds, filtered pagination, exact citations, multi-part exports and lifecycle
+recovery/deletion. Full fixture teardown passed. See the
+[sanitized report](qualification/2026-09-21-local-http.json) and
+[reproduction instructions](http-qualification.md).
+
+The test suite now has 120 passing tests on macOS CPython 3.11.16 and 3.14.0,
+including installed-package tamper rejection and contract-evidence checks.
+Ruff, strict mypy (143 files), deterministic generation, wheel-from-sdist build,
+offline clean installation and `uv lock --check --offline` passed. Ordinary tests
+remain independent of the backend. No runtime dependency or generated-code change
+was needed. These qualification changes remain uncommitted; nothing was pushed or
+published. Hosted CI and release preparation remain outstanding.
+
+## 2026-09-21 endpoint-only qualification boundary
+
+Alex selected endpoint-only SDK qualification. The API-side launcher and its three
+fixture guard tests were removed; the proposed SDK-side launcher was discarded.
+Neither repository contains SDK-owned API startup, migration or seed tooling.
+The SDK retains its public-HTTP runner, packaged-contract/wheel verification and
+reports. It accepts a prepared endpoint, fixture manifest and private credentials.
+Fixture requirements and cleanup ownership are documented separately.
+
+The original passing report is retained as historical evidence. Its API bootstrap
+source hashes and infrastructure cleanup describe that original run. The SDK HTTP
+runner, wheel and contract are unchanged by the ownership correction. Ordinary SDK
+CI requires no API checkout, Poetry or Docker. API CI remains Poetry-based and no
+longer collects SDK qualification tests. No new hosted CI run or publication is
+claimed.
+
+The ownership correction passed the 120-test offline suite on CPython 3.11.16 and
+3.14.0, including wheel-from-sdist installation and an explicit check that the
+clean environment contains no `rag_api` package. Ruff formatting/lint and strict
+mypy (143 source files) also passed. No new live HTTP run was needed or performed;
+the HTTP runner and runtime package were unchanged.
+
+Optional validation against the real beta deployment using a dedicated ordinary
+account/project/key is documented as a proposed follow-up. No account or key was
+created, and no beta validation run is claimed.
+
+## 2026-09-21 beta validation and release preparation
+
+The installed-wheel beta lifecycle check passed against the dedicated test project
+on `https://api-beta.ragwell.dev` in both client styles. Two synthetic documents
+(136 and 137 bytes) were uploaded, processed, retrieved and exported. Both deletion
+receipts completed and subsequent document reads returned not found. The account,
+project and key remain owned by the operator. See the
+[beta report](qualification/2026-09-21-beta-lifecycle.json).
+
+The runner is opt-in, requires only an existing endpoint and privately supplied key,
+and starts no API or database services. It checks installed-wheel/live-contract
+identity, bounds waits and downloads, checkpoints IDs and reports incomplete cleanup.
+The full fixture matrix remains separate evidence.
+
+Release documentation now includes the complete public method/scope reference,
+executed sync/async lifecycle examples, compatibility/support and security policies,
+changelog and publication checklist. Local verification passed:
+
+- CPython 3.11.16 and 3.14.0: 156 tests each, including offline fault/cleanup tests,
+  executed examples, wheel-from-sdist and isolated installation checks.
+- Ruff formatting/lint, strict mypy (144 source files), deterministic generation
+  and the unchanged dependency lock.
+- Twine 7.0.0 strict metadata checks for wheel and sdist.
+- pip-audit 2.10.1: all 41 runtime/development lock packages, including
+  platform-specific entries; no skipped packages or known vulnerabilities found.
+- Gitleaks 8.30.1 default rules plus a Ragwell-credential rule scanned source,
+  four repository commits and distribution archives. It flagged public API commit
+  digests and run-owned idempotency identifiers (6 source, 1 history, 6 archive
+  findings). Each was reviewed as non-credential data; no confirmed secret was found.
+  The raw scanner exits were nonzero, not blanket passing results.
+- Runtime license metadata was inventoried, including certifi's MPL-2.0 notice;
+  the SDK archives contain the MIT license and do not bundle runtime dependencies.
+
+See the [release evidence](qualification/2026-09-21-release-preparation.json),
+[dependency audit](qualification/2026-09-21-dependency-audit.json) and
+[runtime license inventory](qualification/2026-09-21-runtime-licenses.json).
+
+The beta-tested wheel digest is recorded separately from the later documentation
+build: every `ragwell/` package/contract file is byte-identical, while README-derived
+metadata differs. Neither is a published 0.1.0 release. Evidence documents were
+added after the reviewed archive build, so that archive is a preparation snapshot,
+not a claim about a future final artifact. Rebuild and qualify the final release
+identity when its version and publication are authorized.
+
+Hosted CI/push remain deferred. Private vulnerability reporting is disabled and
+must be enabled/verified before publication. PyPI/TestPyPI ownership, protected
+publishers, provenance/publication rehearsal and final release remain outstanding.
+No commits, pushes, repository-setting changes or package uploads were performed.

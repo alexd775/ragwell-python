@@ -58,3 +58,8 @@ A legal person or entity name has not been supplied; confirm any replacement
 attribution with the owner rather than guessing it. PyPI name availability and
 publisher ownership remain unverified. Publication and release automation require
 separate maintainer authorization after SDK implementation and qualification.
+
+Keep the [API reference](docs/api-reference.md), [compatibility policy](docs/compatibility.md)
+and [changelog](CHANGELOG.md) current when behavior changes. Execute examples as
+part of the offline suite. Follow [release preparation](docs/releasing.md) for
+artifact/security gates and [SECURITY.md](SECURITY.md) for confidential reports.

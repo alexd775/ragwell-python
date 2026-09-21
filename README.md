@@ -4,8 +4,8 @@ Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
 **Status: development SDK (`0.1.0.dev0`).** The complete reviewed machine API is
-implemented locally, but the package has not been published and live installed-wheel
-service qualification remains a release prerequisite. The SDK returns retrieval
+implemented and qualified from an installed wheel against an isolated local HTTP
+service. The package is unpublished; hosted CI remains a release prerequisite. The SDK returns retrieval
 evidence and citations; it does not generate answers.
 
 ## Requirements and installation
@@ -127,15 +127,25 @@ uv run --locked python -m build --no-isolation
 ```
 
 The vendored artifact is `2026-09-19.1`, machine SHA-256
-`06d0efac740946c21f0ddfa3d873e2197cf4924487ed512d08b8c2fd824978bd`.
+`8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90`.
 See [contract provenance](contracts/README.md),
 [generation qualification](docs/generation.md), and
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
 credentials, provider calls, private repository, or model downloads.
 
-The reviewed artifact is available in the public repository. Installed-wheel HTTP
-qualification, package ownership, TestPyPI/PyPI publication and service availability
-remain separate release gates.
+The reviewed artifact is available in the public repository. Local installed-wheel HTTP qualification
+is recorded in [HTTP qualification](docs/http-qualification.md). Hosted CI, package
+ownership, TestPyPI/PyPI publication and service availability remain release gates.
+
+An optional [beta lifecycle validation](docs/beta-validation.md) checks the installed
+wheel against a dedicated existing beta project with a scoped key. It starts no
+services and is separate from the full fixture matrix and ordinary offline CI.
+
+Documentation: [API reference and scopes](docs/api-reference.md),
+[sync lifecycle example](examples/sync_lifecycle.py),
+[async lifecycle example](examples/async_lifecycle.py),
+[compatibility and support](docs/compatibility.md), [security policy](SECURITY.md),
+[changelog](CHANGELOG.md), and [release preparation](docs/releasing.md).
 
 ## License
 
