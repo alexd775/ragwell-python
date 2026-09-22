@@ -1,0 +1,88 @@
+{
+  "artifacts": {
+    "sdist": {
+      "filename": "ragwell-0.1.0.tar.gz",
+      "pypi_upload_time": "2026-09-22T09:55:46.700438Z",
+      "sha256": "cbd7439267a9aa70580fd6d1faec82129c84aea268a94b24ef79702a12ef8e37"
+    },
+    "wheel": {
+      "filename": "ragwell-0.1.0-py3-none-any.whl",
+      "pypi_upload_time": "2026-09-22T09:55:44.959230Z",
+      "sha256": "3fd1f0e83e6b12d179acaacf793fa6ba5d138e4fa89fce88b6defe263746613b"
+    }
+  },
+  "beta_qualification": {
+    "async": {
+      "cleanup": "deleted",
+      "status": "passed"
+    },
+    "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+    "report": "2026-09-22-testpypi-beta-lifecycle.json",
+    "runtime_contract_matched": true,
+    "status": "passed",
+    "sync": {
+      "cleanup": "deleted",
+      "status": "passed"
+    },
+    "wheel_sha256": "3fd1f0e83e6b12d179acaacf793fa6ba5d138e4fa89fce88b6defe263746613b"
+  },
+  "date": "2026-09-22",
+  "github_release": {
+    "assets": {
+      "ragwell-0.1.0-py3-none-any.whl": {
+        "sha256": "3fd1f0e83e6b12d179acaacf793fa6ba5d138e4fa89fce88b6defe263746613b",
+        "size_bytes": 174956
+      },
+      "ragwell-0.1.0.tar.gz": {
+        "sha256": "cbd7439267a9aa70580fd6d1faec82129c84aea268a94b24ef79702a12ef8e37",
+        "size_bytes": 201152
+      }
+    },
+    "draft": false,
+    "name": "ragwell 0.1.0 \u2014 developer beta",
+    "prerelease": false,
+    "published_at": "2026-09-22T10:23:17Z",
+    "tag": "v0.1.0",
+    "url": "https://github.com/alexd775/ragwell-python/releases/tag/v0.1.0"
+  },
+  "pypi": {
+    "clean_install": {
+      "async_client_import": "passed",
+      "distribution_and_public_version": "0.1.0",
+      "python": "3.11.16",
+      "sync_client_import": "passed"
+    },
+    "direct_download_hashes_matched": true,
+    "project_url": "https://pypi.org/project/ragwell/0.1.0/",
+    "published": true,
+    "trusted_publisher": "GitHub Actions OIDC"
+  },
+  "repository": "alexd775/ragwell-python",
+  "sdk_version": "0.1.0",
+  "source": {
+    "commit_on_origin_main": true,
+    "commit_sha": "bb3204b9e4c16e88f7c7cd19318ab290d7214ab9",
+    "tag": "v0.1.0",
+    "tag_object_sha": "5e69c3bfe0f60866ac9592106beef720bf94d71b"
+  },
+  "status": "published_and_verified",
+  "testpypi": {
+    "clean_install": "passed in protected workflow",
+    "project_url": "https://test.pypi.org/project/ragwell/0.1.0/",
+    "published": true,
+    "staged_wheel_hash_matched": true,
+    "trusted_publisher": "GitHub Actions OIDC",
+    "wheel_upload_time": "2026-09-22T09:46:45.237772Z"
+  },
+  "workflow": {
+    "conclusion": "success",
+    "jobs": {
+      "build_and_verify": "success",
+      "publish_pypi": "success",
+      "publish_testpypi": "success",
+      "verify_testpypi_wheel": "success"
+    },
+    "run_id": 35712234816,
+    "run_url": "https://github.com/alexd775/ragwell-python/actions/runs/35712234816"
+  }
+}

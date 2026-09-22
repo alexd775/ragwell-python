@@ -2,8 +2,8 @@
 
 The complete synchronous and asynchronous matrix passed against an isolated,
 migrated local API on 2026-09-21. This is deterministic HTTP integration evidence.
-Hosted CI and the separate beta lifecycle check pass; package publication remains a
-separate gate for the prepared `0.1.0` source.
+Hosted CI, exact-artifact beta validation and protected publication also passed for
+the public `ragwell==0.1.0` release; each remains separate evidence.
 
 Qualification is **endpoint-only**. The SDK repository owns the HTTP assertions,
 wheel verification and reports. It does not start the API, access its database,

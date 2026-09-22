@@ -1,8 +1,9 @@
 # Release preparation
 
-The prepared release is `ragwell==0.1.0`, a developer beta. A source version does
-not imply package publication or a tag. The SDK repository owns its release. API
-deployment and API CI do not build or publish SDK packages.
+The first developer beta is `ragwell==0.1.0`, published from the immutable
+`v0.1.0` tag. A source version alone does not imply package publication or a tag.
+The SDK repository owns its release. API deployment and API CI do not build or
+publish SDK packages.
 
 ## Local preparation
 
@@ -59,14 +60,34 @@ Configure pending Trusted Publishers on both indexes with these exact identities
 | Workflow | `release.yml` | `release.yml` |
 | Environment | `testpypi` | `pypi` |
 
-Neither index contained a `ragwell` project when checked on 2026-09-22. Alex then
-confirmed the exact pending publishers on both accounts. A pending publisher does
-not reserve the name; the first successful upload creates the project.
+Neither index contained a `ragwell` project at the preparation checkpoint on
+2026-09-22. Alex confirmed the exact pending publishers on both accounts. The
+tagged `v0.1.0` workflow then created both projects through OIDC and published the
+same immutable distributions to each index.
 
 GitHub private vulnerability reporting is enabled. The `testpypi` environment allows
 only `v*` tags. The `pypi` environment allows only `v*` tags, requires `alexd775`
 approval, permits self-review for the sole maintainer and disallows administrator
 bypass. Neither environment contains secrets or variables.
+
+## 0.1.0 publication record
+
+Tag `v0.1.0` identifies commit `bb3204b9e4c16e88f7c7cd19318ab290d7214ab9`
+on `main`. The protected [release workflow](https://github.com/alexd775/ragwell-python/actions/runs/35712234816)
+passed its build, TestPyPI publication, staged-wheel comparison, clean install and
+approved PyPI publication jobs on 2026-09-22.
+
+The TestPyPI wheel then passed the opt-in sync/async beta lifecycle against the
+deployed API, including retrieval provenance, verified export and deletion of both
+synthetic documents. The public PyPI wheel and source archive were downloaded and
+matched the workflow artifacts exactly. A fresh CPython 3.11 environment installed
+`ragwell==0.1.0` from the normal PyPI index and imported both public clients.
+
+- [GitHub release](https://github.com/alexd775/ragwell-python/releases/tag/v0.1.0)
+- [PyPI package](https://pypi.org/project/ragwell/0.1.0/)
+- [TestPyPI package](https://test.pypi.org/project/ragwell/0.1.0/)
+- [Exact staged beta report](qualification/2026-09-22-testpypi-beta-lifecycle.json)
+- [Publication evidence](qualification/2026-09-22-release-publication.json)
 
 ## Release sequence
 

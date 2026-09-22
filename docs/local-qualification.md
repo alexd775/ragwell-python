@@ -216,3 +216,38 @@ local wheel digest is preparation evidence. The tag workflow will build the fina
 immutable artifacts, record their hashes and stage them on TestPyPI. Run the beta
 lifecycle against that exact staged wheel before approving the guarded PyPI job.
 No tag, GitHub release or package upload is claimed by this checkpoint.
+
+## 2026-09-22 public 0.1.0 release
+
+Alex pushed annotated tag `v0.1.0`, whose tag object
+`5e69c3bfe0f60866ac9592106beef720bf94d71b` dereferences to candidate commit
+`bb3204b9e4c16e88f7c7cd19318ab290d7214ab9` on `origin/main`. Its exact-revision
+CI matrix passed all eight Linux, macOS and Windows jobs in
+[run 35711597838](https://github.com/alexd775/ragwell-python/actions/runs/35711597838).
+The final manual build-only rehearsal passed in
+[run 35711914734](https://github.com/alexd775/ragwell-python/actions/runs/35711914734).
+
+The tagged [release run 35712234816](https://github.com/alexd775/ragwell-python/actions/runs/35712234816)
+built and verified once, published through the `testpypi` OIDC environment, and
+hash-compared a clean TestPyPI download. The downloaded wheel then passed the
+bounded beta lifecycle in both client styles against the dedicated project: project
+read, upload, processing, inspection, retrieval content/provenance, verified export
+and durable deletion all passed; both synthetic documents were deleted. The exact
+report is [recorded here](qualification/2026-09-22-testpypi-beta-lifecycle.json).
+
+After the protected `pypi` environment received maintainer approval, the same
+workflow artifacts were published through PyPI OIDC. Direct downloads from PyPI
+matched the reviewed artifacts:
+
+- wheel `ragwell-0.1.0-py3-none-any.whl` SHA-256
+  `3fd1f0e83e6b12d179acaacf793fa6ba5d138e4fa89fce88b6defe263746613b`;
+- source archive `ragwell-0.1.0.tar.gz` SHA-256
+  `cbd7439267a9aa70580fd6d1faec82129c84aea268a94b24ef79702a12ef8e37`.
+
+A fresh CPython 3.11.16 environment installed `ragwell==0.1.0` from the normal
+PyPI index. Distribution metadata and `ragwell.__version__` both reported `0.1.0`,
+and `Ragwell` plus `AsyncRagwell` imported successfully. The public
+[GitHub release](https://github.com/alexd775/ragwell-python/releases/tag/v0.1.0)
+attaches the same wheel and source archive, with matching GitHub-reported SHA-256
+digests. See the [publication record](qualification/2026-09-22-release-publication.json).
+This closes the SDK release gates without changing the immutable release tag.
