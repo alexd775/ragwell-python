@@ -68,7 +68,7 @@ only `v*` tags. The `pypi` environment allows only `v*` tags, requires `alexd775
 approval, permits self-review for the sole maintainer and disallows administrator
 bypass. Neither environment contains secrets or variables.
 
-## Remaining external gates
+## Release sequence
 
 1. Refresh the final checks and evidence, commit the `0.1.0` version and
    changelog, obtain a green CI matrix, and create the matching `v0.1.0` tag only
@@ -80,8 +80,8 @@ bypass. Neither environment contains secrets or variables.
    Verify the final package installs from the intended index. Yank/supersede a faulty
    release; never overwrite uploaded files.
 
-Final source evidence, the release tag and publication remain outstanding. No tag,
-GitHub release or package upload is created by preparing the candidate.
+This sequence keeps source preparation separate from the release tag and package
+uploads. Preparing a candidate by itself creates none of them.
 
 References: [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/),
 [Twine metadata checks](https://twine.readthedocs.io/en/stable/),

@@ -1,8 +1,7 @@
 # Compatibility and support
 
-The SDK source is prepared as `0.1.0`, the first developer beta. Until the protected
-release workflow completes, do not treat the source version or configured publisher
-as a published artifact.
+`0.1.0` is the first developer beta. PyPI project metadata and the protected release
+workflow identify published artifacts; a source-tree version by itself does not.
 
 ## Public interface
 

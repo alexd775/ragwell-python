@@ -2,7 +2,7 @@
   "artifacts": {
     "local_candidate_wheel": {
       "filename": "ragwell-0.1.0-py3-none-any.whl",
-      "sha256": "ce402ea0ead9a2a7c2d1d4bce33073056898302b7c7abe0c9cb7bf2f605cd0e3"
+      "sha256": "3fd1f0e83e6b12d179acaacf793fa6ba5d138e4fa89fce88b6defe263746613b"
     },
     "release_sdist": {
       "sha256": null,
@@ -65,5 +65,5 @@
     "testpypi_trusted_publisher": "user-confirmed pending"
   },
   "sdk_version": "0.1.0",
-  "status": "local_candidate_passed_pending_commit_hosted_ci_and_tag"
+  "status": "local_candidate_checks_passed"
 }
