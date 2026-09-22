@@ -161,3 +161,24 @@ Hosted CI/push remain deferred. Private vulnerability reporting is disabled and
 must be enabled/verified before publication. PyPI/TestPyPI ownership, protected
 publishers, provenance/publication rehearsal and final release remain outstanding.
 No commits, pushes, repository-setting changes or package uploads were performed.
+
+## 2026-09-22 hosted CI and publication-workflow preparation
+
+Alex pushed the SDK work and the Windows path correction. All eight jobs passed for
+revision `909b6eb1492ce7efb256ad3b844292356dcb2dbf` in
+[CI run 35649810010](https://github.com/alexd775/ragwell-python/actions/runs/35649810010):
+Linux CPython 3.11–3.14 and macOS/Windows CPython 3.11 and 3.14. The Windows
+regression normalizes installed-package inventory paths while preserving strict
+modified-file and unexpected-file rejection. The suite had 157 passing tests on
+local CPython 3.11 and 3.14 before that revision was pushed.
+
+The public repository has read-only default workflow permissions and had no GitHub
+environments when inspected. Private vulnerability reporting remained disabled.
+Both PyPI and TestPyPI returned not found for the exact `ragwell` project name; this
+is an availability observation, not ownership or a reservation.
+
+The release workflow now builds and verifies once, transfers immutable distributions
+between isolated jobs, uses exact-action commits and grants OIDC only to the two
+publisher jobs. It stages on TestPyPI, hash-compares and installs the downloaded
+wheel, then gates publication of the same artifacts on the protected `pypi`
+environment. No environment, Trusted Publisher, tag, release or package was created.

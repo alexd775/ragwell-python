@@ -1,0 +1,168 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and verify distributions
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.12.17"
+          python-version: "3.11"
+          enable-cache: true
+      - name: Verify release identity
+        shell: bash
+        run: |
+          version="$(python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            if ! git merge-base --is-ancestor "${GITHUB_SHA}" origin/main; then
+              echo "Release tag must identify a commit on origin/main." >&2
+              exit 1
+            fi
+            if [[ "${GITHUB_REF_NAME}" != "v${version}" ]]; then
+              echo "Tag ${GITHUB_REF_NAME} does not match package version ${version}." >&2
+              exit 1
+            fi
+            if [[ ! "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Release tags require a stable X.Y.Z package version." >&2
+              exit 1
+            fi
+          fi
+      - name: Install locked development environment
+        run: uv sync --locked
+      - name: Check formatting
+        run: uv run --locked ruff format --check .
+      - name: Lint
+        run: uv run --locked ruff check .
+      - name: Type check
+        run: uv run --locked mypy
+      - name: Verify deterministic contract generation
+        run: uv run --locked python scripts/generate.py --check
+      - name: Test
+        run: uv run --locked pytest
+      - name: Build distributions from the source archive
+        run: uv run --locked python -m build --no-isolation
+      - name: Record distribution hashes
+        run: sha256sum dist/*
+      - name: Preserve immutable distributions
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: python-package-distributions
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+
+  publish-testpypi:
+    name: Publish distributions to TestPyPI
+    if: github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/ragwell
+    permissions:
+      id-token: write
+    steps:
+      - name: Retrieve immutable distributions
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/
+          print-hash: true
+
+  verify-testpypi:
+    name: Verify the staged TestPyPI wheel
+    if: github.ref_type == 'tag'
+    needs: publish-testpypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.0.0
+        with:
+          python-version: "3.11"
+      - name: Retrieve original distributions
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Download and compare the staged wheel
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          mkdir staged
+          for attempt in {1..12}; do
+            if python -m pip download \
+              --disable-pip-version-check \
+              --no-deps \
+              --only-binary=:all: \
+              --index-url https://test.pypi.org/simple/ \
+              --dest staged \
+              "ragwell==${version}"; then
+              break
+            fi
+            if [[ "${attempt}" == "12" ]]; then
+              echo "The TestPyPI wheel did not become available." >&2
+              exit 1
+            fi
+            sleep 10
+          done
+          original="$(find dist -maxdepth 1 -name '*.whl' -print -quit)"
+          downloaded="$(find staged -maxdepth 1 -name '*.whl' -print -quit)"
+          test -n "${original}" && test -n "${downloaded}"
+          test "$(sha256sum "${original}" | cut -d' ' -f1)" = \
+            "$(sha256sum "${downloaded}" | cut -d' ' -f1)"
+          python -m venv .staged-install
+          .staged-install/bin/python -m pip install \
+            --disable-pip-version-check \
+            "${downloaded}"
+          .staged-install/bin/python -I -c \
+            "from importlib.metadata import version; import ragwell; assert version('ragwell') == '${version}'"
+
+  publish-pypi:
+    name: Publish the verified distributions to PyPI
+    if: github.ref_type == 'tag'
+    needs:
+      - build
+      - verify-testpypi
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: pypi
+      url: https://pypi.org/p/ragwell
+    permissions:
+      id-token: write
+    steps:
+      - name: Retrieve the same immutable distributions
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1
+        with:
+          packages-dir: dist/
+          print-hash: true

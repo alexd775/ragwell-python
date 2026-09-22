@@ -28,31 +28,64 @@ version changes produce a new wheel, assign a new digest and do not relabel an o
 report as a test of those bytes. Unchanged runtime bytes may be compared explicitly,
 but final-release artifact qualification still remains a gate.
 
+## Hosted source gate
+
+All eight hosted jobs passed for revision `909b6eb` on 2026-09-21: Linux CPython
+3.11–3.14 and macOS/Windows CPython 3.11 and 3.14. This closes the previously
+deferred hosted gate for that revision. Any later release-source change needs its
+own green matrix.
+
+## Trusted publication workflow
+
+The repository workflow `.github/workflows/release.yml` builds once in an
+unprivileged job, verifies the package, and preserves the resulting wheel and source
+archive as one GitHub artifact. A `vX.Y.Z` tag must exactly match the stable project
+version and identify a commit on `main`. Separate OIDC-only jobs publish those same
+bytes to TestPyPI, download and hash-compare the staged wheel, install it in a clean
+environment, and only then wait on the protected `pypi` environment before
+publishing the same files to PyPI.
+
+The workflow pins every external action by commit. It has read-only repository
+access; only the two publication jobs receive `id-token: write`. It contains no index
+passwords or repository secrets. A manual workflow run builds and verifies but does
+not publish because it is not a tag.
+
+Configure pending Trusted Publishers on both indexes with these exact identities:
+
+| Setting | TestPyPI | PyPI |
+|---|---|---|
+| Project | `ragwell` | `ragwell` |
+| GitHub owner | `alexd775` | `alexd775` |
+| Repository | `ragwell-python` | `ragwell-python` |
+| Workflow | `release.yml` | `release.yml` |
+| Environment | `testpypi` | `pypi` |
+
+Neither index contained a `ragwell` project when checked on 2026-09-22. A pending
+publisher does not reserve the name; the first successful upload creates the project.
+Do not create the release tag until both publishers and environments are verified.
+
 ## Remaining external gates
 
-1. Push the intended source only when Alex resumes that step, then verify its exact
-   hosted CI revision: Linux CPython 3.11–3.14 plus macOS/Windows at the supported
-   endpoints. A previous commit's matrix does not cover later local changes.
-2. Enable and verify GitHub private vulnerability reporting, as recorded in
+1. Enable and verify GitHub private vulnerability reporting, as recorded in
    [SECURITY.md](../SECURITY.md). This is a repository-setting change requiring the
    maintainer's authorization.
-3. Verify the `ragwell` distribution name and actual owner access separately on
-   PyPI and TestPyPI. Name availability alone does not establish ownership.
-4. Prepare a protected GitHub release environment and PyPI/TestPyPI Trusted
-   Publishers restricted to the exact repository, workflow and environment. Pin
-   release actions, use OIDC instead of a stored upload token, and require a
-   maintainer-selected version/tag. Review this setup before changing settings.
-5. After explicit authorization, rehearse publishing to TestPyPI and install the
-   staged artifact in a clean environment. Record index, version, artifact digest,
-   install result and lifecycle evidence; do not rebuild different bytes for PyPI.
-6. Publish only after all required checks and maintainer approval. Record immutable
-   artifacts, provenance, changelog and compatibility information. Verify the final
-   package installs from the intended index. Yank/supersede a faulty release; never
-   overwrite uploaded files.
+2. Create the `testpypi` and `pypi` GitHub environments. Require manual approval for
+   `pypi`; restrict both to protected release tags before any tag is created.
+3. Sign in separately to PyPI and TestPyPI, verify both accounts, and register the
+   exact pending Trusted Publisher identities above. Name availability does not
+   establish ownership or reserve the name.
+4. Select `0.1.0`, refresh the final checks and evidence, commit the version and
+   changelog, obtain a green CI matrix, and create the matching `v0.1.0` tag only
+   after reviewing the immutable commit.
+5. Let the tag workflow publish and verify TestPyPI. Review its recorded hashes,
+   then approve the protected `pypi` deployment. Do not rebuild between indexes.
+6. Record immutable artifacts, provenance, changelog and compatibility information.
+   Verify the final package installs from the intended index. Yank/supersede a faulty
+   release; never overwrite uploaded files.
 
-The hosted matrix, repository settings, publisher ownership/configuration and
-publication are outstanding. No GitHub release workflow or publisher setting was
-created as part of the local checks.
+Repository settings, publisher ownership/configuration and publication remain
+outstanding. Preparing the workflow does not create an environment, publisher,
+release tag, GitHub release or package upload.
 
 References: [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/),
 [Twine metadata checks](https://twine.readthedocs.io/en/stable/),

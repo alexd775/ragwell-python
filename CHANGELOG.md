@@ -18,7 +18,8 @@ The development SDK is not published to PyPI. These changes prepare the first
 - Opt-in beta lifecycle validation against an independently prepared account/project,
   with private credentials, bounded synthetic usage and checkpointed cleanup reports.
 - API reference, lifecycle examples, compatibility/security guidance and local release
-  evidence. Hosted CI, protected publisher and publication remain pending.
+  evidence. The Linux, macOS and Windows hosted matrix passes; protected publisher
+  setup and publication remain pending.
 
 Project creation/administration, key management, browser identity, billing and answer
 generation are outside this SDK's current scope.

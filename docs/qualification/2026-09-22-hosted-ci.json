@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-09-22",
+  "head_sha": "909b6eb1492ce7efb256ad3b844292356dcb2dbf",
+  "jobs": [
+    {"name": "Python 3.11", "result": "success"},
+    {"name": "Python 3.12", "result": "success"},
+    {"name": "Python 3.13", "result": "success"},
+    {"name": "Python 3.14", "result": "success"},
+    {"name": "macos-14 / Python 3.11", "result": "success"},
+    {"name": "macos-14 / Python 3.14", "result": "success"},
+    {"name": "windows-latest / Python 3.11", "result": "success"},
+    {"name": "windows-latest / Python 3.14", "result": "success"}
+  ],
+  "publication": {
+    "github_environments": [],
+    "private_vulnerability_reporting": false,
+    "published": false,
+    "pypi_project_http_status": 404,
+    "testpypi_project_http_status": 404,
+    "trusted_publishers_configured": false
+  },
+  "repository": "alexd775/ragwell-python",
+  "run_id": 35649810010,
+  "run_url": "https://github.com/alexd775/ragwell-python/actions/runs/35649810010",
+  "workflow": "CI"
+}

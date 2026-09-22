@@ -35,7 +35,9 @@ A bad release is superseded or yanked; existing published files are never replac
 
 The syntax/runtime floor is Python 3.11. The configured release matrix targets
 CPython 3.11–3.14 on Linux and the oldest/newest versions on macOS and Windows.
-The latest local 3.11/3.14 results do not substitute for the deferred hosted matrix.
+All eight hosted jobs passed at SDK revision `909b6eb` on 2026-09-21: Linux
+3.11–3.14 and macOS/Windows 3.11 and 3.14. Later release-source changes require a
+fresh passing matrix for their exact revision.
 PyPy, Trio, free-threaded Python and later Python versions are not qualified.
 Async clients use asyncio and must remain in their owning event loop.
 
