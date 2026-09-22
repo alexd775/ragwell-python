@@ -1,6 +1,6 @@
 # Async project example (Python 3.12)
 
-Three small scripts using the published `ragwell==0.1.0` SDK and `AsyncRagwell`.
+Three small scripts using the published `ragwell==0.2.0` SDK and `AsyncRagwell`.
 They use an existing project; create it and its API key in the dashboard first.
 Use a dedicated example project, since cleanup deletes **all** its documents.
 
@@ -50,6 +50,7 @@ Sync exits nonzero if errors occur or project documents remain unsearchable.
 ```sh
 uv run retrieve.py "Where are the purple lanterns stored?" --k 3
 uv run retrieve.py "When does the workshop start?" --k 5 --output results/workshop.json
+uv run retrieve.py "Where are the lanterns?" --k 3 --rerank
 ```
 
 The full response includes chunks, scores and citations. `--k` accepts 1–20
@@ -58,6 +59,11 @@ The full response includes chunks, scores and citations. `--k` accepts 1–20
 matches any supplied tag, and `--tag-all` requires all. Metadata/tag filters refer
 to values already set on project documents. Without `--output`, stdout is JSON;
 with it, the script creates a new UTF-8 JSON file and reports its path.
+
+`--rerank` sends the retrieved candidates to the Jev provider configured for the
+project. It is opt-in and may incur provider charges. The project must already have
+a working Jev credential; the provider key never goes in `.env` or the SDK call.
+The JSON response includes reranking metadata and the original and reranked scores.
 
 ## 3. Clean the project
 

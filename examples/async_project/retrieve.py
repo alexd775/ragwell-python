@@ -8,7 +8,7 @@ from pathlib import Path
 from uuid import UUID
 
 from ragwell import AsyncRagwell
-from ragwell.types import SearchFilters, SearchResponse
+from ragwell.types import RerankRequest, SearchFilters, SearchResponse
 
 from common import load_settings, run
 
@@ -18,6 +18,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("phrase", help="retrieval query, in quotes")
     parser.add_argument(
         "--k", type=int, choices=range(1, 21), default=5, metavar="1..20"
+    )
+    parser.add_argument(
+        "--rerank",
+        action="store_true",
+        help="rerank the candidates with the project's configured Jev provider",
     )
     parser.add_argument(
         "--document-id",
@@ -81,9 +86,19 @@ async def main() -> int:
     async with AsyncRagwell(
         base_url=settings.base_url, api_key=settings.api_key
     ) as client:
-        response = await client.project(settings.project_id).search(
-            query=args.phrase, k=args.k, filters=search_filters(args)
-        )
+        project = client.project(settings.project_id)
+        filters = search_filters(args)
+        if args.rerank:
+            response = await project.search(
+                query=args.phrase,
+                k=args.k,
+                filters=filters,
+                rerank=RerankRequest(id="jev"),
+            )
+        else:
+            response = await project.search(
+                query=args.phrase, k=args.k, filters=filters
+            )
     output_response(response, args.output)
     return 0
 

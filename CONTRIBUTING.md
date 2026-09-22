@@ -51,15 +51,15 @@ Tool configuration follows the official [uv project guide](https://docs.astral.s
 [mypy configuration](https://mypy.readthedocs.io/en/stable/config_file.html), and
 [pytest integration guidance](https://docs.pytest.org/en/stable/explanation/goodpractices.html).
 
-## Attribution and future releases
+## Attribution and releases
 
 The MIT notice uses `alexd775`, the verified repository owner's GitHub handle.
 A legal person or entity name has not been supplied; confirm any replacement
-attribution with the owner rather than guessing it. PyPI name availability and
-publisher ownership remain unverified. Publication and release automation require
-separate maintainer authorization after SDK implementation and qualification.
+attribution with the owner rather than guessing it. Releases use the protected
+Trusted Publishing workflow; never add package-index tokens or upload manually.
 
 Keep the [API reference](docs/api-reference.md), [compatibility policy](docs/compatibility.md)
 and [changelog](CHANGELOG.md) current when behavior changes. Execute examples as
-part of the offline suite. Follow [release preparation](docs/releasing.md) for
-artifact/security gates and [SECURITY.md](SECURITY.md) for confidential reports.
+part of the offline suite. Follow the [release runbook](docs/release-runbook.md) to
+publish, [release preparation](docs/releasing.md) for artifact/security gates, and
+[SECURITY.md](SECURITY.md) for confidential reports.

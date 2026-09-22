@@ -1,8 +1,8 @@
 # Compatibility and support
 
-`0.1.0` is the first published developer beta; `0.2.0` is the current source
-candidate. PyPI project metadata and the protected release workflow identify
-published artifacts; a source-tree version by itself does not.
+`0.1.0` is the first published developer beta; `0.2.0` is the current published
+release. PyPI project metadata and the protected release workflow identify published
+artifacts; a source-tree version by itself does not.
 
 ## Public interface
 
@@ -33,13 +33,12 @@ A bad release is superseded or yanked; existing published files are never replac
 
 ## Platforms and qualification
 
-The syntax/runtime floor is Python 3.11. The configured release matrix targets
-CPython 3.11–3.14 on Linux and the oldest/newest versions on macOS and Windows.
-All eight hosted jobs passed at SDK revision `0240fec` on 2026-09-22: Linux
-3.11–3.14 and macOS/Windows 3.11 and 3.14. Later release-source changes require a
-fresh passing matrix for their exact revision.
-PyPy, Trio, free-threaded Python and later Python versions are not qualified.
-Async clients use asyncio and must remain in their owning event loop.
+The syntax/runtime floor is Python 3.11. The current hosted matrix targets CPython
+3.11–3.14 on Linux and Python 3.11/3.14 on macOS. Release revision `273f672` passed
+that six-job matrix on 2026-09-22. Windows passed the earlier 0.1.0 matrix but is not
+qualified for 0.2.0. PyPy, Trio, free-threaded Python and later Python versions are
+also not qualified. Async clients use asyncio and must remain in their owning event
+loop.
 
 Runtime ranges live in `pyproject.toml`; `uv.lock` fixes the maintainer environment
 rather than constraining downstream applications. Release evidence must include

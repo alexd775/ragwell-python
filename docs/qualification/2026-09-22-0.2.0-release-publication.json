@@ -1,0 +1,54 @@
+{
+  "status": "published_and_verified",
+  "sdk_version": "0.2.0",
+  "date": "2026-09-22",
+  "source": {
+    "tag": "v0.2.0",
+    "commit": "273f67219d4688936d4db5fb872d3cfcae5c852b"
+  },
+  "workflow": {
+    "run_id": 35771331505,
+    "url": "https://github.com/alexd775/ragwell-python/actions/runs/35771331505",
+    "conclusion": "success",
+    "testpypi_index_delay_recovered_by": "rerun_failed_jobs"
+  },
+  "artifacts": {
+    "ragwell-0.2.0-py3-none-any.whl": {
+      "sha256": "6e04481e9cbd31da0c475e10988128a3ba093c8cda7463ecb89432b0a64a8fcb",
+      "size_bytes": 180779
+    },
+    "ragwell-0.2.0.tar.gz": {
+      "sha256": "60b8e54273605c5eb6af2c4b43c3e88b1f0d12e17adfaa943eca3d0a82160e19",
+      "size_bytes": 239243
+    }
+  },
+  "indexes": {
+    "testpypi": {
+      "project_url": "https://test.pypi.org/project/ragwell/0.2.0/",
+      "hashes_match_workflow": true
+    },
+    "pypi": {
+      "project_url": "https://pypi.org/project/ragwell/0.2.0/",
+      "hashes_match_testpypi_and_workflow": true
+    }
+  },
+  "verification": {
+    "clean_public_index_install": {
+      "python": "3.11.16",
+      "distribution_and_public_version": "0.2.0",
+      "rerank_request_import": "passed"
+    },
+    "beta_lifecycle": {
+      "status": "passed",
+      "report": "2026-09-22-pypi-0.2.0-beta-lifecycle.json",
+      "styles": [
+        "sync",
+        "async"
+      ],
+      "cleanup": "deleted"
+    }
+  },
+  "github_release": {
+    "created": false
+  }
+}

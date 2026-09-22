@@ -1,23 +1,23 @@
 # Release preparation
 
+Maintainers executing a release should follow the concise
+[release runbook](release-runbook.md). This document records policy, controls and
+qualification evidence behind that procedure.
+
 The first developer beta is `ragwell==0.1.0`, published from the immutable
 `v0.1.0` tag. A source version alone does not imply package publication or a tag.
 The SDK repository owns its release. API deployment and API CI do not build or
 publish SDK packages.
 
-The next candidate is `ragwell==0.2.0`, adding the `2026-09-22.1` machine contract
-and optional Jev reranking. Its source version is prepared. The installed candidate
-passed the deployed beta lifecycle against the matching contract, and the same
-package runtime passed a bounded synthetic Jev request through the configured
-TypeSafe route. It still requires a fresh hosted matrix and the protected
-publication sequence below before it is a published release. Representative
-quality, latency and cost evaluation remains a separate product-rollout gate rather
-than an SDK transport gate.
-The local 0.2.0 source gate is recorded in [local qualification](local-qualification.md);
-the [beta report](qualification/2026-09-22-0.2.0-beta-lifecycle.json) records the
-installed-wheel lifecycle evidence, and the
+The current developer beta is `ragwell==0.2.0`, published from immutable tag
+`v0.2.0`. It adds the `2026-09-22.1` machine contract and optional Jev reranking.
+The [public-wheel beta report](qualification/2026-09-22-pypi-0.2.0-beta-lifecycle.json)
+records the deployed lifecycle, the
 [live Jev report](qualification/2026-09-22-0.2.0-live-jev.json) records the paid
-provider path. Neither replaces the exact-revision hosted matrix.
+provider path, and the
+[publication record](qualification/2026-09-22-0.2.0-release-publication.json)
+identifies the immutable TestPyPI/PyPI artifacts. Representative quality, latency
+and cost evaluation remains a separate product-rollout gate.
 
 ## Local preparation
 
@@ -103,6 +103,32 @@ matched the workflow artifacts exactly. A fresh CPython 3.11 environment install
 - [Exact staged beta report](qualification/2026-09-22-testpypi-beta-lifecycle.json)
 - [Publication evidence](qualification/2026-09-22-release-publication.json)
 
+## 0.2.0 publication record
+
+Tag `v0.2.0` identifies commit `273f67219d4688936d4db5fb872d3cfcae5c852b`
+on `main`. Its six-job Linux/macOS matrix passed in
+[CI run 35770522513](https://github.com/alexd775/ragwell-python/actions/runs/35770522513).
+The protected
+[release run 35771331505](https://github.com/alexd775/ragwell-python/actions/runs/35771331505)
+built the distributions once and published them through OIDC to TestPyPI and PyPI.
+
+The first TestPyPI verification attempt exceeded the original two-minute indexing
+window after a successful upload. Once TestPyPI exposed the version, rerunning only
+the failed jobs hash-compared and clean-installed the staged wheel, then the approved
+production job published the same files. Direct metadata from both indexes reports:
+
+- wheel `ragwell-0.2.0-py3-none-any.whl` SHA-256
+  `6e04481e9cbd31da0c475e10988128a3ba093c8cda7463ecb89432b0a64a8fcb`;
+- source archive `ragwell-0.2.0.tar.gz` SHA-256
+  `60b8e54273605c5eb6af2c4b43c3e88b1f0d12e17adfaa943eca3d0a82160e19`.
+
+A fresh CPython 3.11.16 environment installed `ragwell==0.2.0` from production
+PyPI, confirmed both version identities and imported `RerankRequest`. The downloaded
+public wheel then passed the bounded sync/async beta lifecycle and deleted both
+synthetic documents. See the
+[public lifecycle report](qualification/2026-09-22-pypi-0.2.0-beta-lifecycle.json)
+and [publication evidence](qualification/2026-09-22-0.2.0-release-publication.json).
+
 ## Release sequence
 
 1. Refresh the final checks and evidence, commit the selected stable version and
@@ -114,9 +140,9 @@ matched the workflow artifacts exactly. A fresh CPython 3.11 environment install
 3. Record immutable artifacts, provenance, changelog and compatibility information.
    Verify the final package installs from the intended index. Yank/supersede a faulty
    release; never overwrite uploaded files.
-4. Only after `ragwell==0.2.0` is available from PyPI, update the asynchronous
-   example's PyPI pin and lockfile and add its `--rerank` option in a follow-up
-   commit. The example must not use a repository path or editable source override.
+4. If an example is held on the previous public SDK during release preparation,
+   update its PyPI pin and lockfile only after the new version is published. Keep
+   that consumer test free of repository paths and editable source overrides.
 
 This sequence keeps source preparation separate from the release tag and package
 uploads. Preparing a candidate by itself creates none of them.

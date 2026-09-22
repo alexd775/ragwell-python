@@ -3,11 +3,11 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: `0.2.0` developer beta release candidate.** This source implements the
-reviewed machine API, including optional Jev reranking. The candidate runtime passed
-the deployed beta lifecycle and a bounded live Jev smoke; a fresh hosted CI matrix
-remains a release gate. The SDK returns retrieval evidence and citations; it does
-not generate answers.
+**Status: `0.2.0` developer beta.** The release implements the reviewed machine API,
+including optional Jev reranking, and is published on
+[PyPI](https://pypi.org/project/ragwell/0.2.0/). Its public wheel passed clean
+installation and the deployed beta lifecycle. The SDK returns retrieval evidence
+and citations; it does not generate answers.
 
 ## Requirements and installation
 
@@ -160,7 +160,7 @@ reranking order. The first version accepts no tuning parameters.
 The [Python 3.12 example project](examples/async_project/README.md) installs the
 published SDK from PyPI. Copy its `env.example` to `.env`, configure your project,
 then run its scripts to sync a local document folder, retrieve to terminal/JSON,
-and clean the project.
+optionally rerank with Jev, and clean the project.
 
 ## Development and qualification
 
@@ -180,12 +180,11 @@ See [contract provenance](contracts/README.md),
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
 credentials, provider calls, private repository, or model downloads.
 
-The current contract adds optional Jev reranking. The installed `0.2.0` candidate
-passed the deployed beta lifecycle with the matching live contract, and its package
-runtime passed a bounded synthetic Jev request. Representative quality, latency and
-cost evaluation remains separate product-rollout work. The
-[release process](docs/releasing.md) records the remaining hosted CI, TestPyPI and
-PyPI controls.
+The current contract adds optional Jev reranking. The published `0.2.0` wheel passed
+the deployed beta lifecycle with the matching live contract, and its package runtime
+passed a bounded synthetic Jev request. Representative quality, latency and cost
+evaluation remains separate product-rollout work. The
+[release record](docs/releasing.md) identifies the immutable artifacts and checks.
 
 An optional [beta lifecycle validation](docs/beta-validation.md) checks the installed
 wheel against a dedicated existing beta project with a scoped key. It starts no
@@ -195,7 +194,8 @@ Documentation: [API reference and scopes](docs/api-reference.md),
 [sync lifecycle example](examples/sync_lifecycle.py),
 [async lifecycle example](examples/async_lifecycle.py),
 [compatibility and support](docs/compatibility.md), [security policy](SECURITY.md),
-[changelog](CHANGELOG.md), and [release preparation](docs/releasing.md).
+[changelog](CHANGELOG.md), [release runbook](docs/release-runbook.md), and
+[release preparation](docs/releasing.md).
 
 ## License
 

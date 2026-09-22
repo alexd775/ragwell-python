@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Update the asynchronous project example to install published `ragwell==0.2.0`
+  from PyPI and demonstrate explicit optional reranking.
+
 ## 0.2.0 — 2026-09-22
 
 - Optional typed Jev reranking on synchronous and asynchronous search, with

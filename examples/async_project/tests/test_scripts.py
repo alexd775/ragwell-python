@@ -13,7 +13,7 @@ from uuid import UUID
 import httpx
 import pytest
 from ragwell import AsyncRagwell, OperationFailedError, WaitTimeoutError
-from ragwell.types import DocumentResponse, DocumentState
+from ragwell.types import DocumentResponse, DocumentState, RerankRequest
 
 import clean_project
 import common
@@ -287,8 +287,14 @@ def test_cli_help_works_without_credentials(script):
     assert "usage:" in result.stdout
 
 
-def test_retrieve_main_calls_async_sdk_with_selected_params(monkeypatch, capsys):
-    args = retrieve.parse_args(["lanterns", "--k", "2"])
+@pytest.mark.parametrize("rerank", [False, True])
+def test_retrieve_main_calls_async_sdk_with_selected_params(
+    monkeypatch, capsys, rerank
+):
+    arguments = ["lanterns", "--k", "2"]
+    if rerank:
+        arguments.append("--rerank")
+    args = retrieve.parse_args(arguments)
     monkeypatch.setattr(retrieve, "parse_args", lambda: args)
     settings = common.Settings(
         "https://api.example.test", "synthetic-key", PROJECT_ID, Path("unused")
@@ -302,5 +308,8 @@ def test_retrieve_main_calls_async_sdk_with_selected_params(monkeypatch, capsys)
     assert asyncio.run(retrieve.main()) == 0
     assert project.search.await_args.kwargs["query"] == "lanterns"
     assert project.search.await_args.kwargs["k"] == 2
-    assert "rerank" not in project.search.await_args.kwargs
+    if rerank:
+        assert project.search.await_args.kwargs["rerank"] == RerankRequest(id="jev")
+    else:
+        assert "rerank" not in project.search.await_args.kwargs
     assert json.loads(capsys.readouterr().out) == {"items": []}

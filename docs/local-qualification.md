@@ -292,5 +292,27 @@ The live Jev report names wheel
 Restoring the example to its published-PyPI dependency changed README-derived wheel
 metadata but none of the 144 installed `ragwell/` files. The revised exact wheel is
 recorded by the beta lifecycle report; the package-runtime comparison was
-byte-for-byte identical. The example stays on published `0.1.0` until `0.2.0` is
-available from PyPI, then receives its version and reranking update separately.
+byte-for-byte identical. The example stayed on published `0.1.0` until `0.2.0`
+became available from PyPI; its post-publication update is recorded below.
+
+## 2026-09-22 public 0.2.0 release and example update
+
+The protected tag workflow published identical `0.2.0` files to TestPyPI and PyPI.
+The production wheel SHA-256 is
+`6e04481e9cbd31da0c475e10988128a3ba093c8cda7463ecb89432b0a64a8fcb`;
+the source archive SHA-256 is
+`60b8e54273605c5eb6af2c4b43c3e88b1f0d12e17adfaa943eca3d0a82160e19`.
+A clean CPython 3.11.16 environment installed the named package from production
+PyPI, confirmed distribution/public version `0.2.0`, and imported `RerankRequest`.
+
+The hash-verified public wheel passed the deployed beta lifecycle in both client
+styles, including project identity, upload, processing, inspection, cited retrieval,
+verified export and durable cleanup. Both synthetic documents were deleted. The
+[public lifecycle report](qualification/2026-09-22-pypi-0.2.0-beta-lifecycle.json)
+and [publication record](qualification/2026-09-22-0.2.0-release-publication.json)
+retain the evidence.
+
+Only after publication, the asynchronous example moved its registry-only pin and
+lockfile to `ragwell==0.2.0` and added explicit `--rerank`. Its Python 3.12 format,
+lint, isolated version check and 19 offline tests pass. No repository path, editable
+override, key or provider credential is present in the example configuration.
