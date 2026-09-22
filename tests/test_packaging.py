@@ -140,8 +140,8 @@ def test_distributions_include_sources_typing_and_license(
         "pyproject.toml",
         "uv.lock",
         "tests/test_packaging.py",
-        "contracts/2026-09-19.1/openapi.json",
-        "contracts/2026-09-19.1/manifest.json",
+        "contracts/2026-09-22.1/openapi.json",
+        "contracts/2026-09-22.1/manifest.json",
         "contracts/operations.json",
         "docs/generation.md",
         "docs/http-qualification.md",
@@ -216,12 +216,14 @@ from importlib.util import find_spec
 from pathlib import Path
 
 import ragwell
+from ragwell.types import RerankRequest
 
 assert Path(ragwell.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
 assert files(ragwell).joinpath("py.typed").is_file()
 package = distribution("ragwell")
 assert package.metadata["Name"] == "ragwell"
 assert package.version == ragwell.__version__
+assert RerankRequest(id="jev").to_dict() == {"id": "jev"}
 assert package.metadata["License-Expression"] == "MIT"
 requirements = package.requires or []
 assert requirements == [

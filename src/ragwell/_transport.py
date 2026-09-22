@@ -21,6 +21,7 @@ from ._decoding import BUFFER_SIZE, Decoder
 from ._generated.models import ErrorResponse, FieldError, PlanLimitErrorResponse
 from ._generated.types import Unset
 from ._sync_http import network_budget
+from ._version import __version__
 from .errors import (
     ApiError,
     AuthenticationError,
@@ -224,7 +225,7 @@ def _prepare_request(request: httpx.Request, api_key: str | None) -> None:
     else:
         request.headers["Authorization"] = f"Bearer {api_key}"
     request.headers["Accept-Encoding"] = "gzip, deflate"
-    request.headers["User-Agent"] = "ragwell-python/0.1.0"
+    request.headers["User-Agent"] = f"ragwell-python/{__version__}"
 
 
 def _annotate(error: RagwellError, response: httpx.Response) -> None:
@@ -506,6 +507,7 @@ class SyncTransport(_Budgets):
         transfer: bool = False,
         before_attempt: Callable[[], None] | None = None,
         authenticated: bool = True,
+        validator: Callable[[ModelT], None] | None = None,
     ) -> ModelT:
         budget = self._deadline(operation_id, transfer, retry_mode)
         response = self._send(
@@ -526,6 +528,8 @@ class SyncTransport(_Budgets):
         try:
             budget.check()
             result = parse_model(response, model_type, operation_id=operation_id)
+            if validator is not None:
+                validator(result)
             budget.check()
             return result
         except RagwellError as error:
@@ -724,6 +728,7 @@ class AsyncTransport(_Budgets):
         transfer: bool = False,
         before_attempt: Callable[[], None] | None = None,
         authenticated: bool = True,
+        validator: Callable[[ModelT], None] | None = None,
     ) -> ModelT:
         budget = self._deadline(operation_id, transfer, retry_mode)
         response = await self._send(
@@ -744,6 +749,8 @@ class AsyncTransport(_Budgets):
         try:
             budget.check()
             result = parse_model(response, model_type, operation_id=operation_id)
+            if validator is not None:
+                validator(result)
             budget.check()
             return result
         except RagwellError as error:

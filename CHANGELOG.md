@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 — 2026-09-22
+
+- Optional typed Jev reranking on synchronous and asynchronous search, with
+  separate relevance/confidence/hybrid scores and contract `2026-09-22.1`.
+- Reranking metadata includes the configured provider and resolved Jev model for
+  TypeSafe, OpenRouter and Vercel AI Gateway routing.
+- Requires project-owned Jev credentials configured in the dashboard. Ordinary
+  retrieval stays unchanged; paid search requests are never automatically retried.
+- Rejects malformed reranking metadata as a safe protocol error and exercises
+  reranked scores, citations and installed-wheel imports in deterministic tests.
+- Adds the Python 3.12 asynchronous project example for folder sync, retrieval and
+  project document cleanup; the example intentionally uses ordinary retrieval.
+
 ## 0.1.0 — 2026-09-22
 
 First developer beta. The release uses existing-project handles and scoped machine

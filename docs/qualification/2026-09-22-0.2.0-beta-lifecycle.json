@@ -1,0 +1,99 @@
+{
+  "base_url": "https://api-beta.ragwell.dev",
+  "evidence_module_sha256": "7e24ad9db2cca209da1f002d4a9e23aae82bf40cae40b177c762e9af2b25da17",
+  "finished_at": "2026-09-22T18:46:45.988772+00:00",
+  "machine_sha256": "edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509",
+  "operation_count": 26,
+  "platform": "Darwin arm64",
+  "project_id": "244c70d1-e2ea-445d-a454-03ca8c3672eb",
+  "python_version": "3.11.16",
+  "qualification": "beta_lifecycle",
+  "report_version": 1,
+  "required_scopes": [
+    "project:read",
+    "document:upload",
+    "document:read",
+    "job:read",
+    "retrieval:search",
+    "document:delete",
+    "deletion:read"
+  ],
+  "run_id": "01c40db6-2867-42e8-bd4d-df553810fc1e",
+  "runner_sha256": "178af6aa64d35c1393ca3a134d2b1ec2dea332a0767a2741c5e00374e1183f22",
+  "runtime_contract_sha256": "edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509",
+  "runtime_dependencies": {
+    "attrs": "25.4.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "python-dateutil": "2.9.0.post0"
+  },
+  "sdk_version": "0.2.0",
+  "started_at": "2026-09-22T18:46:24.068180+00:00",
+  "status": "passed",
+  "styles": {
+    "async": {
+      "checks": [
+        "project",
+        "upload",
+        "processing",
+        "inspection",
+        "retrieval_content_and_provenance",
+        "verified_export"
+      ],
+      "cleanup": {
+        "receipt_id": "7dfcff8d-1dbe-4652-95d3-4e930ba081ff",
+        "status": "deleted"
+      },
+      "delete_key": "1b2d3ecbdafa4559b946323c02f88ba5",
+      "document_id": "6d8fe68d-9397-483b-9c61-afd636949f70",
+      "export_bytes": 3087,
+      "export_id": "9018add3-d8a6-4a05-b11b-97144dfc999b",
+      "export_parts": 1,
+      "failed_phase": null,
+      "fixture_bytes": 137,
+      "fixture_sha256": "0c331d3b082e177b57b06111ee6cc6eb9a550a28310e745396318d70f7613da3",
+      "generation_id": "0aeb78a5-3c72-598c-8c01-0e0f4f93a02e",
+      "job_id": "b97429af-69d3-49e4-9147-392ee0593cf3",
+      "phase": "cleanup",
+      "receipt_id": "7dfcff8d-1dbe-4652-95d3-4e930ba081ff",
+      "retrieval_id": "16bbac2e-3395-42af-a265-4694f2a2f3c5",
+      "status": "passed",
+      "upload_id": "e9db248b-e5da-4e4d-8606-ffe652987e92",
+      "upload_key": "3e614cc180084fe98b231f3347ecdd8b",
+      "upload_started": true
+    },
+    "sync": {
+      "checks": [
+        "project",
+        "upload",
+        "processing",
+        "inspection",
+        "retrieval_content_and_provenance",
+        "verified_export"
+      ],
+      "cleanup": {
+        "receipt_id": "af13f3ca-250d-430a-bb95-e279acc7ed2f",
+        "status": "deleted"
+      },
+      "delete_key": "cb8af080cfd64fd68a59876cb952b0db",
+      "document_id": "c1af4b31-8e4f-4ff5-a102-942f0569360e",
+      "export_bytes": 3083,
+      "export_id": "9c2cd6da-e8d6-4899-9167-1b3626d4fbf4",
+      "export_parts": 1,
+      "failed_phase": null,
+      "fixture_bytes": 136,
+      "fixture_sha256": "e40c83691d91fe54b945abd17a761e500554fe5a7a56d1c979bfe6b0c76b8725",
+      "generation_id": "2360b5a6-a550-569e-acce-e76a3798cd3f",
+      "job_id": "743d8b2b-2773-4d34-a3d2-7617b8f45e17",
+      "phase": "cleanup",
+      "receipt_id": "af13f3ca-250d-430a-bb95-e279acc7ed2f",
+      "retrieval_id": "90574d4a-b281-4ae5-8914-831148c9adc7",
+      "status": "passed",
+      "upload_id": "cedb2460-66c1-4661-9337-605fde491723",
+      "upload_key": "3af87e6237744701b7159ad50657c53e",
+      "upload_started": true
+    }
+  },
+  "wait_timeout_seconds": 300.0,
+  "wheel_sha256": "6e04481e9cbd31da0c475e10988128a3ba093c8cda7463ecb89432b0a64a8fcb"
+}

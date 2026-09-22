@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ragwell"
-version = "0.1.0"
+version = "0.2.0"
 description = "Typed Python SDK for the Ragwell managed retrieval API"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -48,8 +48,8 @@ required-version = "==0.12.17"
 packages = ["src/ragwell"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"contracts/2026-09-19.1/openapi.json" = "ragwell/_contract/openapi.json"
-"contracts/2026-09-19.1/manifest.json" = "ragwell/_contract/manifest.json"
+"contracts/2026-09-22.1/openapi.json" = "ragwell/_contract/openapi.json"
+"contracts/2026-09-22.1/manifest.json" = "ragwell/_contract/manifest.json"
 
 [tool.hatch.build.targets.sdist]
 include = [

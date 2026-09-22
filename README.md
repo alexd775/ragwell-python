@@ -3,9 +3,11 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: `0.1.0` developer beta.** The complete reviewed machine API is implemented
-and qualified from an installed wheel against an isolated local HTTP service. The
-SDK returns retrieval evidence and citations; it does not generate answers.
+**Status: `0.2.0` developer beta release candidate.** This source implements the
+reviewed machine API, including optional Jev reranking. The candidate runtime passed
+the deployed beta lifecycle and a bounded live Jev smoke; a fresh hosted CI matrix
+remains a release gate. The SDK returns retrieval evidence and citations; it does
+not generate answers.
 
 ## Requirements and installation
 
@@ -119,6 +121,47 @@ protocol, wait-timeout, terminal-operation, pagination, and integrity failures a
 distinct. Exceptions do not include keys, request bodies, queries, raw HTML, or
 document content.
 
+## Optional reranking (`0.2.0`)
+
+After a project owner configures their paid Jev key in the dashboard, request
+reranking for an individual search. This interface requires `ragwell>=0.2.0`:
+
+```python
+from ragwell import Ragwell
+from ragwell.types import RerankRequest
+
+with Ragwell() as client:
+    result = client.project(project_id).search(
+        query="What is the refund window?",
+        k=5,
+        rerank=RerankRequest(id="jev"),
+    )
+    for item in result.items:
+        print(item.scores.rerank, item.content)
+```
+
+`AsyncRagwell` exposes the same argument on `await project.search(...)`.
+Omitting `rerank` or passing `None` uses ordinary retrieval. A missing project key
+raises `ConflictError` with code `project_reranker_misconfigured`. Provider failures
+remain explicit, and the SDK never automatically retries a search. Jev charges
+the configured TypeSafe, OpenRouter or Vercel AI Gateway account. The client API
+key is your **Ragwell** key; never pass the provider key as a search parameter.
+Provider, API base URL and Jev model are project settings; the Ragwell SDK request
+stays the same for every route.
+`response.rerank` includes the provider, requested model and `resolved_model`
+(null when no scoring ran), so gateway model aliases remain traceable.
+
+Relevance is 0–3; `rerank_confidence` is separate on 0–1. Original source parts,
+text/vector scores and `hybrid` score remain available; `scores.final` follows the
+reranking order. The first version accepts no tuning parameters.
+
+## Runnable async example
+
+The [Python 3.12 example project](examples/async_project/README.md) installs the
+published SDK from PyPI. Copy its `env.example` to `.env`, configure your project,
+then run its scripts to sync a local document folder, retrieve to terminal/JSON,
+and clean the project.
+
 ## Development and qualification
 
 ```sh
@@ -130,16 +173,19 @@ uv run --locked pytest
 uv run --locked python -m build --no-isolation
 ```
 
-The vendored artifact is `2026-09-19.1`, machine SHA-256
-`8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90`.
+The vendored artifact is `2026-09-22.1`, machine SHA-256
+`edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509`.
 See [contract provenance](contracts/README.md),
 [generation qualification](docs/generation.md), and
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
 credentials, provider calls, private repository, or model downloads.
 
-The reviewed artifact is available in the public repository. Local installed-wheel HTTP qualification
-is recorded in [HTTP qualification](docs/http-qualification.md). The
-[release process](docs/releasing.md) records exact-artifact TestPyPI/PyPI controls.
+The current contract adds optional Jev reranking. The installed `0.2.0` candidate
+passed the deployed beta lifecycle with the matching live contract, and its package
+runtime passed a bounded synthetic Jev request. Representative quality, latency and
+cost evaluation remains separate product-rollout work. The
+[release process](docs/releasing.md) records the remaining hosted CI, TestPyPI and
+PyPI controls.
 
 An optional [beta lifecycle validation](docs/beta-validation.md) checks the installed
 wheel against a dedicated existing beta project with a scoped key. It starts no

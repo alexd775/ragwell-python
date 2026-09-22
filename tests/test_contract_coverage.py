@@ -37,9 +37,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _operation_documents() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    manifest = json.loads((ROOT / "contracts/2026-09-19.1/manifest.json").read_text())
+    manifest = json.loads((ROOT / "contracts/2026-09-22.1/manifest.json").read_text())
     mapping = json.loads((ROOT / "contracts/operations.json").read_text())
-    openapi = json.loads((ROOT / "contracts/2026-09-19.1/openapi.json").read_text())
+    openapi = json.loads((ROOT / "contracts/2026-09-22.1/openapi.json").read_text())
     return manifest, mapping, openapi
 
 
@@ -53,7 +53,7 @@ def _resolve_public_method(root: object, path: str) -> object:
 def test_vendored_digest_inventory_generated_and_public_mapping_are_complete() -> None:
     manifest, mapping, openapi = _operation_documents()
     digest = hashlib.sha256(
-        (ROOT / "contracts/2026-09-19.1/openapi.json").read_bytes()
+        (ROOT / "contracts/2026-09-22.1/openapi.json").read_bytes()
     ).hexdigest()
     assert digest == manifest["machine_sha256"] == mapping["machine_sha256"]
     assert manifest["operation_count"] == len(mapping["operations"]) == 26

@@ -1,27 +1,19 @@
 # Vendored machine contract
 
-The SDK uses artifact version `2026-09-19.1` from
-`contracts/2026-09-19.1/`. Its exact identity is the digest, not the version alone.
+The development SDK uses artifact `2026-09-22.1` from `contracts/2026-09-22.1/`.
+It adds typed optional Jev reranking and result scores to search. The inventory
+remains 26 operations; project credential management is browser-only.
 
-- Reviewed producer snapshot on 2026-09-21: API commit
-  `e8055ae5d9b92fe8f1f73e437b5a9b3e79ff05d8`.
-- Machine SHA-256:
-  `8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90`.
-- Canonical API SHA-256:
-  `57a1f942f7ca8b89186753a20320588b57e2425663b8529b36037066c02328bb`.
-- Inventory: 26 operations, including 25 bearer operations and public upload policy.
+- Producer: RAG API commit
+  `a4ea919b413eb4223f3f7874b48a27d4621a3bfb`, 2026-09-22.
+- Machine SHA-256: `edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509`.
+- Canonical SHA-256: `4e0922172d2c8f9c2696a46153b20bdf6d48d6df6862421f5403da59de283151`.
 
-The 2026-09-21 refresh changes only the description of the deletion operation's
-503 response from “A required dependency is unavailable.” to “Service Unavailable”.
-The previous machine digest was
-`06d0efac740946c21f0ddfa3d873e2197cf4924487ed512d08b8c2fd824978bd`.
-Wire definitions and generated code are unchanged; the canonical producer digest
-also reflects browser API changes outside the machine projection.
+The prior `2026-09-19.1` artifact remains preserved for the published 0.1.0 release.
+This SDK change is not yet a published release and does not inherit the old
+artifact's qualification. The deployed beta projection matched the new machine
+digest during installed-wheel validation; normal tests remain offline and synthetic.
 
-Generation, tests, builds and installation need no backend checkout. The wheel
-includes the reviewed OpenAPI and manifest under `ragwell/_contract/`; the real
-HTTP runner compares these to the running service's public OpenAPI projection.
-
-Run `uv run --locked python scripts/generate.py --check` to verify the digest,
-manifest inventory and deterministic generated output. Vendoring does not imply
-publication or hosted deployment.
+Generation, tests, builds and installation require no backend checkout. The wheel
+includes the selected OpenAPI and manifest under `ragwell/_contract/`. Run
+`uv run --locked python scripts/generate.py --check` to verify deterministic output.

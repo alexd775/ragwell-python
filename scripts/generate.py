@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ARTIFACT = ROOT / "contracts" / "2026-09-19.1"
+ARTIFACT = ROOT / "contracts" / "2026-09-22.1"
 OPENAPI = ARTIFACT / "openapi.json"
 MANIFEST = ARTIFACT / "manifest.json"
 CONFIG = ROOT / "openapi-python-client.yaml"

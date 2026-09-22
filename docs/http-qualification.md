@@ -26,7 +26,7 @@ with that environment's interpreter, not an editable SDK installation:
 RAGWELL_QUALIFICATION_CREDENTIALS_FILE=/private/fixture/credentials.json \
   /path/to/venv/bin/python qualification/http_runner.py \
   --manifest /private/fixture/manifest.json \
-  --wheel /absolute/path/ragwell-0.1.0-py3-none-any.whl \
+  --wheel /absolute/path/ragwell-0.2.0-py3-none-any.whl \
   --output /absolute/path/qualification-result.json
 ```
 

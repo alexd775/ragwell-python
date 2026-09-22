@@ -1,7 +1,7 @@
 # Python SDK reference
 
-This reference describes the maintained `0.1.0` interface. Both `Ragwell` and
-`AsyncRagwell` expose the same 26 machine operations. Examples below use a sync
+This reference describes the maintained `0.2.0` release-candidate interface. Both
+`Ragwell` and `AsyncRagwell` expose the same 26 machine operations. Examples below use a sync
 `project = client.project(project_id)`; await equivalent async calls and use
 `async for` for async iterators. The project handle is local and makes no request.
 IDs accept `uuid.UUID` or UUID strings. Results and request models are imported
@@ -189,3 +189,25 @@ document, export it temporarily and delete it in `finally`. Their cleanup can st
 fail if the API is unavailable; retain any error's recovery identifiers. The
 [beta runner](beta-validation.md) adds durable reporting, upload recovery, wheel
 identity and stricter integration assertions for release validation.
+
+
+## Optional Jev reranking (`0.2.0`)
+
+`project.search(query=..., k=5, rerank=RerankRequest(id="jev"))` and its async
+counterpart use the existing `retrieval:search` scope. Import `RerankRequest` from
+`ragwell.types`. Omit the argument or use `None` to skip reranking. `params` may be
+omitted or `RerankParams()`; no provider-specific tuning is currently supported.
+Project owners configure TypeSafe, OpenRouter or Vercel AI Gateway, API base URL,
+Jev model ID and paid credentials in dashboard settings.
+The SDK neither accepts nor administers provider credentials.
+
+Results preserve all source identities and parts. `response.rerank` identifies
+provider, requested model, resolved model, policy, configuration revision, candidate
+count, and whether scoring ran. `resolved_model` is null when no scoring ran.
+No candidates means `applied=False` and no provider call. Reranked `scores.final`
+and `scores.rerank` are 0–3 relevance; `scores.hybrid` preserves the original ranking
+score and `scores.rerank_confidence` is a distinct 0–1 confidence measure.
+
+Missing project configuration returns `409 project_reranker_misconfigured`.
+Unknown parameters fail validation. Provider error/deadline failures return typed
+API errors; the SDK does not retry or silently fall back to ordinary retrieval.

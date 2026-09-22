@@ -87,6 +87,10 @@ from .processing_service_class_id import ProcessingServiceClassId
 from .processing_service_class_response import ProcessingServiceClassResponse
 from .project_response import ProjectResponse
 from .replace_document_metadata_request import ReplaceDocumentMetadataRequest
+from .rerank_metadata import RerankMetadata
+from .rerank_metadata_provider import RerankMetadataProvider
+from .rerank_params import RerankParams
+from .rerank_request import RerankRequest
 from .retrieval_citation_response import RetrievalCitationResponse
 from .retrieval_item_response import RetrievalItemResponse
 from .retrieval_scores_response import RetrievalScoresResponse
@@ -175,6 +179,10 @@ __all__ = (
     "ProcessingServiceClassResponse",
     "ProjectResponse",
     "ReplaceDocumentMetadataRequest",
+    "RerankMetadata",
+    "RerankMetadataProvider",
+    "RerankParams",
+    "RerankRequest",
     "RetrievalCitationResponse",
     "RetrievalItemResponse",
     "RetrievalScoresResponse",

@@ -7,6 +7,7 @@ class CommandAcceptanceOperation(str, Enum):
     EXPORT_CREATE = "export.create"
     JOB_CANCEL = "job.cancel"
     JOB_RETRY = "job.retry"
+    RERANKER_CONFIGURE = "reranker.configure"
 
     def __str__(self) -> str:
         return str(self.value)

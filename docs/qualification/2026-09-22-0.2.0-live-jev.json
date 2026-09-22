@@ -1,0 +1,20 @@
+{
+  "base_url": "https://api-beta.ragwell.dev",
+  "candidate_count": 1,
+  "cleanup": "deleted",
+  "configuration_revision": 1,
+  "finished_at": "2026-09-22T18:30:21.141566+00:00",
+  "model": "jev-1.13.0",
+  "project_id": "244c70d1-e2ea-445d-a454-03ca8c3672eb",
+  "provider": "typesafe",
+  "qualification": "live_jev_rerank",
+  "report_version": 1,
+  "resolved_model": "jev-1.13.0",
+  "result_count": 1,
+  "retrieval_version": "hybrid-pg-simple-source-identity-cosine-rrf60-parts-v5+jev-relevance-v1",
+  "score_checks": "passed",
+  "sdk_version": "0.2.0",
+  "started_at": "2026-09-22T18:30:14.237835+00:00",
+  "status": "passed",
+  "wheel_sha256": "0dce10643485370803de4030573e499b688c2bac2d9ea1a7238429ebb462ee63"
+}

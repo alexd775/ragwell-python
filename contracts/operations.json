@@ -1,6 +1,6 @@
 {
-  "artifact_version": "2026-09-19.1",
-  "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+  "artifact_version": "2026-09-22.1",
+  "machine_sha256": "edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509",
   "operations": [
     {"operation_id": "get_document_upload_policy_v1_document_upload_policy_get", "method": "GET", "path": "/v1/document-upload-policy", "sync": "client.upload_policy.get", "async": "client.upload_policy.get"},
     {"operation_id": "get_project_v1_projects__project_id__get", "method": "GET", "path": "/v1/projects/{project_id}", "sync": "project.get", "async": "project.get"},

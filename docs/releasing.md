@@ -5,6 +5,20 @@ The first developer beta is `ragwell==0.1.0`, published from the immutable
 The SDK repository owns its release. API deployment and API CI do not build or
 publish SDK packages.
 
+The next candidate is `ragwell==0.2.0`, adding the `2026-09-22.1` machine contract
+and optional Jev reranking. Its source version is prepared. The installed candidate
+passed the deployed beta lifecycle against the matching contract, and the same
+package runtime passed a bounded synthetic Jev request through the configured
+TypeSafe route. It still requires a fresh hosted matrix and the protected
+publication sequence below before it is a published release. Representative
+quality, latency and cost evaluation remains a separate product-rollout gate rather
+than an SDK transport gate.
+The local 0.2.0 source gate is recorded in [local qualification](local-qualification.md);
+the [beta report](qualification/2026-09-22-0.2.0-beta-lifecycle.json) records the
+installed-wheel lifecycle evidence, and the
+[live Jev report](qualification/2026-09-22-0.2.0-live-jev.json) records the paid
+provider path. Neither replaces the exact-revision hosted matrix.
+
 ## Local preparation
 
 Run the README checks from the locked SDK environment: Ruff formatting/lint,
@@ -91,8 +105,8 @@ matched the workflow artifacts exactly. A fresh CPython 3.11 environment install
 
 ## Release sequence
 
-1. Refresh the final checks and evidence, commit the `0.1.0` version and
-   changelog, obtain a green CI matrix, and create the matching `v0.1.0` tag only
+1. Refresh the final checks and evidence, commit the selected stable version and
+   changelog, obtain a green CI matrix, and create the matching `vX.Y.Z` tag only
    after reviewing the immutable commit.
 2. Let the tag workflow publish and verify TestPyPI. Run the beta lifecycle against
    the exact staged wheel, review its hashes, then approve the protected `pypi`
@@ -100,6 +114,9 @@ matched the workflow artifacts exactly. A fresh CPython 3.11 environment install
 3. Record immutable artifacts, provenance, changelog and compatibility information.
    Verify the final package installs from the intended index. Yank/supersede a faulty
    release; never overwrite uploaded files.
+4. Only after `ragwell==0.2.0` is available from PyPI, update the asynchronous
+   example's PyPI pin and lockfile and add its `--rerank` option in a follow-up
+   commit. The example must not use a repository path or editable source override.
 
 This sequence keeps source preparation separate from the release tag and package
 uploads. Preparing a candidate by itself creates none of them.

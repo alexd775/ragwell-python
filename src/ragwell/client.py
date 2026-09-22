@@ -55,12 +55,14 @@ from ._generated.models import (
     IngestionJobStatus,
     ProjectResponse,
     ReplaceDocumentMetadataRequest,
+    RerankRequest,
     SearchFilters,
     SearchRequest,
     SearchResponse,
     UploadSessionResponse,
 )
 from ._generated.types import UNSET, Unset
+from ._search import validate_search_response
 from ._sync_http import DeadlineHTTPTransport
 from ._transport import SyncByteStream, SyncTransport
 from .errors import (
@@ -193,8 +195,9 @@ class Project:
         query: str,
         filters: SearchFilters | None | Unset = UNSET,
         k: int = 5,
+        rerank: RerankRequest | None | Unset = UNSET,
     ) -> SearchResponse:
-        body = SearchRequest(query=query, filters=filters, k=k)
+        body = SearchRequest(query=query, filters=filters, k=k, rerank=rerank)
         return self._transport.request(
             operation_id="search_v1_projects__project_id__search_post",
             method="POST",
@@ -203,6 +206,7 @@ class Project:
             expected_statuses={200},
             json=body.to_dict(),
             retry_mode="none",
+            validator=validate_search_response,
         )
 
 

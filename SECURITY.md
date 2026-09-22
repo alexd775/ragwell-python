@@ -1,7 +1,8 @@
 # Security policy
 
-This policy covers the `0.1.0` developer beta and its release candidate. There is no
-guaranteed response-time SLA. Maintenance initially covers the current 0.x minor.
+This policy covers the published `0.1.0` developer beta and the `0.2.0` release
+candidate. There is no guaranteed response-time SLA. Maintenance initially covers
+the current 0.x minor.
 
 ## Reporting a vulnerability
 

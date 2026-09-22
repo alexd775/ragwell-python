@@ -1,5 +1,6 @@
 """Typed synchronous and asynchronous clients for the Ragwell retrieval API."""
 
+from ._version import __version__
 from .async_client import AsyncRagwell
 from .client import Ragwell
 from .errors import (
@@ -22,8 +23,6 @@ from .errors import (
     ValidationError,
     WaitTimeoutError,
 )
-
-__version__ = "0.1.0"
 
 __all__ = [
     "ApiError",

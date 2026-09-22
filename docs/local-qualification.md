@@ -251,3 +251,46 @@ and `Ragwell` plus `AsyncRagwell` imported successfully. The public
 attaches the same wheel and source archive, with matching GitHub-reported SHA-256
 digests. See the [publication record](qualification/2026-09-22-release-publication.json).
 This closes the SDK release gates without changing the immutable release tag.
+
+## 2026-09-22 version 0.2.0 source candidate
+
+The source version, public `__version__`, lock metadata and HTTP user agent now
+identify `0.2.0`. The `2026-09-22.1` machine artifact adds optional Jev reranking;
+the SDK rejects malformed reranking metadata at the transport boundary and keeps
+the server request ID on the resulting safe `ProtocolError`.
+
+The local source candidate passed Ruff format and lint, strict mypy for 151 source
+files, deterministic generation, lock consistency and 165 tests. Those tests include
+sync/async reranking request and score decoding, citations, no replay, typed provider
+errors, malformed-response rejection, wheel-from-sdist construction and clean
+installed-wheel import of `RerankRequest`. A separate build produced the expected
+`ragwell-0.2.0` wheel and source archive; Twine 7.0.0 strict metadata checks passed,
+and the wheel embeds the reviewed contract digest and all reranking/runtime modules.
+
+This is working-tree preparation evidence, not an immutable release artifact. The
+deployed beta machine projection matched the packaged digest, and the exact wheel
+passed the bounded sync/async beta lifecycle, including ingestion, retrieval,
+provenance, verified export and durable cleanup. The sanitized result is recorded in
+[the 0.2.0 beta report](qualification/2026-09-22-0.2.0-beta-lifecycle.json).
+
+After the project received its customer-owned Jev credential, the installed wheel
+completed a bounded synthetic reranking request through TypeSafe. The response
+reported applied Jev metadata, model `jev-1.13.0`, one candidate and one result;
+the SDK verified score ranges, final/rerank equality, citation and source-part
+preservation, document/version scoping and the reranking retrieval version. Durable
+cleanup deleted the synthetic document. The sanitized result is recorded in
+[the live Jev report](qualification/2026-09-22-0.2.0-live-jev.json).
+
+This confirms the installed SDK and deployed API/provider path, not representative
+ranking quality, latency or cost. Those require the versioned evaluation corpus and
+accepted thresholds. The SDK source still needs its exact-revision hosted matrix
+and protected TestPyPI/PyPI publication sequence. No commit, tag, push or
+publication occurred at this checkpoint.
+
+The live Jev report names wheel
+`0dce10643485370803de4030573e499b688c2bac2d9ea1a7238429ebb462ee63`.
+Restoring the example to its published-PyPI dependency changed README-derived wheel
+metadata but none of the 144 installed `ragwell/` files. The revised exact wheel is
+recorded by the beta lifecycle report; the package-runtime comparison was
+byte-for-byte identical. The example stays on published `0.1.0` until `0.2.0` is
+available from PyPI, then receives its version and reranking update separately.
