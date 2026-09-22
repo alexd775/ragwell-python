@@ -37,13 +37,13 @@ From the SDK repository, build a new candidate and install it in a fresh environ
 uv run --locked python -m build --no-isolation --outdir /absolute/path/candidate
 python3 -m venv /absolute/path/beta-validation-venv
 /absolute/path/beta-validation-venv/bin/python -m pip install \
-  /absolute/path/candidate/ragwell-0.1.0.dev0-py3-none-any.whl
+  /absolute/path/candidate/ragwell-0.1.0-py3-none-any.whl
 
 RAGWELL_BETA_API_KEY_FILE=/private/path/to/key \
   /absolute/path/beta-validation-venv/bin/python -m qualification.beta_runner \
   --base-url https://api-beta.ragwell.dev \
   --project-id YOUR_PROJECT_UUID \
-  --wheel /absolute/path/candidate/ragwell-0.1.0.dev0-py3-none-any.whl \
+  --wheel /absolute/path/candidate/ragwell-0.1.0-py3-none-any.whl \
   --output /absolute/path/new-beta-validation-report.json
 ```
 

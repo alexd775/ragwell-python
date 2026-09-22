@@ -224,7 +224,7 @@ def _prepare_request(request: httpx.Request, api_key: str | None) -> None:
     else:
         request.headers["Authorization"] = f"Bearer {api_key}"
     request.headers["Accept-Encoding"] = "gzip, deflate"
-    request.headers["User-Agent"] = "ragwell-python/0.1.0.dev0"
+    request.headers["User-Agent"] = "ragwell-python/0.1.0"
 
 
 def _annotate(error: RagwellError, response: httpx.Response) -> None:

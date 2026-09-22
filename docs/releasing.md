@@ -1,9 +1,8 @@
 # Release preparation
 
-The next intended release is `ragwell==0.1.0`, a developer beta. The current source
-remains `0.1.0.dev0`; no package publication or tag is implied by this document.
-The SDK repository owns its release. API deployment and API CI do not build or
-publish SDK packages.
+The prepared release is `ragwell==0.1.0`, a developer beta. A source version does
+not imply package publication or a tag. The SDK repository owns its release. API
+deployment and API CI do not build or publish SDK packages.
 
 ## Local preparation
 
@@ -30,7 +29,7 @@ but final-release artifact qualification still remains a gate.
 
 ## Hosted source gate
 
-All eight hosted jobs passed for revision `909b6eb` on 2026-09-21: Linux CPython
+All eight hosted jobs passed for revision `0240fec` on 2026-09-22: Linux CPython
 3.11–3.14 and macOS/Windows CPython 3.11 and 3.14. This closes the previously
 deferred hosted gate for that revision. Any later release-source change needs its
 own green matrix.
@@ -60,32 +59,29 @@ Configure pending Trusted Publishers on both indexes with these exact identities
 | Workflow | `release.yml` | `release.yml` |
 | Environment | `testpypi` | `pypi` |
 
-Neither index contained a `ragwell` project when checked on 2026-09-22. A pending
-publisher does not reserve the name; the first successful upload creates the project.
-Do not create the release tag until both publishers and environments are verified.
+Neither index contained a `ragwell` project when checked on 2026-09-22. Alex then
+confirmed the exact pending publishers on both accounts. A pending publisher does
+not reserve the name; the first successful upload creates the project.
+
+GitHub private vulnerability reporting is enabled. The `testpypi` environment allows
+only `v*` tags. The `pypi` environment allows only `v*` tags, requires `alexd775`
+approval, permits self-review for the sole maintainer and disallows administrator
+bypass. Neither environment contains secrets or variables.
 
 ## Remaining external gates
 
-1. Enable and verify GitHub private vulnerability reporting, as recorded in
-   [SECURITY.md](../SECURITY.md). This is a repository-setting change requiring the
-   maintainer's authorization.
-2. Create the `testpypi` and `pypi` GitHub environments. Require manual approval for
-   `pypi`; restrict both to protected release tags before any tag is created.
-3. Sign in separately to PyPI and TestPyPI, verify both accounts, and register the
-   exact pending Trusted Publisher identities above. Name availability does not
-   establish ownership or reserve the name.
-4. Select `0.1.0`, refresh the final checks and evidence, commit the version and
+1. Refresh the final checks and evidence, commit the `0.1.0` version and
    changelog, obtain a green CI matrix, and create the matching `v0.1.0` tag only
    after reviewing the immutable commit.
-5. Let the tag workflow publish and verify TestPyPI. Review its recorded hashes,
-   then approve the protected `pypi` deployment. Do not rebuild between indexes.
-6. Record immutable artifacts, provenance, changelog and compatibility information.
+2. Let the tag workflow publish and verify TestPyPI. Run the beta lifecycle against
+   the exact staged wheel, review its hashes, then approve the protected `pypi`
+   deployment. Do not rebuild between indexes.
+3. Record immutable artifacts, provenance, changelog and compatibility information.
    Verify the final package installs from the intended index. Yank/supersede a faulty
    release; never overwrite uploaded files.
 
-Repository settings, publisher ownership/configuration and publication remain
-outstanding. Preparing the workflow does not create an environment, publisher,
-release tag, GitHub release or package upload.
+Final source evidence, the release tag and publication remain outstanding. No tag,
+GitHub release or package upload is created by preparing the candidate.
 
 References: [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/),
 [Twine metadata checks](https://twine.readthedocs.io/en/stable/),

@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 
 import httpx
 
+from ragwell import __version__
+
 PROJECT_ID = "00000000-0000-0000-0000-000000000001"
 DOCUMENT_ID = "00000000-0000-0000-0000-000000000002"
 VERSION_ID = "00000000-0000-0000-0000-000000000003"
@@ -352,6 +354,7 @@ class RecordingAPI:
             assert request.headers["Authorization"] == "Bearer test-key"
         assert "Cookie" not in request.headers
         assert "X-CSRF-Token" not in request.headers
+        assert request.headers["User-Agent"] == f"ragwell-python/{__version__}"
         path = request.url.path
         if path.endswith(f"/exports/{EXPORT_ID}/parts/0"):
             return httpx.Response(

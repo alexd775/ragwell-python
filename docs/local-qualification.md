@@ -182,3 +182,37 @@ between isolated jobs, uses exact-action commits and grants OIDC only to the two
 publisher jobs. It stages on TestPyPI, hash-compares and installs the downloaded
 wheel, then gates publication of the same artifacts on the protected `pypi`
 environment. No environment, Trusted Publisher, tag, release or package was created.
+
+## 2026-09-22 version 0.1.0 release candidate
+
+The source version, public `__version__` and HTTP user agent now identify `0.1.0`.
+The dependency lock changed only the local project version. CI discovers the built
+wheel instead of embedding a development-version filename, and deterministic tests
+now require distribution/public/user-agent version agreement.
+
+The local candidate passed Ruff format and lint, strict mypy for 144 source files,
+deterministic generation, actionlint 1.7.12, offline lock verification and 157 tests
+on each of CPython 3.11.16 and 3.14.0. The wheel-from-sdist build and Twine 7.0.0
+strict metadata checks passed. A clean CPython 3.11 environment using the declared
+minimum direct dependencies imported `0.1.0` and constructed/closed the client.
+
+pip-audit 2.10.1 checked all 41 exact runtime/development versions represented in
+the cross-platform lock and found no known vulnerabilities or skipped packages.
+Gitleaks 8.30.1 with default rules and the Ragwell credential rule reported 6 source,
+6 archive and 7 history findings. Every finding is a previously reviewed public
+contract/commit digest or run-owned idempotency identifier; the explicit Ragwell
+credential rule found zero matches and no credential was confirmed. Runtime
+dependencies did not change, so the 2026-09-21 license inventory remains current.
+
+Private vulnerability reporting is verified enabled. GitHub's `testpypi` and `pypi`
+environments are limited to `v*` tags; `pypi` requires `alexd775` approval and
+disallows administrator bypass. Alex confirmed the exact pending Trusted Publisher
+identity separately in both index accounts. Neither index project exists until its
+first successful upload.
+
+See the [candidate evidence](qualification/2026-09-22-release-candidate.json) and
+[refreshed dependency audit](qualification/2026-09-22-dependency-audit.json). The
+local wheel digest is preparation evidence. The tag workflow will build the final
+immutable artifacts, record their hashes and stage them on TestPyPI. Run the beta
+lifecycle against that exact staged wheel before approving the guarded PyPI job.
+No tag, GitHub release or package upload is claimed by this checkpoint.

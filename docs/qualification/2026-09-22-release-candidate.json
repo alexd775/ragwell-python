@@ -1,0 +1,69 @@
+{
+  "artifacts": {
+    "local_candidate_wheel": {
+      "filename": "ragwell-0.1.0-py3-none-any.whl",
+      "sha256": "ce402ea0ead9a2a7c2d1d4bce33073056898302b7c7abe0c9cb7bf2f605cd0e3"
+    },
+    "release_sdist": {
+      "sha256": null,
+      "reason": "The tagged release workflow records the final sdist hash outside the sdist itself."
+    }
+  },
+  "base_revision": "0240fec686e46dd40701805603c1d56e0bd17b29",
+  "candidate_revision": null,
+  "candidate_revision_reason": "This report is part of the candidate changes; the hosted workflow records the immutable committed revision.",
+  "checks": {
+    "actionlint": "1.7.12 passed for CI and release workflows",
+    "contract_generation": "passed",
+    "dependency_audit": {
+      "known_vulnerabilities": 0,
+      "packages": 41,
+      "report": "2026-09-22-dependency-audit.json",
+      "skipped": 0,
+      "tool": "pip-audit 2.10.1"
+    },
+    "lock": "passed; only the local project version changed",
+    "minimum_runtime_dependencies": "passed on CPython 3.11.16",
+    "mypy": "passed; 144 source files",
+    "pytest": {
+      "cpython_3_11_16": 157,
+      "cpython_3_14_0": 157
+    },
+    "ruff_check": "passed",
+    "ruff_format": "passed",
+    "secret_scan": {
+      "confirmed_credentials": 0,
+      "distribution_findings": 6,
+      "history_findings": 7,
+      "ragwell_api_key_findings": 0,
+      "source_findings": 6,
+      "tool": "gitleaks 8.30.1",
+      "triage": "Public contract/commit digests and run-owned idempotency identifiers only."
+    },
+    "twine": "7.0.0 strict metadata checks passed"
+  },
+  "date": "2026-09-22",
+  "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+  "publication": {
+    "github_environments": {
+      "pypi": {
+        "admin_bypass": false,
+        "allowed_tag": "v*",
+        "prevent_self_review": false,
+        "required_reviewer": "alexd775"
+      },
+      "testpypi": {
+        "allowed_tag": "v*",
+        "required_reviewer": null
+      }
+    },
+    "private_vulnerability_reporting": true,
+    "published": false,
+    "pypi_project_http_status": 404,
+    "pypi_trusted_publisher": "user-confirmed pending",
+    "testpypi_project_http_status": 404,
+    "testpypi_trusted_publisher": "user-confirmed pending"
+  },
+  "sdk_version": "0.1.0",
+  "status": "local_candidate_passed_pending_commit_hosted_ci_and_tag"
+}

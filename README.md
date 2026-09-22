@@ -3,16 +3,16 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: development SDK (`0.1.0.dev0`).** The complete reviewed machine API is
-implemented and qualified from an installed wheel against an isolated local HTTP
-service. The package is unpublished; its Linux, macOS and Windows CI matrix passes.
-The SDK returns retrieval
-evidence and citations; it does not generate answers.
+**Status: `0.1.0` developer-beta release candidate.** The complete reviewed machine
+API is implemented and qualified from an installed wheel against an isolated local
+HTTP service. The package remains unpublished while its final artifact follows the
+protected TestPyPI and PyPI release path. The SDK returns retrieval evidence and
+citations; it does not generate answers.
 
 ## Requirements and installation
 
-Python 3.11 or newer is required. The planned distribution name is `ragwell`, but
-PyPI ownership and publication have not been completed. For local development:
+Python 3.11 or newer is required. The distribution name is `ragwell`; publication
+has not yet completed. For local development:
 
 ```sh
 uv sync --locked --python 3.11
@@ -135,8 +135,8 @@ See [contract provenance](contracts/README.md),
 credentials, provider calls, private repository, or model downloads.
 
 The reviewed artifact is available in the public repository. Local installed-wheel HTTP qualification
-is recorded in [HTTP qualification](docs/http-qualification.md). Package ownership,
-protected TestPyPI/PyPI publication and service availability remain release gates.
+is recorded in [HTTP qualification](docs/http-qualification.md). Exact-artifact
+TestPyPI/PyPI publication and service availability remain release gates.
 
 An optional [beta lifecycle validation](docs/beta-validation.md) checks the installed
 wheel against a dedicated existing beta project with a scoped key. It starts no

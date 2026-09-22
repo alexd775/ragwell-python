@@ -1,6 +1,6 @@
 # Python SDK reference
 
-This reference describes the maintained `0.1.0.dev0` interface. Both `Ragwell` and
+This reference describes the maintained `0.1.0` interface. Both `Ragwell` and
 `AsyncRagwell` expose the same 26 machine operations. Examples below use a sync
 `project = client.project(project_id)`; await equivalent async calls and use
 `async for` for async iterators. The project handle is local and makes no request.

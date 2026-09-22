@@ -221,6 +221,7 @@ assert Path(ragwell.__file__).resolve().is_relative_to(Path(sys.prefix).resolve(
 assert files(ragwell).joinpath("py.typed").is_file()
 package = distribution("ragwell")
 assert package.metadata["Name"] == "ragwell"
+assert package.version == ragwell.__version__
 assert package.metadata["License-Expression"] == "MIT"
 requirements = package.requires or []
 assert requirements == [

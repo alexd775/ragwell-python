@@ -1,8 +1,8 @@
 # Compatibility and support
 
-The SDK is currently an unpublished development build (`0.1.0.dev0`). The intended
-first package release is `0.1.0`, a developer beta. Do not treat a planned release
-or configured CI job as a published or qualified artifact.
+The SDK source is prepared as `0.1.0`, the first developer beta. Until the protected
+release workflow completes, do not treat the source version or configured publisher
+as a published artifact.
 
 ## Public interface
 
@@ -35,7 +35,7 @@ A bad release is superseded or yanked; existing published files are never replac
 
 The syntax/runtime floor is Python 3.11. The configured release matrix targets
 CPython 3.11–3.14 on Linux and the oldest/newest versions on macOS and Windows.
-All eight hosted jobs passed at SDK revision `909b6eb` on 2026-09-21: Linux
+All eight hosted jobs passed at SDK revision `0240fec` on 2026-09-22: Linux
 3.11–3.14 and macOS/Windows 3.11 and 3.14. Later release-source changes require a
 fresh passing matrix for their exact revision.
 PyPy, Trio, free-threaded Python and later Python versions are not qualified.

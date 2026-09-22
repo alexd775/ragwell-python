@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ragwell"
-version = "0.1.0.dev0"
+version = "0.1.0"
 description = "Typed Python SDK for the Ragwell managed retrieval API"
 readme = "README.md"
 requires-python = ">=3.11"

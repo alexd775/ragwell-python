@@ -2,8 +2,8 @@
 
 The complete synchronous and asynchronous matrix passed against an isolated,
 migrated local API on 2026-09-21. This is deterministic HTTP integration evidence.
-Hosted CI, production-provider qualification and package publication remain separate
-gates; the SDK is still `0.1.0.dev0`.
+Hosted CI and the separate beta lifecycle check pass; package publication remains a
+separate gate for the prepared `0.1.0` source.
 
 Qualification is **endpoint-only**. The SDK repository owns the HTTP assertions,
 wheel verification and reports. It does not start the API, access its database,
@@ -26,7 +26,7 @@ with that environment's interpreter, not an editable SDK installation:
 RAGWELL_QUALIFICATION_CREDENTIALS_FILE=/private/fixture/credentials.json \
   /path/to/venv/bin/python qualification/http_runner.py \
   --manifest /private/fixture/manifest.json \
-  --wheel /absolute/path/ragwell-0.1.0.dev0-py3-none-any.whl \
+  --wheel /absolute/path/ragwell-0.1.0-py3-none-any.whl \
   --output /absolute/path/qualification-result.json
 ```
 

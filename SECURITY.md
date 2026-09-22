@@ -1,21 +1,16 @@
 # Security policy
 
-This SDK is an unpublished developer build. Package publication remains gated on
-release checks and a verified private reporting channel. There is no supported
-stable release or guaranteed response-time SLA yet. After the first beta release,
-maintenance initially covers the current 0.x minor.
+This policy covers the `0.1.0` developer beta and its release candidate. There is no
+guaranteed response-time SLA. Maintenance initially covers the current 0.x minor.
 
 ## Reporting a vulnerability
 
 Do not put API keys, credentials, document/query contents, exploit details involving
 other tenants, or raw HTTP dumps in public GitHub issues.
 
-The intended channel is GitHub's private vulnerability reporting for this repository.
-**Release prerequisite:** the repository's reporting setting was verified disabled
-on 2026-09-21. The maintainer must enable it and verify the private “Report a
-vulnerability” route before publishing the package. This document does not claim
-that an unconfigured private channel is available. Until it is enabled, use a
-public issue only to request a private contact, without sensitive details.
+Use GitHub's private “Report a vulnerability” route for this repository. Private
+vulnerability reporting was verified enabled on 2026-09-22. Use public issues only
+for non-sensitive defects and questions.
 
 When a private route is available, include a minimal synthetic reproduction, affected
 SDK/API contract versions, impact, and safe request IDs. Avoid sending active keys
