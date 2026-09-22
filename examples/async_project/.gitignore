@@ -1,0 +1,9 @@
+.env
+.env.*
+.venv/
+__pycache__/
+.pytest_cache/
+results/
+documents/*
+!documents/observatory.md
+!documents/visiting.txt
