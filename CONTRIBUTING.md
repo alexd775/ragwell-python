@@ -58,8 +58,12 @@ A legal person or entity name has not been supplied; confirm any replacement
 attribution with the owner rather than guessing it. Releases use the protected
 Trusted Publishing workflow; never add package-index tokens or upload manually.
 
-Keep the [API reference](docs/api-reference.md), [compatibility policy](docs/compatibility.md)
+Keep the [API reference](docs/reference/client-and-resources.md), [compatibility policy](docs/help/compatibility.md)
 and [changelog](CHANGELOG.md) current when behavior changes. Execute examples as
 part of the offline suite. Follow the [release runbook](docs/release-runbook.md) to
 publish, [release preparation](docs/releasing.md) for artifact/security gates, and
 [SECURITY.md](SECURITY.md) for confidential reports.
+
+For documentation changes, update [the docs index](docs/index.md) as needed and
+run `python3 scripts/check_docs.py`. A separate docs workflow checks local links, Markdown/Mermaid fences, and Python snippet syntax; the Python matrix is skipped for documentation-only
+changes. The release workflow always runs its full gates for a tag.

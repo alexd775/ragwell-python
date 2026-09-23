@@ -9,6 +9,10 @@ including optional Jev reranking, and is published on
 installation and the deployed beta lifecycle. The SDK returns retrieval evidence
 and citations; it does not generate answers.
 
+New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
+[the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
+uses the published package from PyPI.
+
 ## Requirements and installation
 
 Python 3.11 or newer is required. Install the `ragwell` distribution from PyPI:
@@ -190,10 +194,10 @@ An optional [beta lifecycle validation](docs/beta-validation.md) checks the inst
 wheel against a dedicated existing beta project with a scoped key. It starts no
 services and is separate from the full fixture matrix and ordinary offline CI.
 
-Documentation: [API reference and scopes](docs/api-reference.md),
+Documentation: [SDK docs](docs/index.md), [API reference and scopes](docs/reference/client-and-resources.md),
 [sync lifecycle example](examples/sync_lifecycle.py),
 [async lifecycle example](examples/async_lifecycle.py),
-[compatibility and support](docs/compatibility.md), [security policy](SECURITY.md),
+[compatibility and support](docs/help/compatibility.md), [security policy](SECURITY.md),
 [changelog](CHANGELOG.md), [release runbook](docs/release-runbook.md), and
 [release preparation](docs/releasing.md).
 

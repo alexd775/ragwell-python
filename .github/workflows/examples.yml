@@ -3,9 +3,15 @@ name: Examples
 on:
   push:
     branches: [main]
-    paths: ["examples/async_project/**", ".github/workflows/examples.yml"]
+    paths:
+      - "examples/async_project/**"
+      - "!examples/async_project/README.md"
+      - ".github/workflows/examples.yml"
   pull_request:
-    paths: ["examples/async_project/**", ".github/workflows/examples.yml"]
+    paths:
+      - "examples/async_project/**"
+      - "!examples/async_project/README.md"
+      - ".github/workflows/examples.yml"
   workflow_dispatch:
 
 permissions:

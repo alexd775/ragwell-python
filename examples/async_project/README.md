@@ -78,3 +78,7 @@ API key and local folder. `--timeout 600` increases the wait per deletion; incom
 cleanup exits nonzero. Avoid concurrent uploads while cleaning.
 
 Run any script with `--help`. Offline example tests: `uv run pytest`.
+
+For a smaller first Python script, see the [SDK quickstart](../../docs/quickstart.md).
+For lifecycle, recovery and the public method list, browse the
+[SDK documentation](../../docs/index.md).

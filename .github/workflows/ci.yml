@@ -10,7 +10,62 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: Classify changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    outputs:
+      run_full: ${{ steps.classify.outputs.run_full }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Run SDK matrix only when non-documentation files change
+        id: classify
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          changed=""
+          known=false
+          if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+            if [[ -n "${PR_BASE_SHA}" && -n "${PR_HEAD_SHA}" ]] &&
+              merge_base="$(git merge-base "${PR_BASE_SHA}" "${PR_HEAD_SHA}")" &&
+              changed="$(git diff --name-only "${merge_base}" "${PR_HEAD_SHA}")"; then
+              known=true
+            fi
+          elif [[ "${EVENT_NAME}" == "push" ]]; then
+            if [[ -n "${BEFORE_SHA}" && ! "${BEFORE_SHA}" =~ ^0+$ ]] &&
+              git cat-file -e "${BEFORE_SHA}^{commit}" &&
+              changed="$(git diff --name-only "${BEFORE_SHA}" "${GITHUB_SHA}")"; then
+              known=true
+            fi
+          fi
+
+          run_full=true
+          if [[ "${known}" == true && -n "${changed}" ]]; then
+            run_full=false
+            while IFS= read -r path; do
+              case "${path}" in
+                docs/*|README.md|CONTRIBUTING.md|CHANGELOG.md|SECURITY.md|contracts/README.md|examples/async_project/README.md|.github/workflows/docs.yml)
+                  ;;
+                *)
+                  run_full=true
+                  break
+                  ;;
+              esac
+            done <<< "${changed}"
+          fi
+          echo "run_full=${run_full}" >> "${GITHUB_OUTPUT}"
+          echo "Run full SDK matrix: ${run_full}"
+
   check:
+    needs: changes
+    if: needs.changes.outputs.run_full == 'true'
     name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -52,6 +107,8 @@ jobs:
           .dependency-floor/bin/python -I -c "import ragwell; c = ragwell.Ragwell(base_url='https://api.example.test', api_key='test-key'); c.close()"
 
   os-smoke:
+    needs: changes
+    if: needs.changes.outputs.run_full == 'true'
     name: ${{ matrix.os }} / Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
