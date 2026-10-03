@@ -9,6 +9,11 @@ including optional Jev reranking, and is published on
 installation and the deployed beta lifecycle. The SDK returns retrieval evidence
 and citations; it does not generate answers.
 
+This checkout prepares **0.2.1**, an unpublished candidate carrying exact retrieval
+generation IDs and source document/version identity from contract `2026-10-02.1`.
+It requires that updated API contract; deploy the API before adopting this SDK
+candidate. Published 0.2.0 remains the current public beta.
+
 New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
 [the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
 uses the published package from PyPI.

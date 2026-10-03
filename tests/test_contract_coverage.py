@@ -30,6 +30,7 @@ from ._fixtures import (
     RECEIPT_ID,
     SOURCE_ID,
     UPLOAD_ID,
+    VERSION_ID,
     RecordingAPI,
 )
 
@@ -37,9 +38,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _operation_documents() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    manifest = json.loads((ROOT / "contracts/2026-09-22.1/manifest.json").read_text())
+    manifest = json.loads((ROOT / "contracts/2026-10-02.1/manifest.json").read_text())
     mapping = json.loads((ROOT / "contracts/operations.json").read_text())
-    openapi = json.loads((ROOT / "contracts/2026-09-22.1/openapi.json").read_text())
+    openapi = json.loads((ROOT / "contracts/2026-10-02.1/openapi.json").read_text())
     return manifest, mapping, openapi
 
 
@@ -53,7 +54,7 @@ def _resolve_public_method(root: object, path: str) -> object:
 def test_vendored_digest_inventory_generated_and_public_mapping_are_complete() -> None:
     manifest, mapping, openapi = _operation_documents()
     digest = hashlib.sha256(
-        (ROOT / "contracts/2026-09-22.1/openapi.json").read_bytes()
+        (ROOT / "contracts/2026-10-02.1/openapi.json").read_bytes()
     ).hexdigest()
     assert digest == manifest["machine_sha256"] == mapping["machine_sha256"]
     assert manifest["operation_count"] == len(mapping["operations"]) == 26
@@ -175,7 +176,10 @@ def test_all_26_sync_operations_round_trip_exact_wire_shapes() -> None:
             assert b"".join(stream.iter_bytes()) == EXPORT_BYTES
         project.documents.generations.list(DOCUMENT_ID)
         project.documents.chunks.list(DOCUMENT_ID, GENERATION_ID)
-        project.documents.sources.get(DOCUMENT_ID, GENERATION_ID, SOURCE_ID)
+        source = project.documents.sources.get(DOCUMENT_ID, GENERATION_ID, SOURCE_ID)
+        assert source.document_id == UUID(DOCUMENT_ID)
+        assert source.document_version_id == UUID(VERSION_ID)
+        assert source.generation_id == UUID(GENERATION_ID)
         project.documents.inspect(DOCUMENT_ID)
         project.documents.replace_metadata(
             DOCUMENT_ID, replace, idempotency_key="metadata-key"
@@ -230,7 +234,12 @@ def test_all_26_async_operations_round_trip_exact_wire_shapes() -> None:
                 assert content == EXPORT_BYTES
             await project.documents.generations.list(DOCUMENT_ID)
             await project.documents.chunks.list(DOCUMENT_ID, GENERATION_ID)
-            await project.documents.sources.get(DOCUMENT_ID, GENERATION_ID, SOURCE_ID)
+            source = await project.documents.sources.get(
+                DOCUMENT_ID, GENERATION_ID, SOURCE_ID
+            )
+            assert source.document_id == UUID(DOCUMENT_ID)
+            assert source.document_version_id == UUID(VERSION_ID)
+            assert source.generation_id == UUID(GENERATION_ID)
             await project.documents.inspect(DOCUMENT_ID)
             await project.documents.replace_metadata(
                 DOCUMENT_ID, replace, idempotency_key="metadata-key"

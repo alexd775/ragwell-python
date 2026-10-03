@@ -577,6 +577,7 @@ def test_omission_null_nullable_provenance_and_unknown_state() -> None:
         "chunk_id": "00000000-0000-0000-0000-00000000000a",
         "document_id": DOCUMENT_ID,
         "document_version_id": "00000000-0000-0000-0000-000000000003",
+        "generation_id": "00000000-0000-0000-0000-000000000007",
         "content": "synthetic",
         "source_filename": "guide.txt",
         "representation_version": "rep-v1",

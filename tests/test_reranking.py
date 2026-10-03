@@ -56,6 +56,7 @@ def test_search_reranking_omission_null_and_typed_response(style: str) -> None:
                         "chunk_id": CHUNK_ID,
                         "document_id": DOCUMENT_ID,
                         "document_version_id": VERSION_ID,
+                        "generation_id": "00000000-0000-0000-0000-000000000007",
                         "content": "Refunds are available for 30 days.",
                         "source_filename": "policy.txt",
                         "representation_version": "rep-v1",

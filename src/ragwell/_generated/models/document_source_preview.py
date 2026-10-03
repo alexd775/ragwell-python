@@ -22,6 +22,8 @@ class DocumentSourcePreview:
     character_count: int
     content: str
     coordinate_kind: SourceCoordinateKind
+    document_id: UUID
+    document_version_id: UUID
     end_offset: int
     generation_id: UUID
     next_offset: int | None
@@ -38,6 +40,10 @@ class DocumentSourcePreview:
         content = self.content
 
         coordinate_kind = self.coordinate_kind.value
+
+        document_id = str(self.document_id)
+
+        document_version_id = str(self.document_version_id)
 
         end_offset = self.end_offset
 
@@ -69,6 +75,8 @@ class DocumentSourcePreview:
                 "character_count": character_count,
                 "content": content,
                 "coordinate_kind": coordinate_kind,
+                "document_id": document_id,
+                "document_version_id": document_version_id,
                 "end_offset": end_offset,
                 "generation_id": generation_id,
                 "next_offset": next_offset,
@@ -93,6 +101,10 @@ class DocumentSourcePreview:
         content = d.pop("content")
 
         coordinate_kind = SourceCoordinateKind(d.pop("coordinate_kind"))
+
+        document_id = UUID(d.pop("document_id"))
+
+        document_version_id = UUID(d.pop("document_version_id"))
 
         end_offset = d.pop("end_offset")
 
@@ -131,6 +143,8 @@ class DocumentSourcePreview:
             character_count=character_count,
             content=content,
             coordinate_kind=coordinate_kind,
+            document_id=document_id,
+            document_version_id=document_version_id,
             end_offset=end_offset,
             generation_id=generation_id,
             next_offset=next_offset,

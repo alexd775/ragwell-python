@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Prepare 0.2.1 with contract `2026-10-02.1`: typed `generation_id` on search hits
+  and `document_id`/`document_version_id` on bounded source previews, preserving
+  all 26 existing sync/async operations. Requires the updated API before use.
+
 - Update the asynchronous project example to install published `ragwell==0.2.0`
   from PyPI and demonstrate explicit optional reranking.
 

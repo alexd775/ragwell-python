@@ -258,6 +258,8 @@ def _json_for(method: str, path: str) -> tuple[int, object] | None:
         }
     if path == f"{document_base}/generations/{GENERATION_ID}/sources/{SOURCE_ID}":
         return 200, {
+            "document_id": DOCUMENT_ID,
+            "document_version_id": VERSION_ID,
             "generation_id": GENERATION_ID,
             "source_id": SOURCE_ID,
             "coordinate_kind": "text",

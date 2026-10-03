@@ -109,6 +109,7 @@ class BetaAPI(RecordingAPI):
                             "chunk_id": CHUNK_ID,
                             "document_id": DOCUMENT_ID,
                             "document_version_id": VERSION_ID,
+                            "generation_id": "00000000-0000-0000-0000-000000000007",
                             "content": text,
                             "source_filename": "synthetic.txt",
                             "rank": 1,

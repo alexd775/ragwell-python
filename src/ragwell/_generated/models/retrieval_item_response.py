@@ -24,6 +24,7 @@ class RetrievalItemResponse:
     content: str
     document_id: UUID
     document_version_id: UUID
+    generation_id: UUID
     parts: list[ChunkPart]
     rank: int
     representation_version: str
@@ -53,6 +54,8 @@ class RetrievalItemResponse:
 
         document_version_id = str(self.document_version_id)
 
+        generation_id = str(self.generation_id)
+
         parts = []
         for parts_item_data in self.parts:
             parts_item = parts_item_data.to_dict()
@@ -75,6 +78,7 @@ class RetrievalItemResponse:
                 "content": content,
                 "document_id": document_id,
                 "document_version_id": document_version_id,
+                "generation_id": generation_id,
                 "parts": parts,
                 "rank": rank,
                 "representation_version": representation_version,
@@ -130,6 +134,8 @@ class RetrievalItemResponse:
 
         document_version_id = UUID(d.pop("document_version_id"))
 
+        generation_id = UUID(d.pop("generation_id"))
+
         parts = []
         _parts = d.pop("parts")
         for parts_item_data in _parts:
@@ -151,6 +157,7 @@ class RetrievalItemResponse:
             content=content,
             document_id=document_id,
             document_version_id=document_version_id,
+            generation_id=generation_id,
             parts=parts,
             rank=rank,
             representation_version=representation_version,
