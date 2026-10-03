@@ -350,6 +350,19 @@ class RecordingAPI:
 
     def _respond(self, request: httpx.Request) -> httpx.Response:
         self.requests.append(request)
+        if request.url.path == "/v1/machine/capabilities":
+            assert request.headers["Authorization"] == "Bearer test-key"
+            assert not request.url.query
+            assert not request.content
+            return httpx.Response(
+                200,
+                json={
+                    "projects": [
+                        {"project_id": PROJECT_ID, "scopes": ["retrieval:search"]}
+                    ]
+                },
+                headers={"Cache-Control": "no-store"},
+            )
         if request.url.path == "/v1/document-upload-policy":
             assert "Authorization" not in request.headers
         else:

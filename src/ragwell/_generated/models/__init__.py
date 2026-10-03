@@ -65,6 +65,7 @@ from .error_detail import ErrorDetail
 from .error_response import ErrorResponse
 from .field_error import FieldError
 from .finalized_intake_response import FinalizedIntakeResponse
+from .grantable_api_key_scope import GrantableApiKeyScope
 from .index_generation_status import IndexGenerationStatus
 from .ingestion_job_list_response import IngestionJobListResponse
 from .ingestion_job_response import IngestionJobResponse
@@ -72,6 +73,8 @@ from .ingestion_job_status import IngestionJobStatus
 from .ingestion_stage import IngestionStage
 from .limit_key import LimitKey
 from .limit_unit import LimitUnit
+from .machine_capabilities_response import MachineCapabilitiesResponse
+from .machine_project_capabilities_response import MachineProjectCapabilitiesResponse
 from .plan_limit_error_detail import PlanLimitErrorDetail
 from .plan_limit_error_detail_code import PlanLimitErrorDetailCode
 from .plan_limit_error_response import PlanLimitErrorResponse
@@ -161,6 +164,7 @@ __all__ = (
     "ErrorResponse",
     "FieldError",
     "FinalizedIntakeResponse",
+    "GrantableApiKeyScope",
     "IndexGenerationStatus",
     "IngestionJobListResponse",
     "IngestionJobResponse",
@@ -168,6 +172,8 @@ __all__ = (
     "IngestionStage",
     "LimitKey",
     "LimitUnit",
+    "MachineCapabilitiesResponse",
+    "MachineProjectCapabilitiesResponse",
     "PlanLimitErrorDetail",
     "PlanLimitErrorDetailCode",
     "PlanLimitErrorResponse",

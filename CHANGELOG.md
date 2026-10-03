@@ -2,7 +2,15 @@
 
 ## Unreleased
 
-- Prepare 0.2.1 with contract `2026-10-02.1`: typed `generation_id` on search hits
+- Prepare 0.2.2 with contract `2026-10-03.1`: `client.capabilities.get()` in both
+  client styles, returning only the key's granted projects and scopes. Discovery
+  performs no search, needs no additional scope, and never falls back to browser
+  identity or organization-wide project listing. The 27-operation map is complete.
+  Requires an API deployment supporting the discovery endpoint.
+
+## 0.2.1 — 2026-10-03
+
+- Contract `2026-10-02.1`: typed `generation_id` on search hits
   and `document_id`/`document_version_id` on bounded source previews, preserving
   all 26 existing sync/async operations. Requires the updated API before use.
 

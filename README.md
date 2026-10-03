@@ -3,16 +3,14 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: `0.2.0` developer beta.** The release implements the reviewed machine API,
-including optional Jev reranking, and is published on
-[PyPI](https://pypi.org/project/ragwell/0.2.0/). Its public wheel passed clean
-installation and the deployed beta lifecycle. The SDK returns retrieval evidence
-and citations; it does not generate answers.
+**Status: `0.2.1` developer beta**, published on
+[PyPI](https://pypi.org/project/ragwell/0.2.1/). It adds typed retrieval generation
+and source document/version identities. Its release workflow and clean public-wheel
+installation passed. The SDK returns evidence and citations; it does not generate answers.
 
-This checkout prepares **0.2.1**, an unpublished candidate carrying exact retrieval
-generation IDs and source document/version identity from contract `2026-10-02.1`.
-It requires that updated API contract; deploy the API before adopting this SDK
-candidate. Published 0.2.0 remains the current public beta.
+This checkout prepares **0.2.2**, an unpublished candidate adding current-key
+capability discovery from contract `2026-10-03.1`. Deploy that API before adopting
+the discovery resource. SDK 0.2.1 remains the current public beta.
 
 New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
 [the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
@@ -81,8 +79,9 @@ loop, and close it at shutdown. Injected HTTPX clients are borrowed unless
 ## Public resource layout
 
 `client.project(project_id)` is local and performs no preflight request. Both client
-styles expose the same 26 contract operations:
+styles expose the same 27 contract operations:
 
+- `client.capabilities.get()` (0.2.2 candidate)
 - `client.upload_policy.get()`
 - `project.get()` and `project.embedding_connection.get()`
 - `project.uploads.create()`, `.get()`, `.upload_content()`, and `.finalize()`
@@ -182,8 +181,8 @@ uv run --locked pytest
 uv run --locked python -m build --no-isolation
 ```
 
-The vendored artifact is `2026-09-22.1`, machine SHA-256
-`edd7aa3d26def4a1dcafceee4af2b9d4ae5a0d2affde52719ce03e904cc5a509`.
+The vendored artifact is `2026-10-03.1`, machine SHA-256
+`34fb0349b9a1c62eccde16e39d9d6e70ff7abca2fe72961eac64dd42f22feee9`.
 See [contract provenance](contracts/README.md),
 [generation qualification](docs/generation.md), and
 [operation mapping](contracts/operations.json). Ordinary tests require no service,

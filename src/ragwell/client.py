@@ -53,6 +53,7 @@ from ._generated.models import (
     IngestionJobListResponse,
     IngestionJobResponse,
     IngestionJobStatus,
+    MachineCapabilitiesResponse,
     ProjectResponse,
     ReplaceDocumentMetadataRequest,
     RerankRequest,
@@ -126,6 +127,7 @@ class Ragwell:
             transfer_timeout=transfer_timeout,
         )
         self.upload_policy = UploadPolicyResource(self._transport)
+        self.capabilities = CapabilitiesResource(self._transport)
 
     def project(self, project_id: UUID | str) -> Project:
         """Create a local project handle without making a network request."""
@@ -147,6 +149,23 @@ class Ragwell:
 
     def __repr__(self) -> str:
         return f"Ragwell(base_url={str(self._transport.base_url)!r})"
+
+
+class CapabilitiesResource:
+    """Read the current key's own explicit grants without a metered search."""
+
+    def __init__(self, transport: SyncTransport) -> None:
+        self._transport = transport
+
+    def get(self) -> MachineCapabilitiesResponse:
+        return self._transport.request(
+            operation_id="get_machine_capabilities",
+            method="GET",
+            path="/v1/machine/capabilities",
+            model_type=MachineCapabilitiesResponse,
+            expected_statuses={200},
+            retry_mode="read",
+        )
 
 
 class UploadPolicyResource:

@@ -8,7 +8,7 @@ import httpx
 
 from qualification.evidence import Evidence, service_projection
 
-CONTRACT = Path(__file__).resolve().parents[1] / "contracts/2026-10-02.1/openapi.json"
+CONTRACT = Path(__file__).resolve().parents[1] / "contracts/2026-10-03.1/openapi.json"
 
 
 def test_runtime_projection_detects_schema_and_machine_inventory_drift() -> None:

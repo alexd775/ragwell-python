@@ -21,12 +21,14 @@ and cost evaluation remains a separate product-rollout gate.
 
 ## Local preparation
 
-The checkout prepares unpublished 0.2.1 with machine artifact `2026-10-02.1`.
-Search results now require `generation_id`; source previews require document and
-version IDs. Roll out that API before adopting the SDK candidate. The new local
-candidate does not inherit 0.2.0's deployed beta, public artifact or hosted CI
-qualification. Agent tools can already use the published 0.2.0 reader with the
-updated API because its additive fields survive `to_dict()`.
+SDK 0.2.1 was published on 2026-10-03 through the protected release workflow.
+See [its publication record](qualification/2026-10-03-0.2.1-release-publication.json).
+The checkout prepares unpublished 0.2.2 with machine artifact `2026-10-03.1`.
+It adds current-key capability discovery; retrieval generation and source identity
+fields were already released in 0.2.1. Deploy the discovery API before adopting
+this new resource. The local candidate does not inherit earlier hosted CI or
+public artifact qualification. Agent tools already use the published source
+reader and must wait for public SDK 0.2.2 before adopting its capabilities resource.
 
 Run the README checks from the locked SDK environment: Ruff formatting/lint,
 strict mypy, deterministic contract generation and pytest. Tests execute examples,

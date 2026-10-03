@@ -38,9 +38,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _operation_documents() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    manifest = json.loads((ROOT / "contracts/2026-10-02.1/manifest.json").read_text())
+    manifest = json.loads((ROOT / "contracts/2026-10-03.1/manifest.json").read_text())
     mapping = json.loads((ROOT / "contracts/operations.json").read_text())
-    openapi = json.loads((ROOT / "contracts/2026-10-02.1/openapi.json").read_text())
+    openapi = json.loads((ROOT / "contracts/2026-10-03.1/openapi.json").read_text())
     return manifest, mapping, openapi
 
 
@@ -54,10 +54,10 @@ def _resolve_public_method(root: object, path: str) -> object:
 def test_vendored_digest_inventory_generated_and_public_mapping_are_complete() -> None:
     manifest, mapping, openapi = _operation_documents()
     digest = hashlib.sha256(
-        (ROOT / "contracts/2026-10-02.1/openapi.json").read_bytes()
+        (ROOT / "contracts/2026-10-03.1/openapi.json").read_bytes()
     ).hexdigest()
     assert digest == manifest["machine_sha256"] == mapping["machine_sha256"]
-    assert manifest["operation_count"] == len(mapping["operations"]) == 26
+    assert manifest["operation_count"] == len(mapping["operations"]) == 27
     expected = {
         (item["method"], item["path"], item["operation_id"])
         for item in manifest["operations"]
@@ -75,7 +75,7 @@ def test_vendored_digest_inventory_generated_and_public_mapping_are_complete() -
     assert actual == mapped == expected
 
     generated = list((ROOT / "src/ragwell/_generated/api").glob("**/*.py"))
-    assert len([path for path in generated if path.name != "__init__.py"]) == 26
+    assert len([path for path in generated if path.name != "__init__.py"]) == 27
     sync_source = (ROOT / "src/ragwell/client.py").read_text()
     async_source = (ROOT / "src/ragwell/async_client.py").read_text()
     for _, _, operation_id in expected:
@@ -151,7 +151,7 @@ def _request_models() -> tuple[
     return create, replace, export
 
 
-def test_all_26_sync_operations_round_trip_exact_wire_shapes() -> None:
+def test_all_27_sync_operations_round_trip_exact_wire_shapes() -> None:
     api = RecordingAPI()
     create, replace, export_request = _request_models()
     with Ragwell(
@@ -160,6 +160,7 @@ def test_all_26_sync_operations_round_trip_exact_wire_shapes() -> None:
         transport=httpx.MockTransport(api.sync),
     ) as client:
         project = client.project(PROJECT_ID)
+        assert client.capabilities.get().projects[0].project_id == UUID(PROJECT_ID)
         assert client.upload_policy.get().formats
         assert project.get().id == UUID(PROJECT_ID)
         assert project.deletions.get(RECEIPT_ID).id == UUID(RECEIPT_ID)
@@ -200,11 +201,11 @@ def test_all_26_sync_operations_round_trip_exact_wire_shapes() -> None:
         assert export.parts[0].part_number == 0
 
     observed = {(request.method, request.url.path) for request in api.requests}
-    assert len(api.requests) == 26
+    assert len(api.requests) == 27
     assert observed == _expected_wire_inventory()
 
 
-def test_all_26_async_operations_round_trip_exact_wire_shapes() -> None:
+def test_all_27_async_operations_round_trip_exact_wire_shapes() -> None:
     async def exercise() -> None:
         api = RecordingAPI()
         create, replace, export_request = _request_models()
@@ -214,6 +215,9 @@ def test_all_26_async_operations_round_trip_exact_wire_shapes() -> None:
             transport=httpx.MockTransport(api.async_),
         ) as client:
             project = client.project(PROJECT_ID)
+            assert (await client.capabilities.get()).projects[0].project_id == UUID(
+                PROJECT_ID
+            )
             assert (await client.upload_policy.get()).formats
             assert (await project.get()).id == UUID(PROJECT_ID)
             await project.deletions.get(RECEIPT_ID)
@@ -258,7 +262,7 @@ def test_all_26_async_operations_round_trip_exact_wire_shapes() -> None:
             await project.uploads.finalize(UPLOAD_ID)
 
         observed = {(request.method, request.url.path) for request in api.requests}
-        assert len(api.requests) == 26
+        assert len(api.requests) == 27
         assert observed == _expected_wire_inventory()
 
     asyncio.run(exercise())

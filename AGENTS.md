@@ -12,7 +12,7 @@
   imports, private repositories, credentials, provider calls, and model downloads.
 - Wire schemas come from the reviewed vendored artifact under `contracts/`.
   Regenerate through `scripts/generate.py` and preserve the recorded digest and
-  complete 26-operation sync/async mapping.
+  complete sync/async operation mapping recorded in the current manifest.
 - Add deterministic tests for real behavior. Preserve the wheel/sdist and clean
   installed-package checks. Run the README checks and report unavailable checks
   accurately.

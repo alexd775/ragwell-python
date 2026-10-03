@@ -1,0 +1,26 @@
+{
+  "release": "0.2.1",
+  "date": "2026-10-03",
+  "source_revision": "a688aba9bc388a2e24d71e847d7fa5a13552dcad",
+  "tag": "v0.2.1",
+  "contract": "2026-10-02.1",
+  "release_workflow": "https://github.com/alexd775/ragwell-python/actions/runs/37106782021",
+  "result": "success",
+  "indexes": [
+    "https://test.pypi.org/project/ragwell/0.2.1/",
+    "https://pypi.org/project/ragwell/0.2.1/"
+  ],
+  "files": {
+    "ragwell-0.2.1-py3-none-any.whl": "ad9e0e31f02005ba1f678ddc859dab9830d8cacec81973b5cf077829d6b74270",
+    "ragwell-0.2.1.tar.gz": "f633c4d0e9b034ec31681814ddaa1acc6a80e3f2106fff64ab1075c4527278fd"
+  },
+  "verification": [
+    "Both index file hashes match release build output",
+    "Public wheel clean install outside checkout on CPython 3.11.16",
+    "Runtime/distribution version and typed retrieval/source identity fields verified without HTTP"
+  ],
+  "limitations": [
+    "Earlier local candidate wheel has a different digest",
+    "Public-wheel full beta lifecycle was not repeated for this release"
+  ]
+}

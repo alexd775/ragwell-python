@@ -1,7 +1,7 @@
 # Python SDK reference
 
 This reference describes the maintained, published `0.2.0` interface. Both
-`Ragwell` and `AsyncRagwell` expose the same 26 machine operations. Examples below use a sync
+`Ragwell` and `AsyncRagwell` expose the same 27 machine operations. Examples below use a sync
 `project = client.project(project_id)`; await equivalent async calls and use
 `async for` for async iterators. The project handle is local and makes no request.
 IDs accept `uuid.UUID` or UUID strings. Results and request models are imported
@@ -211,3 +211,17 @@ score and `scores.rerank_confidence` is a distinct 0–1 confidence measure.
 Missing project configuration returns `409 project_reranker_misconfigured`.
 Unknown parameters fail validation. Provider error/deadline failures return typed
 API errors; the SDK does not retry or silently fall back to ordinary retrieval.
+
+## Current-key capabilities (0.2.2 candidate)
+
+`client.capabilities.get()` returns a complete bounded list of `projects`, each
+containing `project_id` and `scopes`. The async client exposes the same resource.
+Any valid key can read its own grants without `project:read`. This call performs
+no search and records no search usage; normal authentication-use metadata can
+change. It returns no organization identity, names, credentials or billing limits.
+
+Use the snapshot to select available operations. Each later call must still pass
+current authorization and technical limits. Revocation or removed grants invalidate
+previous observations. Older APIs return a typed `NotFoundError`; the SDK does not
+substitute browser identity or a broader project list. This resource requires the
+new API deployment and remains unpublished in SDK 0.2.2.

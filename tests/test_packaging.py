@@ -140,8 +140,8 @@ def test_distributions_include_sources_typing_and_license(
         "pyproject.toml",
         "uv.lock",
         "tests/test_packaging.py",
-        "contracts/2026-10-02.1/openapi.json",
-        "contracts/2026-10-02.1/manifest.json",
+        "contracts/2026-10-03.1/openapi.json",
+        "contracts/2026-10-03.1/manifest.json",
         "contracts/operations.json",
         "docs/generation.md",
         "docs/http-qualification.md",
@@ -280,7 +280,7 @@ def verified_identity():
 
 
 identity, contract = verified_identity()
-assert identity["operation_count"] == 26
+assert identity["operation_count"] == 27
 assert len(contract["paths"]) > 10
 package_file = Path(ragwell.__file__)
 original = package_file.read_bytes()
