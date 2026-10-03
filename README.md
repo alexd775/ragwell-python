@@ -3,14 +3,14 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: `0.2.1` developer beta**, published on
-[PyPI](https://pypi.org/project/ragwell/0.2.1/). It adds typed retrieval generation
-and source document/version identities. Its release workflow and clean public-wheel
-installation passed. The SDK returns evidence and citations; it does not generate answers.
+**Status: `0.2.2` developer beta**, published on
+[PyPI](https://pypi.org/project/ragwell/0.2.2/). It adds current-key capability
+discovery from contract `2026-10-03.1`. Its protected release workflow, clean
+public-package installation and live sync/async discovery passed. The SDK returns
+evidence and citations; it does not generate answers.
 
-This checkout prepares **0.2.2**, an unpublished candidate adding current-key
-capability discovery from contract `2026-10-03.1`. Deploy that API before adopting
-the discovery resource. SDK 0.2.1 remains the current public beta.
+The discovery resource requires an API supporting `GET /v1/machine/capabilities`.
+It returns current project grants and scopes without a search or mutation.
 
 New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
 [the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
@@ -81,7 +81,7 @@ loop, and close it at shutdown. Injected HTTPX clients are borrowed unless
 `client.project(project_id)` is local and performs no preflight request. Both client
 styles expose the same 27 contract operations:
 
-- `client.capabilities.get()` (0.2.2 candidate)
+- `client.capabilities.get()` (since 0.2.2)
 - `client.upload_policy.get()`
 - `project.get()` and `project.embedding_connection.get()`
 - `project.uploads.create()`, `.get()`, `.upload_content()`, and `.finalize()`

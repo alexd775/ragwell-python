@@ -9,7 +9,7 @@ The first developer beta is `ragwell==0.1.0`, published from the immutable
 The SDK repository owns its release. API deployment and API CI do not build or
 publish SDK packages.
 
-The current developer beta is `ragwell==0.2.0`, published from immutable tag
+The earlier developer beta `ragwell==0.2.0` was published from immutable tag
 `v0.2.0`. It adds the `2026-09-22.1` machine contract and optional Jev reranking.
 The [public-wheel beta report](qualification/2026-09-22-pypi-0.2.0-beta-lifecycle.json)
 records the deployed lifecycle, the
@@ -23,12 +23,15 @@ and cost evaluation remains a separate product-rollout gate.
 
 SDK 0.2.1 was published on 2026-10-03 through the protected release workflow.
 See [its publication record](qualification/2026-10-03-0.2.1-release-publication.json).
-The checkout prepares unpublished 0.2.2 with machine artifact `2026-10-03.1`.
+SDK 0.2.2 is now published with machine artifact `2026-10-03.1`.
 It adds current-key capability discovery; retrieval generation and source identity
-fields were already released in 0.2.1. Deploy the discovery API before adopting
-this new resource. The local candidate does not inherit earlier hosted CI or
-public artifact qualification. Agent tools already use the published source
-reader and must wait for public SDK 0.2.2 before adopting its capabilities resource.
+fields were already released in 0.2.1. Its complete Linux/macOS matrix and protected
+release workflow passed. The exact staged and public wheels passed sync/async
+discovery against the deployed beta without searches or mutations. Both indexes'
+files match the workflow artifacts. See
+[its publication record](qualification/2026-10-03-0.2.2-release-publication.json).
+The full ingestion/export/deletion beta lifecycle was not repeated for this release.
+Agent tools may now consume the published capabilities resource.
 
 Run the README checks from the locked SDK environment: Ruff formatting/lint,
 strict mypy, deterministic contract generation and pytest. Tests execute examples,

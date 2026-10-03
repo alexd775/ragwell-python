@@ -1,0 +1,28 @@
+{
+  "release": "0.2.2",
+  "date": "2026-10-03",
+  "source_revision": "a23cf45201bd17377dfeddf0a1f32a7beda9c541",
+  "tag": "v0.2.2",
+  "contract": "2026-10-03.1",
+  "source_ci": "https://github.com/alexd775/ragwell-python/actions/runs/37113858897",
+  "release_workflow": "https://github.com/alexd775/ragwell-python/actions/runs/37114071178",
+  "result": "success",
+  "indexes": ["https://test.pypi.org/project/ragwell/0.2.2/", "https://pypi.org/project/ragwell/0.2.2/"],
+  "files": {
+    "ragwell-0.2.2-py3-none-any.whl": "19deb4b5425a9f8fc0fa86d48a41ef90b87dcc5e5fe59a5bd5d2251ace0a4b6b",
+    "ragwell-0.2.2.tar.gz": "f79f2a673b9134236aa8dbdb381d838ce07c3e414463b2f068cfe23c106a0d86"
+  },
+  "verification": [
+    "Full seven-job Linux/macOS source matrix passed on the tag commit",
+    "TestPyPI and PyPI file metadata and downloaded bytes match the immutable workflow distributions",
+    "Staged wheel and fresh normal PyPI-index installation outside all checkouts on CPython 3.11.16",
+    "Both artifacts preserve version 0.2.2 and typed capabilities; sync and async live discovery show configured-project search/source-read grants with zero searches and mutations",
+    "Pinned pip-audit 2.10.1: zero known vulnerabilities in locked dependencies",
+    "Twine 7.0.0 strict wheel/sdist metadata checks passed",
+    "Gitleaks 8.30.1 redacted history/distribution scans: 19/17 findings, all public contract/commit digests or run-owned idempotency identifiers; zero credential findings"
+  ],
+  "limitations": [
+    "Full live ingestion/export/deletion lifecycle was not repeated",
+    "Local pre-changelog candidate sdist differs; public release hashes above are authoritative"
+  ]
+}
