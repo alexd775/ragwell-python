@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.2.2 — 2026-10-03
 
-- Prepare 0.2.2 with contract `2026-10-03.1`: `client.capabilities.get()` in both
+- Contract `2026-10-03.1`: `client.capabilities.get()` in both
   client styles, returning only the key's granted projects and scopes. Discovery
   performs no search, needs no additional scope, and never falls back to browser
   identity or organization-wide project listing. The 27-operation map is complete.
