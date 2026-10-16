@@ -4,7 +4,7 @@ This guide uses the published Python SDK and an existing Ragwell project. At the
 
 ## 1. Prepare a project and key
 
-In the Ragwell dashboard, create a project and a Ragwell API key granted to that project. The key needs `document:upload`, `job:read`, and `retrieval:search` for this guide. Copy the project UUID and API origin. Use the origin without `/v1`, for example `https://api-beta.ragwell.dev`.
+In the Ragwell dashboard, create a project and a Ragwell API key granted to that project. The key needs `document:upload`, `job:read`, and `retrieval:search` for this guide. Copy the project UUID and API origin. Use the origin without `/v1`, for example `https://api.ragwell.dev`.
 
 Keep the key in your application's secret storage or environment. The SDK reads `RAGWELL_BASE_URL` and `RAGWELL_API_KEY`; it does not load a `.env` file by itself. See [projects and keys](concepts/projects-and-keys.md).
 

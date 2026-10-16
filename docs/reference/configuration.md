@@ -6,7 +6,7 @@
 from ragwell import AsyncRagwell
 
 async with AsyncRagwell(
-    base_url="https://api-beta.ragwell.dev",
+    base_url="https://api.ragwell.dev",
     api_key=api_key,
     operation_timeout=30,
     transfer_timeout=300,

@@ -16,7 +16,7 @@ cp env.example .env
 ```
 
 On PowerShell use `Copy-Item env.example .env`. Edit `.env` with the API origin
-(e.g. `https://api-beta.ragwell.dev`, without `/v1`), API key and project UUID.
+(e.g. `https://api.ragwell.dev`, without `/v1`), API key and project UUID.
 The key must be granted to that project with these scopes:
 `document:list`, `document:read`, `document:upload`, `job:read`, `retrieval:search`,
 `document:delete`, `deletion:read`.

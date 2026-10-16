@@ -13,7 +13,7 @@ from `ragwell.types`; they support `to_dict()` / `from_dict()`.
 from ragwell import Ragwell
 
 with Ragwell(
-    base_url="https://api-beta.ragwell.dev",
+    base_url="https://api.ragwell.dev",
     api_key=key,
     operation_timeout=30,
     transfer_timeout=300,
@@ -21,7 +21,7 @@ with Ragwell(
     project = client.project(project_id)
 ```
 
-Explicit arguments override `RAGWELL_BASE_URL` / `RAGWELL_API_KEY`. The beta URL is
+Explicit arguments override `RAGWELL_BASE_URL` / `RAGWELL_API_KEY`. The API URL is
 required; use its origin without `/v1`. No `.env` file is loaded. TLS verification
 is enabled and redirects are not followed. Use `with` / `async with`, or explicit
 `close()` / `await aclose()`. Reuse async clients within their owning event loop.
