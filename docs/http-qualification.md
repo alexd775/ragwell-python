@@ -74,10 +74,10 @@ Pre-provisioned resources, accounts, keys and service infrastructure remain the
 responsibility of the environment owner. The SDK report does not claim to dispose
 of that infrastructure.
 
-## Optional validation against real beta
+## Optional validation against a deployed API
 
-A narrower opt-in validation can use the deployed beta API with one dedicated
-ordinary test account, a pre-created project and a key scoped to the lifecycle
+A narrower opt-in validation can use an explicitly selected deployed API with one
+dedicated ordinary test account, a pre-created project and a key scoped to the lifecycle
 operations it exercises. The environment owner provisions these through normal
 administration. No staff credential or SDK-specific API mode is needed.
 
@@ -89,10 +89,10 @@ created by that run. Supply credentials privately. Run this check explicitly whe
 deployed compatibility needs validation; keep ordinary CI offline.
 
 This opt-in flow is implemented by `qualification/beta_runner.py`; follow the
-[beta validation instructions](beta-validation.md) and record its result separately.
+[deployed API validation instructions](beta-validation.md) and record its result separately.
 The full `http_runner.py` expects the fixture contract, including two-tenant
 references, restricted/revoked credentials and controlled failure states. A single
-beta account/key cannot satisfy that matrix. A normal-lifecycle result must be
+test account/key cannot satisfy that matrix. A normal-lifecycle result must be
 reported separately and must not claim full failure/security qualification.
 
 ## Evidence and ownership correction

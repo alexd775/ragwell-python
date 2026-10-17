@@ -46,10 +46,11 @@ secrets, audit every pinned runtime/development dependency, and inventory runtim
 licenses. Keep machine-readable reports under `docs/qualification/` or with the
 immutable release artifacts. Refresh advisory data for the final release.
 
-Run [beta validation](beta-validation.md) from the actual installed candidate wheel
-using dedicated test credentials. Retain the separate [full HTTP qualification](http-qualification.md)
+Run [deployed API validation](beta-validation.md) from the actual installed
+candidate wheel using dedicated test credentials. Retain the separate
+[full HTTP qualification](http-qualification.md)
 evidence for the controlled failure/tenant matrix. Neither ordinary unit tests nor
-a narrow beta check can claim the other matrix's coverage. If source, metadata or
+a narrow deployed check can claim the other matrix's coverage. If source, metadata or
 version changes produce a new wheel, assign a new digest and do not relabel an older
 report as a test of those bytes. Unchanged runtime bytes may be compared explicitly,
 but final-release artifact qualification still remains a gate.
@@ -146,8 +147,8 @@ and [publication evidence](qualification/2026-09-22-0.2.0-release-publication.js
 1. Refresh the final checks and evidence, commit the selected stable version and
    changelog, obtain a green CI matrix, and create the matching `vX.Y.Z` tag only
    after reviewing the immutable commit.
-2. Let the tag workflow publish and verify TestPyPI. Run the beta lifecycle against
-   the exact staged wheel, review its hashes, then approve the protected `pypi`
+2. Let the tag workflow publish and verify TestPyPI. Run the deployed API lifecycle
+   against the exact staged wheel, review its hashes, then approve the protected `pypi`
    deployment. Do not rebuild between indexes.
 3. Record immutable artifacts, provenance, changelog and compatibility information.
    Verify the final package installs from the intended index. Yank/supersede a faulty

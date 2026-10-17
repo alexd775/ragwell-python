@@ -6,7 +6,7 @@ Twine and no PyPI token belongs in GitHub or a local `.env` file.
 
 For release policy, qualification evidence and the previous publication record, see
 [release preparation](releasing.md). For the opt-in deployed API check, see
-[beta validation](beta-validation.md).
+[deployed API validation](beta-validation.md).
 
 ## Before tagging
 
@@ -64,9 +64,9 @@ The tag starts `.github/workflows/release.yml`, which:
 6. waits for approval on the protected `pypi` environment; and
 7. publishes the same artifacts to production PyPI through OIDC.
 
-Before approving production, review the workflow hashes and run the bounded beta
-lifecycle against the exact staged wheel when the release changes runtime behavior
-or the API contract. Never rebuild between TestPyPI and PyPI.
+Before approving PyPI publication, review the workflow hashes and run the bounded
+deployed API lifecycle against the exact staged wheel when the release changes
+runtime behavior or the API contract. Never rebuild between TestPyPI and PyPI.
 
 ## Approve production PyPI
 

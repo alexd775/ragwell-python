@@ -1,14 +1,22 @@
-# Optional validation against the deployed beta API
+# Optional validation against a deployed API
 
-This SDK-owned check uses an installed wheel and a dedicated ordinary beta account,
+This SDK-owned check uses an installed wheel and a dedicated ordinary test account,
 project and API key. It connects only through public HTTPS. It does not start the
 API, create accounts/projects/keys, access a database or require a backend checkout.
 Ordinary CI remains offline. This is a normal-lifecycle integration check; it does
 not replace the full two-tenant and controlled-failure qualification matrix.
 
+Select the deployment explicitly with `--base-url`. The example uses production;
+an isolated staging deployment can also be selected. A running beta environment
+is not required. The existing `qualification.beta_runner` module,
+`RAGWELL_BETA_API_KEY_FILE` variable and `beta_lifecycle` report identifier retain
+their historical names for command and evidence compatibility; none selects the
+endpoint.
+
 ## Prepare the account and key
 
-Create a dedicated test account and project through normal beta administration.
+Create a dedicated test account and project through normal administration in the
+selected deployment. Keep its synthetic test documents separate from customer work.
 Choose an available processing profile/embedding connection. Allow capacity for two
 small text ingestions, two searches and one temporary document export at a time.
 Provider-backed ingestion/search uses the project's normal quotas and provider
@@ -35,16 +43,16 @@ From the SDK repository, build a new candidate and install it in a fresh environ
 
 ```sh
 uv run --locked python -m build --no-isolation --outdir /absolute/path/candidate
-python3 -m venv /absolute/path/beta-validation-venv
-/absolute/path/beta-validation-venv/bin/python -m pip install \
-  /absolute/path/candidate/ragwell-0.2.0-py3-none-any.whl
+python3 -m venv /absolute/path/deployed-validation-venv
+/absolute/path/deployed-validation-venv/bin/python -m pip install \
+  /absolute/path/candidate/ragwell-0.2.2-py3-none-any.whl
 
 RAGWELL_BETA_API_KEY_FILE=/private/path/to/key \
-  /absolute/path/beta-validation-venv/bin/python -m qualification.beta_runner \
-  --base-url https://api-beta.ragwell.dev \
+  /absolute/path/deployed-validation-venv/bin/python -m qualification.beta_runner \
+  --base-url https://api.ragwell.dev \
   --project-id YOUR_PROJECT_UUID \
-  --wheel /absolute/path/candidate/ragwell-0.2.0-py3-none-any.whl \
-  --output /absolute/path/new-beta-validation-report.json
+  --wheel /absolute/path/candidate/ragwell-0.2.2-py3-none-any.whl \
+  --output /absolute/path/new-deployed-validation-report.json
 ```
 
 Pass the API origin without `/v1`; resource methods add that prefix. The output
@@ -95,6 +103,6 @@ prevent cleanup, so retain the report and resolve any remaining resource IDs bef
 rerunning. Account, project, key and infrastructure lifecycle remains with their owner.
 
 Save successful evidence separately from the full
-[HTTP qualification](http-qualification.md) report. A beta result proves the tested
+[HTTP qualification](http-qualification.md) report. A deployed result proves the tested
 wheel/contract/lifecycle integration at that time, not complete operation coverage,
 provider quality, load capacity or cross-tenant authorization.

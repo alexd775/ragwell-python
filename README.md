@@ -32,7 +32,7 @@ uv sync --locked --python 3.11
 
 Runtime use requires an existing project grant and API key. The SDK does not create
 projects, users, keys, or billing resources. Supply the endpoint and key explicitly
-or through `RAGWELL_BASE_URL` and `RAGWELL_API_KEY`; explicit arguments win. No beta
+or through `RAGWELL_BASE_URL` and `RAGWELL_API_KEY`; explicit arguments win. No
 hostname is built into the package and no `.env` file is loaded implicitly.
 
 ## Synchronous quick start
@@ -194,9 +194,11 @@ passed a bounded synthetic Jev request. Representative quality, latency and cost
 evaluation remains separate product-rollout work. The
 [release record](docs/releasing.md) identifies the immutable artifacts and checks.
 
-An optional [beta lifecycle validation](docs/beta-validation.md) checks the installed
-wheel against a dedicated existing beta project with a scoped key. It starts no
-services and is separate from the full fixture matrix and ordinary offline CI.
+An optional [deployed API lifecycle validation](docs/beta-validation.md) checks
+the installed wheel against a dedicated existing test project with a scoped key.
+Select the production or staging API origin explicitly; no beta environment is
+required. It starts no services and is separate from the full fixture matrix and
+ordinary offline CI.
 
 Documentation: [SDK docs](docs/index.md), [API reference and scopes](docs/reference/client-and-resources.md),
 [sync lifecycle example](examples/sync_lifecycle.py),

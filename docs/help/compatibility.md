@@ -1,6 +1,6 @@
 # Compatibility and support
 
-`0.1.0` is the first published developer beta; `0.2.0` is the current published
+`0.1.0` is the first published developer beta; `0.2.2` is the current published
 release. PyPI project metadata and the protected release workflow identify published
 artifacts; a source-tree version by itself does not.
 
