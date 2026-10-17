@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class DocumentExportResponseState(str, Enum):
+class DocumentExportResponseState(StrEnum):
     EXPIRED = "expired"
     FAILED = "failed"
     QUEUED = "queued"

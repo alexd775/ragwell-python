@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class EmbeddingConnectionResponseFundingSource(str, Enum):
+class EmbeddingConnectionResponseFundingSource(StrEnum):
     CUSTOMER = "customer"
     SYSTEM = "system"
 

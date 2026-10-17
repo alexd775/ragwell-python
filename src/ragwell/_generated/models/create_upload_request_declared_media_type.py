@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class CreateUploadRequestDeclaredMediaType(str, Enum):
+class CreateUploadRequestDeclaredMediaType(StrEnum):
     APPLICATIONPDF = "application/pdf"
     TEXTMARKDOWN = "text/markdown"
     TEXTPLAIN = "text/plain"

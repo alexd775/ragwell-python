@@ -119,8 +119,10 @@ class DocumentChunkInfo:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.chunk_part import ChunkPart
-        from ..models.embedding_serialization import EmbeddingSerialization
+        from ..models.chunk_part import ChunkPart  # noqa: PLC0415
+        from ..models.embedding_serialization import (
+            EmbeddingSerialization,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         character_count = d.pop("character_count")

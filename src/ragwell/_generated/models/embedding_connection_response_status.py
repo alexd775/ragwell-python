@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class EmbeddingConnectionResponseStatus(str, Enum):
+class EmbeddingConnectionResponseStatus(StrEnum):
     ACTIVE = "active"
     SUPERSEDED = "superseded"
     VALIDATING = "validating"

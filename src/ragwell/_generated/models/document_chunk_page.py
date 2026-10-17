@@ -54,7 +54,7 @@ class DocumentChunkPage:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_chunk_info import DocumentChunkInfo
+        from ..models.document_chunk_info import DocumentChunkInfo  # noqa: PLC0415
 
         d = dict(src_dict)
         generation_id = UUID(d.pop("generation_id"))

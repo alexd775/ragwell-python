@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Patch the development OpenAPI generator to `0.29.1` for CVE-2026-105801 and
+  regenerate the internal client from the unchanged reviewed contract.
+
 ## 0.2.2 — 2026-10-03
 
 - Contract `2026-10-03.1`: `client.capabilities.get()` in both

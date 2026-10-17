@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class DocumentVersionState(str, Enum):
+class DocumentVersionState(StrEnum):
     INDEXED = "indexed"
     QUARANTINED = "quarantined"
     REJECTED = "rejected"

@@ -62,7 +62,9 @@ class CreateUploadRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_metadata_input import DocumentMetadataInput
+        from ..models.document_metadata_input import (
+            DocumentMetadataInput,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         declared_media_type = CreateUploadRequestDeclaredMediaType(

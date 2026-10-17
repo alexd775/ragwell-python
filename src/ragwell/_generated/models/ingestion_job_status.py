@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class IngestionJobStatus(str, Enum):
+class IngestionJobStatus(StrEnum):
     CANCELLATION_REQUESTED = "cancellation_requested"
     CANCELLED = "cancelled"
     FAILED = "failed"

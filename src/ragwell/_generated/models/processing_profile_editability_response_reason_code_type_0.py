@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ProcessingProfileEditabilityResponseReasonCodeType0(str, Enum):
+class ProcessingProfileEditabilityResponseReasonCodeType0(StrEnum):
     DOCUMENTS_PRESENT = "documents_present"
     INSUFFICIENT_PERMISSION = "insufficient_permission"
 

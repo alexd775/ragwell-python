@@ -50,10 +50,10 @@ class DocumentUploadPolicyResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.accepted_document_format_response import (
-            AcceptedDocumentFormatResponse,
+            AcceptedDocumentFormatResponse,  # noqa: PLC0415
         )
         from ..models.document_annotation_policy_response import (
-            DocumentAnnotationPolicyResponse,
+            DocumentAnnotationPolicyResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

@@ -40,11 +40,15 @@ class DocumentInspectionResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.document_embedding_usage import DocumentEmbeddingUsage
-        from ..models.document_generation_info import DocumentGenerationInfo
-        from ..models.document_job_info import DocumentJobInfo
-        from ..models.document_profile_info import DocumentProfileInfo
-        from ..models.document_source_info import DocumentSourceInfo
+        from ..models.document_embedding_usage import (
+            DocumentEmbeddingUsage,  # noqa: PLC0415
+        )
+        from ..models.document_generation_info import (
+            DocumentGenerationInfo,  # noqa: PLC0415
+        )
+        from ..models.document_job_info import DocumentJobInfo  # noqa: PLC0415
+        from ..models.document_profile_info import DocumentProfileInfo  # noqa: PLC0415
+        from ..models.document_source_info import DocumentSourceInfo  # noqa: PLC0415
 
         active_generation_id: None | str
         if isinstance(self.active_generation_id, UUID):
@@ -137,12 +141,18 @@ class DocumentInspectionResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_embedding_usage import DocumentEmbeddingUsage
-        from ..models.document_generation_info import DocumentGenerationInfo
-        from ..models.document_job_info import DocumentJobInfo
-        from ..models.document_profile_info import DocumentProfileInfo
-        from ..models.document_source_info import DocumentSourceInfo
-        from ..models.document_stage_attempt import DocumentStageAttempt
+        from ..models.document_embedding_usage import (
+            DocumentEmbeddingUsage,  # noqa: PLC0415
+        )
+        from ..models.document_generation_info import (
+            DocumentGenerationInfo,  # noqa: PLC0415
+        )
+        from ..models.document_job_info import DocumentJobInfo  # noqa: PLC0415
+        from ..models.document_profile_info import DocumentProfileInfo  # noqa: PLC0415
+        from ..models.document_source_info import DocumentSourceInfo  # noqa: PLC0415
+        from ..models.document_stage_attempt import (
+            DocumentStageAttempt,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
 

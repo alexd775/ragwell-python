@@ -33,9 +33,11 @@ class RetrievalItemResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.retrieval_citation_response import RetrievalCitationResponse
+        from ..models.retrieval_citation_response import (
+            RetrievalCitationResponse,  # noqa: PLC0415
+        )
         from ..models.text_retrieval_citation_response import (
-            TextRetrievalCitationResponse,
+            TextRetrievalCitationResponse,  # noqa: PLC0415
         )
 
         chunk_id = str(self.chunk_id)
@@ -91,11 +93,15 @@ class RetrievalItemResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.chunk_part import ChunkPart
-        from ..models.retrieval_citation_response import RetrievalCitationResponse
-        from ..models.retrieval_scores_response import RetrievalScoresResponse
+        from ..models.chunk_part import ChunkPart  # noqa: PLC0415
+        from ..models.retrieval_citation_response import (
+            RetrievalCitationResponse,  # noqa: PLC0415
+        )
+        from ..models.retrieval_scores_response import (
+            RetrievalScoresResponse,  # noqa: PLC0415
+        )
         from ..models.text_retrieval_citation_response import (
-            TextRetrievalCitationResponse,
+            TextRetrievalCitationResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

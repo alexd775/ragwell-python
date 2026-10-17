@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class DocumentDeletionState(str, Enum):
+class DocumentDeletionState(StrEnum):
     COMPLETED = "completed"
     FAILED = "failed"
     PENDING = "pending"

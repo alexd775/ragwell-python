@@ -37,7 +37,7 @@ class MachineCapabilitiesResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.machine_project_capabilities_response import (
-            MachineProjectCapabilitiesResponse,
+            MachineProjectCapabilitiesResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

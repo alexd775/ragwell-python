@@ -41,7 +41,9 @@ class IngestionJobListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.ingestion_job_response import IngestionJobResponse
+        from ..models.ingestion_job_response import (
+            IngestionJobResponse,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         items = []

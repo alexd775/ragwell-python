@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class RerankMetadataProvider(str, Enum):
+class RerankMetadataProvider(StrEnum):
     OPENROUTER = "openrouter"
     TYPESAFE = "typesafe"
     VERCEL = "vercel"

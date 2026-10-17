@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class AttemptStatus(str, Enum):
+class AttemptStatus(StrEnum):
     CANCELLED = "cancelled"
     FAILED = "failed"
     RUNNING = "running"

@@ -48,8 +48,8 @@ class IngestionJobResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.chunk_stage_progress import ChunkStageProgress
-        from ..models.command_acceptance import CommandAcceptance
+        from ..models.chunk_stage_progress import ChunkStageProgress  # noqa: PLC0415
+        from ..models.command_acceptance import CommandAcceptance  # noqa: PLC0415
 
         attempt_count = self.attempt_count
 
@@ -147,10 +147,10 @@ class IngestionJobResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.chunk_stage_progress import ChunkStageProgress
-        from ..models.command_acceptance import CommandAcceptance
+        from ..models.chunk_stage_progress import ChunkStageProgress  # noqa: PLC0415
+        from ..models.command_acceptance import CommandAcceptance  # noqa: PLC0415
         from ..models.processing_service_class_response import (
-            ProcessingServiceClassResponse,
+            ProcessingServiceClassResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

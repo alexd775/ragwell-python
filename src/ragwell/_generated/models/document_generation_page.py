@@ -45,7 +45,9 @@ class DocumentGenerationPage:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_generation_info import DocumentGenerationInfo
+        from ..models.document_generation_info import (
+            DocumentGenerationInfo,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         items = []

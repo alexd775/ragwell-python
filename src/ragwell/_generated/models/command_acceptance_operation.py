@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class CommandAcceptanceOperation(str, Enum):
+class CommandAcceptanceOperation(StrEnum):
     DELETION_RETRY = "deletion.retry"
     DOCUMENT_METADATA_REPLACE = "document.metadata.replace"
     EXPORT_CREATE = "export.create"

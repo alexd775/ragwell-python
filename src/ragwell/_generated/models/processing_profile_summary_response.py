@@ -86,7 +86,7 @@ class ProcessingProfileSummaryResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.processing_profile_technical_response import (
-            ProcessingProfileTechnicalResponse,
+            ProcessingProfileTechnicalResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

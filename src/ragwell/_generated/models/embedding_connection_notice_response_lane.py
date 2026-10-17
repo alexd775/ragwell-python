@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class EmbeddingConnectionNoticeResponseLane(str, Enum):
+class EmbeddingConnectionNoticeResponseLane(StrEnum):
     INDEXING = "indexing"
     QUERY = "query"
 

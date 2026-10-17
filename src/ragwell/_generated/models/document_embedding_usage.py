@@ -41,7 +41,7 @@ class DocumentEmbeddingUsage:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.document_embedding_usage_totals import (
-            DocumentEmbeddingUsageTotals,
+            DocumentEmbeddingUsageTotals,  # noqa: PLC0415
         )
 
         accounted_input_tokens: int | None
@@ -109,7 +109,7 @@ class DocumentEmbeddingUsage:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.document_embedding_usage_totals import (
-            DocumentEmbeddingUsageTotals,
+            DocumentEmbeddingUsageTotals,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

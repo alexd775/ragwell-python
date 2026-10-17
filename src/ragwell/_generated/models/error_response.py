@@ -33,7 +33,7 @@ class ErrorResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.error_detail import ErrorDetail
+        from ..models.error_detail import ErrorDetail  # noqa: PLC0415
 
         d = dict(src_dict)
         error = ErrorDetail.from_dict(d.pop("error"))

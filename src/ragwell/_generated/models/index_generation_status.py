@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class IndexGenerationStatus(str, Enum):
+class IndexGenerationStatus(StrEnum):
     ACTIVE = "active"
     BUILDING = "building"
     SUPERSEDED = "superseded"

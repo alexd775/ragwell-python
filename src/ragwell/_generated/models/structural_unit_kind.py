@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class StructuralUnitKind(str, Enum):
+class StructuralUnitKind(StrEnum):
     CODE = "code"
     FURNITURE = "furniture"
     HEADING = "heading"

@@ -63,7 +63,7 @@ class DocumentAnnotationPolicyResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.document_annotation_field_response import (
-            DocumentAnnotationFieldResponse,
+            DocumentAnnotationFieldResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

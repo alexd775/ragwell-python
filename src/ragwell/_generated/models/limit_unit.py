@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class LimitUnit(str, Enum):
+class LimitUnit(StrEnum):
     BYTES = "bytes"
     COUNT = "count"
     INPUT_TOKENS = "input_tokens"

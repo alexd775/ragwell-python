@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class DocumentFormat(str, Enum):
+class DocumentFormat(StrEnum):
     MARKDOWN = "markdown"
     PDF = "pdf"
     PLAIN_TEXT = "plain_text"

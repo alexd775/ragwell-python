@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GrantableApiKeyScope(str, Enum):
+class GrantableApiKeyScope(StrEnum):
     DELETIONREAD = "deletion:read"
     DELETIONRETRY = "deletion:retry"
     DOCUMENTDELETE = "document:delete"

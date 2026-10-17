@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ChunkPartKind(str, Enum):
+class ChunkPartKind(StrEnum):
     CONTEXT = "context"
     EVIDENCE = "evidence"
     SEPARATOR = "separator"

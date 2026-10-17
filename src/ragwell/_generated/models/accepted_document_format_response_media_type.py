@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class AcceptedDocumentFormatResponseMediaType(str, Enum):
+class AcceptedDocumentFormatResponseMediaType(StrEnum):
     APPLICATIONPDF = "application/pdf"
     TEXTMARKDOWN = "text/markdown"
     TEXTPLAIN = "text/plain"

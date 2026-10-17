@@ -80,7 +80,9 @@ class DocumentRetrievalActivity:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_chunk_activity import DocumentChunkActivity
+        from ..models.document_chunk_activity import (
+            DocumentChunkActivity,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         chunk_appearances = d.pop("chunk_appearances")

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class UploadState(str, Enum):
+class UploadState(StrEnum):
     EXPIRED = "expired"
     FINALIZED = "finalized"
     PENDING = "pending"

@@ -2,7 +2,8 @@
 
 ## Selected tooling
 
-- `openapi-python-client==0.29.0` is pinned as development-only generation tooling.
+- `openapi-python-client==0.29.1` is pinned as development-only generation tooling.
+  It includes the fix for [CVE-2026-105801](https://github.com/openapi-generators/openapi-python-client/security/advisories/GHSA-5293-mq8x-g3xj).
   Its official project documents OpenAPI 3.0/3.1 generation and an MIT license,
   while warning that not every OpenAPI feature is supported:
   <https://github.com/openapi-generators/openapi-python-client>.

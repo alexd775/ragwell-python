@@ -94,7 +94,7 @@ class PlanLimitErrorDetail:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.field_error import FieldError
+        from ..models.field_error import FieldError  # noqa: PLC0415
 
         d = dict(src_dict)
         limit = d.pop("limit")

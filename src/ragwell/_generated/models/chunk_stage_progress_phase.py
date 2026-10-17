@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ChunkStageProgressPhase(str, Enum):
+class ChunkStageProgressPhase(StrEnum):
     ANALYSIS = "analysis"
     ASSEMBLY = "assembly"
 

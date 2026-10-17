@@ -66,10 +66,10 @@ class ProjectResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.processing_profile_editability_response import (
-            ProcessingProfileEditabilityResponse,
+            ProcessingProfileEditabilityResponse,  # noqa: PLC0415
         )
         from ..models.processing_profile_summary_response import (
-            ProcessingProfileSummaryResponse,
+            ProcessingProfileSummaryResponse,  # noqa: PLC0415
         )
 
         d = dict(src_dict)

@@ -23,8 +23,8 @@ class SearchRequest:
     rerank: None | RerankRequest | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rerank_request import RerankRequest
-        from ..models.search_filters import SearchFilters
+        from ..models.rerank_request import RerankRequest  # noqa: PLC0415
+        from ..models.search_filters import SearchFilters  # noqa: PLC0415
 
         query = self.query
 
@@ -64,8 +64,8 @@ class SearchRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.rerank_request import RerankRequest
-        from ..models.search_filters import SearchFilters
+        from ..models.rerank_request import RerankRequest  # noqa: PLC0415
+        from ..models.search_filters import SearchFilters  # noqa: PLC0415
 
         d = dict(src_dict)
         query = d.pop("query")

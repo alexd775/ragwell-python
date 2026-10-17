@@ -33,7 +33,9 @@ class PlanLimitErrorResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.plan_limit_error_detail import PlanLimitErrorDetail
+        from ..models.plan_limit_error_detail import (
+            PlanLimitErrorDetail,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         error = PlanLimitErrorDetail.from_dict(d.pop("error"))

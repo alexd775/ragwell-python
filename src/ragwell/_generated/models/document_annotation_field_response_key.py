@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class DocumentAnnotationFieldResponseKey(str, Enum):
+class DocumentAnnotationFieldResponseKey(StrEnum):
     AUTHOR = "author"
     CATEGORY = "category"
     LANGUAGE = "language"

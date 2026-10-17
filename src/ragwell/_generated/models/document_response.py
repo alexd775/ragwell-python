@@ -34,7 +34,7 @@ class DocumentResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.command_acceptance import CommandAcceptance
+        from ..models.command_acceptance import CommandAcceptance  # noqa: PLC0415
 
         created_at = self.created_at.isoformat()
 
@@ -84,8 +84,10 @@ class DocumentResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.command_acceptance import CommandAcceptance
-        from ..models.document_metadata_response import DocumentMetadataResponse
+        from ..models.command_acceptance import CommandAcceptance  # noqa: PLC0415
+        from ..models.document_metadata_response import (
+            DocumentMetadataResponse,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         created_at = datetime.datetime.fromisoformat(d.pop("created_at"))

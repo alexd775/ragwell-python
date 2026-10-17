@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class LimitKey(str, Enum):
+class LimitKey(StrEnum):
     EMBEDDING_INPUT_TOKENS = "embedding_input_tokens"
     INDEXED_PAGES = "indexed_pages"
     PROJECTS = "projects"

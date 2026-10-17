@@ -27,7 +27,7 @@ class ChunkPart:
     start_line: int | None | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.source_span import SourceSpan
+        from ..models.source_span import SourceSpan  # noqa: PLC0415
 
         kind = self.kind.value
 
@@ -90,7 +90,7 @@ class ChunkPart:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.source_span import SourceSpan
+        from ..models.source_span import SourceSpan  # noqa: PLC0415
 
         d = dict(src_dict)
         kind = ChunkPartKind(d.pop("kind"))

@@ -39,7 +39,9 @@ class ReplaceDocumentMetadataRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_metadata_input import DocumentMetadataInput
+        from ..models.document_metadata_input import (
+            DocumentMetadataInput,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         expected_revision = d.pop("expected_revision")

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class SourceCoordinateKind(str, Enum):
+class SourceCoordinateKind(StrEnum):
     PAGE = "page"
     TEXT = "text"
 

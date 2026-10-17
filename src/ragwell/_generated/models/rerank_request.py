@@ -46,7 +46,7 @@ class RerankRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.rerank_params import RerankParams
+        from ..models.rerank_params import RerankParams  # noqa: PLC0415
 
         d = dict(src_dict)
         id = cast(Literal["jev"], d.pop("id"))

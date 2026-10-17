@@ -48,9 +48,13 @@ class FinalizedIntakeResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.document_response import DocumentResponse
-        from ..models.document_version_response import DocumentVersionResponse
-        from ..models.upload_session_response import UploadSessionResponse
+        from ..models.document_response import DocumentResponse  # noqa: PLC0415
+        from ..models.document_version_response import (
+            DocumentVersionResponse,  # noqa: PLC0415
+        )
+        from ..models.upload_session_response import (
+            UploadSessionResponse,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         document = DocumentResponse.from_dict(d.pop("document"))

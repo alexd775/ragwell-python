@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class EmbeddingConnectionResponseHealth(str, Enum):
+class EmbeddingConnectionResponseHealth(StrEnum):
     INTERVENTION_REQUIRED = "intervention_required"
     READY = "ready"
     TRANSIENT_FAILURE = "transient_failure"

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class IngestionStage(str, Enum):
+class IngestionStage(StrEnum):
     CHUNK = "chunk"
     COMPLETE = "complete"
     EMBED = "embed"

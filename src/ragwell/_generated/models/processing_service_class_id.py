@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ProcessingServiceClassId(str, Enum):
+class ProcessingServiceClassId(StrEnum):
     ACCELERATED_V1 = "accelerated-v1"
     SHARED_V1 = "shared-v1"
     STANDARD_V1 = "standard-v1"

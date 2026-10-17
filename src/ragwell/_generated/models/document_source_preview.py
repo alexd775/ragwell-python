@@ -93,7 +93,7 @@ class DocumentSourcePreview:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.structural_unit import StructuralUnit
+        from ..models.structural_unit import StructuralUnit  # noqa: PLC0415
 
         d = dict(src_dict)
         character_count = d.pop("character_count")
