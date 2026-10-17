@@ -187,7 +187,7 @@ The [sync lifecycle script](../../examples/sync_lifecycle.py) and
 [async lifecycle example](../../examples/async_lifecycle.py) create only their synthetic
 document, export it temporarily and delete it in `finally`. Their cleanup can still
 fail if the API is unavailable; retain any error's recovery identifiers. The
-[deployed API validation runner](../beta-validation.md) adds durable reporting,
+[deployed API validation runner](../deployed-validation.md) adds durable reporting,
 upload recovery, wheel identity and stricter integration assertions for release validation.
 
 

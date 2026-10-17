@@ -89,7 +89,7 @@ created by that run. Supply credentials privately. Run this check explicitly whe
 deployed compatibility needs validation; keep ordinary CI offline.
 
 This opt-in flow is implemented by `qualification/beta_runner.py`; follow the
-[deployed API validation instructions](beta-validation.md) and record its result separately.
+[deployed API validation instructions](deployed-validation.md) and record its result separately.
 The full `http_runner.py` expects the fixture contract, including two-tenant
 references, restricted/revoked credentials and controlled failure states. A single
 test account/key cannot satisfy that matrix. A normal-lifecycle result must be

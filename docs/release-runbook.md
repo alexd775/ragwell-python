@@ -6,7 +6,7 @@ Twine and no PyPI token belongs in GitHub or a local `.env` file.
 
 For release policy, qualification evidence and the previous publication record, see
 [release preparation](releasing.md). For the opt-in deployed API check, see
-[deployed API validation](beta-validation.md).
+[deployed API validation](deployed-validation.md).
 
 ## Before tagging
 

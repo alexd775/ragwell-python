@@ -53,7 +53,7 @@ idempotency identifiers and backend source provenance. Each records its
 are unchanged; this is not a new qualification run or a change to published
 package artifacts. Historical scan-triage records retain their original labels.
 
-Run [deployed API validation](beta-validation.md) from the actual installed
+Run [deployed API validation](deployed-validation.md) from the actual installed
 candidate wheel using dedicated test credentials. Retain the separate
 [full HTTP qualification](http-qualification.md)
 evidence for the controlled failure/tenant matrix. Neither ordinary unit tests nor

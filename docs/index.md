@@ -16,3 +16,7 @@ Ragwell accepts documents, processes them, and retrieves relevant chunks with so
 For a runnable Python 3.12 project, use the [three-script async example](../examples/async_project/README.md). It installs the published SDK from PyPI.
 
 [Troubleshooting](help/troubleshooting.md) covers common setup and lifecycle failures. SDK contributors can start with [development](contributing/development.md), [contract generation](contributing/contract-generation.md), and [releases](contributing/releases.md). The [changelog](../CHANGELOG.md) records version changes.
+
+Maintainers can run [deployed API validation](deployed-validation.md) against an
+explicitly selected production or staging endpoint. The separate
+[beta validation guide](beta-validation.md) retains the beta-specific procedure.

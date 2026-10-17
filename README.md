@@ -194,7 +194,7 @@ passed a bounded synthetic Jev request. Representative quality, latency and cost
 evaluation remains separate product-rollout work. The
 [release record](docs/releasing.md) identifies the immutable artifacts and checks.
 
-An optional [deployed API lifecycle validation](docs/beta-validation.md) checks
+An optional [deployed API lifecycle validation](docs/deployed-validation.md) checks
 the installed wheel against a dedicated existing test project with a scoped key.
 Select the production or staging API origin explicitly; no beta environment is
 required. It starts no services and is separate from the full fixture matrix and
