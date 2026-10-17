@@ -46,6 +46,13 @@ secrets, audit every pinned runtime/development dependency, and inventory runtim
 licenses. Keep machine-readable reports under `docs/qualification/` or with the
 immutable release artifacts. Refresh advisory data for the final release.
 
+On 2026-10-17, the source-tree copies of four September deployed-lifecycle reports
+and the 2026-09-21 HTTP report received clearer metadata labels for request
+idempotency identifiers and backend source provenance. Each records its
+`original_report_sha256` and normalization date. Observed values and test outcomes
+are unchanged; this is not a new qualification run or a change to published
+package artifacts. Historical scan-triage records retain their original labels.
+
 Run [deployed API validation](beta-validation.md) from the actual installed
 candidate wheel using dedicated test credentials. Retain the separate
 [full HTTP qualification](http-qualification.md)

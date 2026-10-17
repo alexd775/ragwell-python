@@ -3,7 +3,10 @@
   "evidence_module_sha256": "7e24ad9db2cca209da1f002d4a9e23aae82bf40cae40b177c762e9af2b25da17",
   "finished_at": "2026-09-22T09:53:45.157479+00:00",
   "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
+  "metadata_normalized_on": "2026-10-17",
+  "metadata_note": "Source-tree evidence labels distinguish request idempotency identifiers and backend source provenance from authentication credentials. Original observed values and qualification outcomes are unchanged; the original report hash identifies the pre-normalization bytes.",
   "operation_count": 26,
+  "original_report_sha256": "98bc245874607cfc8cdcfd616bfc37f74ff5a71fae315c4ea60af2094793ea52",
   "platform": "Darwin arm64",
   "project_id": "244c70d1-e2ea-445d-a454-03ca8c3672eb",
   "python_version": "3.11.16",
@@ -44,7 +47,7 @@
         "receipt_id": "dfc9bdef-f5ec-4ff0-96ed-5bbca63192d2",
         "status": "deleted"
       },
-      "delete_key": "cfea2bb452dd4d0f8305175519a9499b",
+      "deletion_request_idempotency": "cfea2bb452dd4d0f8305175519a9499b",
       "document_id": "0f851df4-c215-43ff-b33a-650230e3a8f7",
       "export_bytes": 3087,
       "export_id": "89c0202b-28be-4c62-b648-f17c641b5afc",
@@ -59,7 +62,7 @@
       "retrieval_id": "2597fdf1-f153-4679-a82a-5370b874c990",
       "status": "passed",
       "upload_id": "5b777931-6703-4624-b18d-862351b13478",
-      "upload_key": "23cf0f00bf154142b85031111eb47d29",
+      "upload_request_idempotency": "23cf0f00bf154142b85031111eb47d29",
       "upload_started": true
     },
     "sync": {
@@ -75,7 +78,7 @@
         "receipt_id": "6e2a27a6-7caf-40cf-983c-f904b298e447",
         "status": "deleted"
       },
-      "delete_key": "2decea9cb9de46b989e8af5c50f20f75",
+      "deletion_request_idempotency": "2decea9cb9de46b989e8af5c50f20f75",
       "document_id": "5a3682fd-0821-44bf-96a9-a8ffdc6170bc",
       "export_bytes": 3083,
       "export_id": "40ba239f-4c4c-485e-9e69-ad1c6706eeb9",
@@ -90,7 +93,7 @@
       "retrieval_id": "75a0c1fc-a446-478a-ae21-0c139cf3f222",
       "status": "passed",
       "upload_id": "c295e16c-7ebf-4322-8441-f99285dacd78",
-      "upload_key": "10d25a1014804923bffe21166ea96b22",
+      "upload_request_idempotency": "10d25a1014804923bffe21166ea96b22",
       "upload_started": true
     }
   },

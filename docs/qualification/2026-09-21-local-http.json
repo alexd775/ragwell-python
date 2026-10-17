@@ -1,5 +1,5 @@
 {
-  "api_commit": "e8055ae5d9b92fe8f1f73e437b5a9b3e79ff05d8",
+  "backend_source_commit": "e8055ae5d9b92fe8f1f73e437b5a9b3e79ff05d8",
   "configuration": {
     "database": "disposable-postgres-pgvector",
     "environment": "test",
@@ -18,7 +18,10 @@
   "fixture_service_sha256": "d0e207b0ea32e1acc103d92ee4972427a47b3ae0eca29a17af3b7de049dbd4d2",
   "machine_sha256": "8e05de4ae0f3aa76261e97ad07be1fc77756f317c3e2c20ab2be3efb2cb6db90",
   "manifest_sha256": "1ca24e94b513da6e2ec670dc54fb1a426c35e5f9608d5563a85e2008ec914e2f",
+  "metadata_normalized_on": "2026-10-17",
+  "metadata_note": "Source-tree evidence labels distinguish request idempotency identifiers and backend source provenance from authentication credentials. Original observed values and qualification outcomes are unchanged; the original report hash identifies the pre-normalization bytes.",
   "operation_count": 26,
+  "original_report_sha256": "66ab4a982050d95b66d99ff4d57119b825f1f3457e8a4e1b0081155e230ecb4e",
   "platform": "Darwin arm64",
   "postgres_image": "pgvector/pgvector:0.8.6-pg18-bookworm@sha256:2ba9ca5f2e7daa0f0e7723cba1ee9167bab54efd3640516a44ac1a928dd67e7a",
   "python_version": "3.11.16",
