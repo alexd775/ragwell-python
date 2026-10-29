@@ -29,7 +29,7 @@
     "async_foreign_project_denied",
     "revoked_key_denied"
   ],
-  "sdk_request_count": 12,
+  "sdk_request_count": 13,
   "sdk_methods": [
     "GET"
   ],
@@ -37,5 +37,11 @@
   "provider_calls": 0,
   "project_cleanup": "passed",
   "runner_sha256": "945287a22bbb8643896a7cd086490a6b9b9c2cdd60113b2944a3a033799d1e6a",
-  "evidence_helper_sha256": "729cc964674433fa7dc589288e5f682eb458b8b0b2632b47e2c5ae7e7bfd69db"
+  "evidence_helper_sha256": "729cc964674433fa7dc589288e5f682eb458b8b0b2632b47e2c5ae7e7bfd69db",
+  "original_report_sha256": "1fa0a71e9d68e63459241de87e303649f8f9f5b671f76aa572e52a2598afbe29",
+  "normalization_date": "2026-10-29",
+  "normalization_reason": "The request hook captured 12 SDK reads; one additional missing-scope denial used a separate SDK client without that hook. Outcomes and artifact identity are unchanged.",
+  "captured_sdk_request_count": 12,
+  "additional_missing_scope_sdk_requests": 1,
+  "total_sdk_request_count": 13
 }

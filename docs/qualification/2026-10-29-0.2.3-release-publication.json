@@ -61,7 +61,10 @@
       "retrieval_usage_rows": 0,
       "embedding_provider_operations": 0,
       "live_projects_after_cleanup": 0
-    }
+    },
+    "captured_sdk_request_count": 12,
+    "additional_missing_scope_sdk_requests": 1,
+    "total_sdk_request_count": 13
   },
   "evidence": {
     "staged-tcp-read.json": "2026-10-29-0.2.3-staged-tcp-read.json",

@@ -6,7 +6,7 @@ qualification evidence behind that procedure.
 
 The current developer beta is `ragwell==0.2.3`, published from immutable tag
 `v0.2.3` on 2026-10-29. Its exact staged wheel passed scoped isolated TCP
-description and authorization checks, and its public bytes passed a fresh
+description and authorization checks through 13 SDK GET requests, and its public bytes passed a fresh
 normal-index installation. Production API deployment and the complete
 provider/lifecycle fixture matrix remain separate. See the
 [publication record](qualification/2026-10-29-0.2.3-release-publication.json).
