@@ -70,7 +70,7 @@ def installed_identity(wheel: Path) -> tuple[dict[str, Any], dict[str, Any]]:
         "platform": platform.system() + " " + platform.machine(),
         "runtime_dependencies": {
             name: distribution(name).version
-            for name in ("attrs", "httpx", "httpcore", "python-dateutil")
+            for name in ("attrs", "certifi", "httpx", "httpcore", "python-dateutil")
         },
         "machine_sha256": manifest["machine_sha256"],
         "operation_count": manifest["operation_count"],

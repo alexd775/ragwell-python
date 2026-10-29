@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-29",
+  "source_commit": "fb489d624f63a4867fc09456d387556ac1882901",
+  "sdk_version": "0.2.3",
+  "tag": "v0.2.3",
+  "contract_artifact": "2026-10-29.1",
+  "machine_sha256": "9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a",
+  "security_fix": {
+    "advisory": "GHSA-6q48-6c7w-9gw2",
+    "previous_certifi": "2026.7.22",
+    "locked_certifi": "2026.10.23",
+    "runtime_minimum": "2026.10.19",
+    "source": "https://pypi.org/project/certifi/2026.10.23/"
+  },
+  "local_checks": {
+    "pytest": 185,
+    "example_pytest": 19,
+    "format": "passed",
+    "lint": "passed",
+    "mypy": "168 source files passed",
+    "generation": "passed",
+    "docs": "39 Markdown files passed",
+    "twine": "7.0.0 strict passed"
+  },
+  "source_security": {
+    "snapshot": "git archive HEAD",
+    "gitleaks_image": "zricethezav/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f",
+    "source_secret_findings": 0,
+    "distribution_secret_findings": 0,
+    "pip_audit_version": "2.10.1",
+    "all_external_locked_packages": 43,
+    "known_vulnerabilities": 0,
+    "runtime_license_packages": 10,
+    "trivy_image": "aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969",
+    "source_and_distribution_high_critical_vulnerabilities": 0,
+    "source_and_distribution_high_critical_license_findings": 0,
+    "exceptions": []
+  },
+  "hosted_checks": {
+    "ci": "https://github.com/alexd775/ragwell-python/actions/runs/40902707672",
+    "examples": "https://github.com/alexd775/ragwell-python/actions/runs/40902707943",
+    "docs": "https://github.com/alexd775/ragwell-python/actions/runs/40902707578",
+    "conclusion": "success"
+  },
+  "release_workflow": "https://github.com/alexd775/ragwell-python/actions/runs/40902911507",
+  "result": "published_and_verified",
+  "github_release": "https://github.com/alexd775/ragwell-python/releases/tag/v0.2.3",
+  "indexes": [
+    "https://test.pypi.org/project/ragwell/0.2.3/",
+    "https://pypi.org/project/ragwell/0.2.3/"
+  ],
+  "files": {
+    "ragwell-0.2.3-py3-none-any.whl": "51adfe738a2e1e435403c92073f26f332061c1f9d9b3ecaac8ce1b96cfc8726d",
+    "ragwell-0.2.3.tar.gz": "fde11d99550e0367dca6706d9180edcfce021ac78b1cb0dc2df4b5e18d79431a"
+  },
+  "all_index_downloads_match_workflow_and_scanned_bytes": true,
+  "qualification": {
+    "staged_read": "2026-10-29-0.2.3-staged-tcp-read.json",
+    "public_install": "2026-10-29-0.2.3-public-install.json",
+    "api_owner_fixture_verification": {
+      "retrieval_usage_rows": 0,
+      "embedding_provider_operations": 0,
+      "live_projects_after_cleanup": 0
+    }
+  },
+  "evidence": {
+    "staged-tcp-read.json": "2026-10-29-0.2.3-staged-tcp-read.json",
+    "public-install.json": "2026-10-29-0.2.3-public-install.json",
+    "dependency-audit.json": "2026-10-29-0.2.3-dependency-audit.json",
+    "runtime-licenses.json": "2026-10-29-0.2.3-runtime-licenses.json",
+    "source-vulnerability-license.json": "2026-10-29-0.2.3-source-vulnerability-license.json",
+    "distribution-vulnerability-license.json": "2026-10-29-0.2.3-distribution-vulnerability-license.json",
+    "source-secrets.json": "2026-10-29-0.2.3-source-secrets.json",
+    "distribution-secrets.json": "2026-10-29-0.2.3-distribution-secrets.json"
+  },
+  "provenance": [
+    {
+      "role": "SDK immutable release source",
+      "source_commit": "fb489d624f63a4867fc09456d387556ac1882901"
+    },
+    {
+      "role": "isolated API projection tested for the additive read",
+      "source_commit": "b8fd6e49935db25a0fe803ccab32cd5810379f5b"
+    }
+  ],
+  "limitations": [
+    "The API probe used disposable loopback TCP with fake providers and no searches; it does not claim public HTTPS or production API deployment.",
+    "The complete provider and lifecycle fixture matrix was not repeated.",
+    "The six-job platform matrix covers Linux and macOS; Windows OS qualification was not repeated.",
+    "Post-publication evidence-helper and example-pin changes do not modify the release tag or artifacts."
+  ]
+}

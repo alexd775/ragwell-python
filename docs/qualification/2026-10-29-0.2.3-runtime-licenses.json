@@ -1,0 +1,78 @@
+{
+  "source_commit": "fb489d624f63a4867fc09456d387556ac1882901",
+  "packages": [
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "license_expression": "MIT",
+      "license_classifiers": []
+    },
+    {
+      "name": "attrs",
+      "version": "25.4.0",
+      "license_expression": "MIT",
+      "license_classifiers": []
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23",
+      "license_expression": "MPL-2.0",
+      "license_classifiers": [
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+      ]
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license_expression": "MIT",
+      "license_classifiers": [
+        "License :: OSI Approved :: MIT License"
+      ]
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License"
+      ]
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License"
+      ]
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": []
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "license_expression": "Dual License",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: Apache Software License"
+      ]
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "license_expression": "MIT",
+      "license_classifiers": [
+        "License :: OSI Approved :: MIT License"
+      ]
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license_expression": "PSF-2.0",
+      "license_classifiers": []
+    }
+  ]
+}

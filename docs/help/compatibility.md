@@ -1,6 +1,6 @@
 # Compatibility and support
 
-`0.1.0` is the first published developer beta; `0.2.2` is the current published
+`0.1.0` is the first published developer beta; `0.2.3` is the current published
 release. PyPI project metadata and the protected release workflow identify published
 artifacts; a source-tree version by itself does not.
 
@@ -34,9 +34,9 @@ A bad release is superseded or yanked; existing published files are never replac
 ## Platforms and qualification
 
 The syntax/runtime floor is Python 3.11. The current hosted matrix targets CPython
-3.11–3.14 on Linux and Python 3.11/3.14 on macOS. Release revision `273f672` passed
-that six-job matrix on 2026-09-22. Windows passed the earlier 0.1.0 matrix but is not
-qualified for 0.2.0. PyPy, Trio, free-threaded Python and later Python versions are
+3.11–3.14 on Linux and Python 3.11/3.14 on macOS. Release revision `fb489d6` passed
+that six-job matrix on 2026-10-29. Windows passed the earlier 0.1.0 matrix but is not
+qualified for 0.2.3. PyPy, Trio, free-threaded Python and later Python versions are
 also not qualified. Async clients use asyncio and must remain in their owning event
 loop.
 

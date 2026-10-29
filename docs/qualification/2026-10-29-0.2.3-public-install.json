@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-29",
+  "source_commit": "fb489d624f63a4867fc09456d387556ac1882901",
+  "version": "0.2.3",
+  "installation": "fresh normal https://pypi.org/simple/ index outside all checkouts",
+  "wheel_sha256": "51adfe738a2e1e435403c92073f26f332061c1f9d9b3ecaac8ce1b96cfc8726d",
+  "all_installed_package_files_match_public_wheel": true,
+  "contract": "2026-10-29.1",
+  "machine_sha256": "9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a",
+  "operation_count": 28,
+  "runtime_dependencies": {
+    "attrs": "25.4.0",
+    "certifi": "2026.10.23",
+    "httpx": "0.28.1",
+    "httpcore": "1.0.9",
+    "python-dateutil": "2.9.0.post0"
+  },
+  "mock_transport_sync_async_description_calls": 2,
+  "result": "passed",
+  "limitations": [
+    "Mock transport here performs no actual API request; real isolated TCP proof is separately recorded for the byte-identical staged wheel."
+  ]
+}

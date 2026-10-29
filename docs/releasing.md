@@ -4,6 +4,13 @@ Maintainers executing a release should follow the concise
 [release runbook](release-runbook.md). This document records policy, controls and
 qualification evidence behind that procedure.
 
+The current developer beta is `ragwell==0.2.3`, published from immutable tag
+`v0.2.3` on 2026-10-29. Its exact staged wheel passed scoped isolated TCP
+description and authorization checks, and its public bytes passed a fresh
+normal-index installation. Production API deployment and the complete
+provider/lifecycle fixture matrix remain separate. See the
+[publication record](qualification/2026-10-29-0.2.3-release-publication.json).
+
 The first developer beta is `ragwell==0.1.0`, published from the immutable
 `v0.1.0` tag. A source version alone does not imply package publication or a tag.
 The SDK repository owns its release. API deployment and API CI do not build or

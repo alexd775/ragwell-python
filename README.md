@@ -3,19 +3,18 @@
 Typed synchronous and asynchronous Python clients for Ragwell, a managed service
 for document ingestion and retrieval with source citations.
 
-**Status: `0.2.2` developer beta**, published on
-[PyPI](https://pypi.org/project/ragwell/0.2.2/). It adds current-key capability
-discovery from contract `2026-10-03.1`. Its protected release workflow, clean
-public-package installation and live sync/async discovery passed. The SDK returns
-evidence and citations; it does not generate answers.
+**Status: `0.2.3` developer beta**, published on
+[PyPI](https://pypi.org/project/ragwell/0.2.3/). It adds project-scoped agent
+context from contract `2026-10-29.1` and requires a fixed certifi trust bundle.
+The protected release workflow, exact staged-wheel isolated TCP read checks,
+and a clean normal-index public installation passed. The SDK returns evidence
+and citations; it does not generate answers.
 
-The discovery resource requires an API supporting `GET /v1/machine/capabilities`.
-It returns current project grants and scopes without a search or mutation.
-
-The source tree prepares **unpublished candidate `0.2.3`**, using contract
-`2026-10-29.1`. It adds `project.agent_description()` for current, project-scoped
-agent context. Deploy the matching API and publish the SDK before adopting this
-method in an installed integration; `0.2.2` remains the published release.
+`project.agent_description()` requires an API deployment supporting
+`GET /v1/projects/{project_id}/agent-description`. This release's isolated
+verification does not claim that production API deployment is complete.
+`client.capabilities.get()` requires `GET /v1/machine/capabilities`; both reads
+perform no search or mutation.
 
 New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
 [the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
@@ -84,7 +83,7 @@ loop, and close it at shutdown. Injected HTTPX clients are borrowed unless
 ## Public resource layout
 
 `client.project(project_id)` is local and performs no preflight request. Both client
-styles in the `0.2.3` candidate expose the same 28 contract operations:
+styles expose the same 28 contract operations:
 
 - `client.capabilities.get()` (since 0.2.2)
 - `client.upload_policy.get()`
@@ -194,7 +193,7 @@ See [contract provenance](contracts/README.md),
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
 credentials, provider calls, private repository, or model downloads.
 
-The current contract adds optional Jev reranking. The published `0.2.0` wheel passed
+Optional Jev reranking remains available from SDK `0.2.0`. The published `0.2.0` wheel passed
 the deployed beta lifecycle with the matching live contract, and its package runtime
 passed a bounded synthetic Jev request. Representative quality, latency and cost
 evaluation remains separate product-rollout work. The

@@ -1,6 +1,6 @@
 # Async project example (Python 3.12)
 
-Three small scripts using the published `ragwell==0.2.0` SDK and `AsyncRagwell`.
+Three small scripts using the published `ragwell==0.2.3` SDK and `AsyncRagwell`.
 They use an existing project; create it and its API key in the dashboard first.
 Use a dedicated example project, since cleanup deletes **all** its documents.
 

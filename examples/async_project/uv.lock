@@ -163,17 +163,18 @@ wheels = [
 
 [[package]]
 name = "ragwell"
-version = "0.2.0"
+version = "0.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
+    { name = "certifi" },
     { name = "httpcore" },
     { name = "httpx" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d7/4b/82c893d977ac562ef0c1642b40a1f95d10236ca79b09b629723e1c6261cf/ragwell-0.2.0.tar.gz", hash = "sha256:60b8e54273605c5eb6af2c4b43c3e88b1f0d12e17adfaa943eca3d0a82160e19", size = 239243, upload-time = "2026-09-22T19:19:14.345Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0f/c7/035164da7790ee20dddcacc199e817ee5bad95316abeec190707dd337498/ragwell-0.2.3.tar.gz", hash = "sha256:fde11d99550e0367dca6706d9180edcfce021ac78b1cb0dc2df4b5e18d79431a", size = 307256, upload-time = "2026-10-29T15:37:46.749Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/18/ef/19438c52d2bec434485b2faa1477ae25e0c14862ad5a734989bc7909c013/ragwell-0.2.0-py3-none-any.whl", hash = "sha256:6e04481e9cbd31da0c475e10988128a3ba093c8cda7463ecb89432b0a64a8fcb", size = 180779, upload-time = "2026-09-22T19:19:12.802Z" },
+    { url = "https://files.pythonhosted.org/packages/0e/f2/d1a847d3a19537633caf364673a98a624329ce07fe917618794a3edbfd24/ragwell-0.2.3-py3-none-any.whl", hash = "sha256:51adfe738a2e1e435403c92073f26f332061c1f9d9b3ecaac8ce1b96cfc8726d", size = 194919, upload-time = "2026-10-29T15:37:45.115Z" },
 ]
 
 [[package]]
@@ -193,7 +194,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.3,<2" },
-    { name = "ragwell", specifier = "==0.2.0" },
+    { name = "ragwell", specifier = "==0.2.3" },
 ]
 
 [package.metadata.requires-dev]

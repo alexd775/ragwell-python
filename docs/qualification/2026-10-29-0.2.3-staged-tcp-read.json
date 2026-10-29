@@ -1,0 +1,41 @@
+{
+  "qualification": "outcome69_exact_staged_wheel_tcp_read",
+  "scope": "disposable_loopback_api_with_fake_providers_no_searches",
+  "result": "passed",
+  "wheel": "ragwell-0.2.3-py3-none-any.whl",
+  "wheel_sha256": "51adfe738a2e1e435403c92073f26f332061c1f9d9b3ecaac8ce1b96cfc8726d",
+  "installed": {
+    "wheel_sha256": "51adfe738a2e1e435403c92073f26f332061c1f9d9b3ecaac8ce1b96cfc8726d",
+    "sdk_version": "0.2.3",
+    "python_version": "3.12.14",
+    "platform": "Darwin arm64",
+    "runtime_dependencies": {
+      "attrs": "25.4.0",
+      "certifi": "2026.10.23",
+      "httpx": "0.28.1",
+      "httpcore": "1.0.9",
+      "python-dateutil": "2.9.0.post0"
+    },
+    "machine_sha256": "9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a",
+    "operation_count": 28
+  },
+  "checks": [
+    "live_machine_contract_matches_installed_wheel",
+    "sync_fresh_update_and_clear",
+    "sync_foreign_project_denied",
+    "search_key_cannot_read_full_project",
+    "document_read_only_denied",
+    "async_fresh_update_and_clear",
+    "async_foreign_project_denied",
+    "revoked_key_denied"
+  ],
+  "sdk_request_count": 12,
+  "sdk_methods": [
+    "GET"
+  ],
+  "searches": 0,
+  "provider_calls": 0,
+  "project_cleanup": "passed",
+  "runner_sha256": "945287a22bbb8643896a7cd086490a6b9b9c2cdd60113b2944a3a033799d1e6a",
+  "evidence_helper_sha256": "729cc964674433fa7dc589288e5f682eb458b8b0b2632b47e2c5ae7e7bfd69db"
+}
