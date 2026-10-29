@@ -13,7 +13,10 @@
   <https://www.python-httpx.org/>.
 
 Runtime dependencies are deliberately limited to HTTPX (BSD-3-Clause), HTTPCore
-(BSD-3-Clause), attrs (MIT), and python-dateutil (dual Apache-2.0/BSD). HTTPCore
+(BSD-3-Clause), certifi (MPL-2.0), attrs (MIT), and python-dateutil (dual Apache-2.0/BSD).
+Certifi was already an HTTPX transitive dependency; the explicit `2026.10.19`
+minimum removes the compromised emSign certificate authority bundle identified
+by GHSA-6q48-6c7w-9gw2 from supported consumer environments. HTTPCore
 was already in HTTPX’s dependency graph; its public network-backend interface is
 now used directly to clip synchronous socket timeouts to the remaining deadline. The generator is not runtime
 metadata. The development lock pins the complete maintainer environment.

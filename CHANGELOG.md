@@ -9,7 +9,11 @@
   Responses with a different project identity or invalid description fail closed.
   Requires an API deployment supporting the project-description endpoint.
 - Patch the development OpenAPI generator to `0.29.1` for CVE-2026-105801 and
-  regenerate the internal client from the unchanged reviewed contract.
+  regenerate the internal client from the reviewed contract.
+- Require certifi `2026.10.19` or newer and update the development lock to remove
+  the compromised certificate-authority bundle in GHSA-6q48-6c7w-9gw2. Certifi
+  was already installed through HTTPX; the explicit floor also protects existing
+  consumer environments during an SDK upgrade.
 
 ## 0.2.2 — 2026-10-03
 
