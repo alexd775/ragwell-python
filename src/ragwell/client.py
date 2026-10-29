@@ -13,6 +13,7 @@ from uuid import UUID
 
 import httpx
 
+from ._agent_description import validate_agent_description
 from ._common import (
     SyncFileContent,
     UploadInput,
@@ -54,6 +55,7 @@ from ._generated.models import (
     IngestionJobResponse,
     IngestionJobStatus,
     MachineCapabilitiesResponse,
+    ProjectAgentDescriptionResponse,
     ProjectResponse,
     ReplaceDocumentMetadataRequest,
     RerankRequest,
@@ -206,6 +208,18 @@ class Project:
             model_type=ProjectResponse,
             expected_statuses={200},
             retry_mode="read",
+        )
+
+    def agent_description(self) -> ProjectAgentDescriptionResponse:
+        """Read current project context using search access without a search."""
+        return self._transport.request(
+            operation_id="get_project_agent_description",
+            method="GET",
+            path=f"{self._base_path}/agent-description",
+            model_type=ProjectAgentDescriptionResponse,
+            expected_statuses={200},
+            retry_mode="read",
+            validator=lambda result: validate_agent_description(result, self.id),
         )
 
     def search(

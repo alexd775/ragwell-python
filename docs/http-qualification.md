@@ -43,6 +43,11 @@ conditions the HTTP assertions need, without embedding a service launcher.
 
 ## Required evidence
 
+The current source candidate adds project agent-description coverage to this
+runner, including foreign-project denial and search-only access without
+`project:read`. It has not rerun the complete endpoint fixture matrix; the dated
+26-operation result below remains historical evidence.
+
 The runner fails closed unless the supplied wheel is the installed distribution,
 all package files match the archive, and the live machine projection matches the
 packaged contract. It records the wheel digest, contract digest, Python/runtime

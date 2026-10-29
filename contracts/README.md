@@ -1,18 +1,22 @@
 # Vendored machine contract
 
-The development SDK uses artifact `2026-10-02.1` from `contracts/2026-10-02.1/`.
-It adds generation identity to search hits and document/version identity to bounded
-source previews. All 26 sync/async operations remain unchanged.
+The source candidate SDK uses artifact `2026-10-29.1` from
+`contracts/2026-10-29.1/`. It adds the bounded project agent-description projection
+with current `retrieval:search` authorization and preserves the complete
+28-operation sync/async map.
 
-- Producer: Ragwell API source-fetch working tree, 2026-10-02; canonical contract
-  SHA-256 `c64f9cba4b04a126756a79aa32eb811e07c144014046af7d948c3012bf3075b4`.
-- Machine SHA-256: `8f41e9a1ea22238e6152361b4dd244181d5ef2732de9100ccb29e85c8ef255e5`.
-- SDK candidate: unpublished 0.2.1; deploy the updated API before adopting it.
+- Producer: Ragwell API Outcome 69 working tree, 2026-10-29; canonical contract
+  SHA-256 `4a4e470af6bb7c0b9d7ee7652a32fbda08882b0f3199b51947657dcc15d8b819`.
+- Machine SHA-256:
+  `9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a`.
+- SDK candidate: unpublished `0.2.3`; deploy the matching API and publish the SDK
+  before installed integrations adopt the new method.
 
-Previously consumed artifacts remain preserved for published 0.1.0/0.2.0. The new
-candidate does not inherit their deployed beta or public-wheel qualification.
-The source-fetch delivery record is maintained in the API project; ordinary SDK
-generation, tests, builds and installation require no backend checkout.
+The refresh also types the existing project document-storage location/editability
+fields. Previously consumed artifacts remain preserved for published releases,
+including `0.2.2`'s `2026-10-03.1` contract. The candidate does not inherit their
+live-service or public-wheel qualification.
 
 The wheel includes the selected OpenAPI and manifest under `ragwell/_contract/`.
+Ordinary generation, tests, builds and installation require no backend checkout.
 Run `uv run --locked python scripts/generate.py --check` to verify generation.

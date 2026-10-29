@@ -75,6 +75,18 @@ def project() -> dict[str, object]:
             "documents_present": False,
             "reason_code": None,
         },
+        "document_storage_location": {
+            "zone_id": "primary",
+            "zone_name": "European Union",
+            "selection_status": "active",
+            "geographic_guarantee": "jurisdiction_restricted",
+            "jurisdiction": "eu",
+            "location_name": "European Union",
+            "management": "ragwell_managed",
+            "provider": "cloudflare_r2",
+            "provider_name": "Cloudflare R2",
+        },
+        "document_storage_editability": {"editable": True, "reason_code": None},
         "created_at": NOW,
         "updated_at": NOW,
     }
@@ -199,6 +211,8 @@ def export(state: str = "succeeded") -> dict[str, object]:
 def _json_for(method: str, path: str) -> tuple[int, object] | None:
     project_base = f"/v1/projects/{PROJECT_ID}"
     document_base = f"{project_base}/documents/{DOCUMENT_ID}"
+    if method == "GET" and path == f"{project_base}/agent-description":
+        return 200, {"project_id": PROJECT_ID, "description": "Synthetic knowledge"}
     if path == "/v1/document-upload-policy":
         return 200, {
             "formats": [

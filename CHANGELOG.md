@@ -1,7 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.2.3 — 2026-10-29
 
+- Add contract `2026-10-29.1` and the complete
+  28-operation map. Sync and async `project.agent_description()` return only
+  the currently authorized project's ID and nullable owner-written description,
+  using `retrieval:search` access without document reads or a metered search.
+  Responses with a different project identity or invalid description fail closed.
+  Requires an API deployment supporting the project-description endpoint.
 - Patch the development OpenAPI generator to `0.29.1` for CVE-2026-105801 and
   regenerate the internal client from the unchanged reviewed contract.
 

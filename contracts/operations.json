@@ -1,6 +1,6 @@
 {
-  "artifact_version": "2026-10-03.1",
-  "machine_sha256": "34fb0349b9a1c62eccde16e39d9d6e70ff7abca2fe72961eac64dd42f22feee9",
+  "artifact_version": "2026-10-29.1",
+  "machine_sha256": "9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a",
   "operations": [
     {
       "operation_id": "get_machine_capabilities",
@@ -22,6 +22,13 @@
       "path": "/v1/projects/{project_id}",
       "sync": "project.get",
       "async": "project.get"
+    },
+    {
+      "operation_id": "get_project_agent_description",
+      "method": "GET",
+      "path": "/v1/projects/{project_id}/agent-description",
+      "sync": "project.agent_description",
+      "async": "project.agent_description"
     },
     {
       "operation_id": "get_document_deletion_v1_projects__project_id__document_deletions__receipt_id__get",

@@ -141,6 +141,7 @@ async def matrix(client: Any, fixture: dict[str, Any]) -> list[Any]:
         ),
         lambda: p.uploads.finalize(u),
         lambda: p.search(query="qualification marker"),
+        lambda: p.agent_description(),
     ]
 
 
@@ -233,6 +234,10 @@ async def run_style(
             calls = await matrix(scoped, owner)
             for index in (0, 1):
                 await denied(calls[index], {403})
+            description = await resolve(
+                scoped.project(owner["project_id"]).agent_description()
+            )
+            assert str(description.project_id) == owner["project_id"]
         finally:
             await close(scoped)
         evidence.phase = "revoked"
@@ -247,7 +252,15 @@ async def run_style(
         )
         report["step"] = "intake"
         assert (await resolve(root.upload_policy.get())).formats
+        assert any(
+            str(grant.project_id) == owner["project_id"]
+            for grant in (await resolve(root.capabilities.get())).projects
+        )
         assert str((await resolve(project.get())).id) == owner["project_id"]
+        assert (
+            str((await resolve(project.agent_description())).project_id)
+            == owner["project_id"]
+        )
         await resolve(project.embedding_connection.get())
         for item in manifest["fixtures"]:
             file = Path(item["path"])

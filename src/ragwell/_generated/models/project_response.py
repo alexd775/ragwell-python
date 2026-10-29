@@ -9,6 +9,12 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
+    from ..models.document_storage_editability_response import (
+        DocumentStorageEditabilityResponse,
+    )
+    from ..models.document_storage_location_response import (
+        DocumentStorageLocationResponse,
+    )
     from ..models.processing_profile_editability_response import (
         ProcessingProfileEditabilityResponse,
     )
@@ -25,6 +31,8 @@ class ProjectResponse:
     active_processing_profile: ProcessingProfileSummaryResponse
     created_at: datetime.datetime
     description: None | str
+    document_storage_editability: DocumentStorageEditabilityResponse
+    document_storage_location: DocumentStorageLocationResponse
     id: UUID
     name: str
     processing_profile_editability: ProcessingProfileEditabilityResponse
@@ -38,6 +46,10 @@ class ProjectResponse:
 
         description: None | str
         description = self.description
+
+        document_storage_editability = self.document_storage_editability.to_dict()
+
+        document_storage_location = self.document_storage_location.to_dict()
 
         id = str(self.id)
 
@@ -54,6 +66,8 @@ class ProjectResponse:
                 "active_processing_profile": active_processing_profile,
                 "created_at": created_at,
                 "description": description,
+                "document_storage_editability": document_storage_editability,
+                "document_storage_location": document_storage_location,
                 "id": id,
                 "name": name,
                 "processing_profile_editability": processing_profile_editability,
@@ -65,6 +79,12 @@ class ProjectResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.document_storage_editability_response import (
+            DocumentStorageEditabilityResponse,  # noqa: PLC0415
+        )
+        from ..models.document_storage_location_response import (
+            DocumentStorageLocationResponse,  # noqa: PLC0415
+        )
         from ..models.processing_profile_editability_response import (
             ProcessingProfileEditabilityResponse,  # noqa: PLC0415
         )
@@ -86,6 +106,14 @@ class ProjectResponse:
 
         description = _parse_description(d.pop("description"))
 
+        document_storage_editability = DocumentStorageEditabilityResponse.from_dict(
+            d.pop("document_storage_editability")
+        )
+
+        document_storage_location = DocumentStorageLocationResponse.from_dict(
+            d.pop("document_storage_location")
+        )
+
         id = UUID(d.pop("id"))
 
         name = d.pop("name")
@@ -100,6 +128,8 @@ class ProjectResponse:
             active_processing_profile=active_processing_profile,
             created_at=created_at,
             description=description,
+            document_storage_editability=document_storage_editability,
+            document_storage_location=document_storage_location,
             id=id,
             name=name,
             processing_profile_editability=processing_profile_editability,

@@ -1,7 +1,8 @@
 # Python SDK reference
 
-This reference describes the maintained, published `0.2.2` interface. Both
-`Ragwell` and `AsyncRagwell` expose the same 27 machine operations. Examples below use a sync
+This reference describes the `0.2.3` source candidate; `0.2.2` remains the published
+release. Both `Ragwell` and `AsyncRagwell` expose the same 28 machine operations in
+the candidate. Examples below use a sync
 `project = client.project(project_id)`; await equivalent async calls and use
 `async for` for async iterators. The project handle is local and makes no request.
 IDs accept `uuid.UUID` or UUID strings. Results and request models are imported
@@ -43,6 +44,7 @@ Arguments such as `document_id`, `generation_id`, `export_id`, `job_id` and
 |---|---|---|
 | `client.upload_policy.get()` | Allowed formats and intake limits | Public |
 | `project.get()` | Project and processing profile | `project:read` |
+| `project.agent_description()` | `ProjectAgentDescriptionResponse`: project ID and nullable description (candidate 0.2.3) | `retrieval:search` |
 | `project.embedding_connection.get()` | Project's current embedding connection | `project:read` |
 | `project.uploads.create(request, idempotency_key=...)` | `UploadSessionResponse` from `CreateUploadRequest` | `document:upload` |
 | `project.uploads.get(upload_id)` | Recover upload state and accepted IDs | `document:upload` |
@@ -225,3 +227,24 @@ current authorization and technical limits. Revocation or removed grants invalid
 previous observations. Older APIs return a typed `NotFoundError`; the SDK does not
 substitute browser identity or a broader project list. This resource requires the
 API deployment supporting `GET /v1/machine/capabilities`. SDK 0.2.2 is published.
+
+## Project agent description (candidate 0.2.3)
+
+`project.agent_description()` and `await project.agent_description()` read
+`GET /v1/projects/{project_id}/agent-description`. The typed
+`ProjectAgentDescriptionResponse` is available from `ragwell.types`; its
+`project_id` is a UUID and `description` is plain text of up to 2,000 characters
+or `None`. It is the owner's description of the knowledge and intended use,
+not instructions or an access grant.
+
+Current `retrieval:search` access to that project is required; `project:read` and
+document-read access are not. Each call reads current server authorization and
+description. Discovery performs no search, document sampling or model call.
+Normal authentication-use metadata can change. A denied read raises a typed API
+error without falling back to broader project listing or retrieval. A response
+for a different project raises `ProtocolError`.
+
+Agent clients may retain their own tool listing. Refresh or reconnect those
+clients after the owner changes or clears the description. This candidate
+requires the matching API deployment and SDK publication; source tests do not
+establish installed live-service qualification.

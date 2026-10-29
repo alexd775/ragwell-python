@@ -140,8 +140,8 @@ def test_distributions_include_sources_typing_and_license(
         "pyproject.toml",
         "uv.lock",
         "tests/test_packaging.py",
-        "contracts/2026-10-03.1/openapi.json",
-        "contracts/2026-10-03.1/manifest.json",
+        "contracts/2026-10-29.1/openapi.json",
+        "contracts/2026-10-29.1/manifest.json",
         "contracts/operations.json",
         "docs/generation.md",
         "docs/http-qualification.md",
@@ -209,6 +209,7 @@ def test_wheel_imports_with_typing_marker_in_clean_environment(
             "-I",
             "-c",
             """
+import asyncio
 import sys
 from importlib.metadata import distribution
 from importlib.resources import files
@@ -216,7 +217,8 @@ from importlib.util import find_spec
 from pathlib import Path
 
 import ragwell
-from ragwell.types import RerankRequest
+import httpx
+from ragwell.types import ProjectAgentDescriptionResponse, RerankRequest
 
 assert Path(ragwell.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
 assert files(ragwell).joinpath("py.typed").is_file()
@@ -240,6 +242,28 @@ assert all(find_spec(name) is None for name in ("mypy", "pytest", "ruff", "rag_a
 with ragwell.Ragwell(base_url="https://api.example.test", api_key="test-key") as client:
     project = client.project("00000000-0000-0000-0000-000000000001")
     assert str(project.id) == "00000000-0000-0000-0000-000000000001"
+
+project_id = "00000000-0000-0000-0000-000000000001"
+calls = []
+def description_response(request):
+    calls.append(request)
+    assert request.method == "GET"
+    assert request.url.path == f"/v1/projects/{project_id}/agent-description"
+    return httpx.Response(200, json={"project_id": project_id, "description": "Installed context"})
+
+with ragwell.Ragwell(base_url="https://api.example.test", api_key="test-key",
+                     transport=httpx.MockTransport(description_response)) as client:
+    description = client.project(project_id).agent_description()
+    assert isinstance(description, ProjectAgentDescriptionResponse)
+    assert description.description == "Installed context"
+
+async def async_description():
+    async with ragwell.AsyncRagwell(base_url="https://api.example.test", api_key="test-key",
+                                   transport=httpx.MockTransport(description_response)) as client:
+        description = await client.project(project_id).agent_description()
+        assert description.description == "Installed context"
+asyncio.run(async_description())
+assert len(calls) == 2
 print("Clean installed-package import and typing marker passed")
 """,
         ],
@@ -280,7 +304,7 @@ def verified_identity():
 
 
 identity, contract = verified_identity()
-assert identity["operation_count"] == 27
+assert identity["operation_count"] == 28
 assert len(contract["paths"]) > 10
 package_file = Path(ragwell.__file__)
 original = package_file.read_bytes()

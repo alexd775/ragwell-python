@@ -12,6 +12,11 @@ evidence and citations; it does not generate answers.
 The discovery resource requires an API supporting `GET /v1/machine/capabilities`.
 It returns current project grants and scopes without a search or mutation.
 
+The source tree prepares **unpublished candidate `0.2.3`**, using contract
+`2026-10-29.1`. It adds `project.agent_description()` for current, project-scoped
+agent context. Deploy the matching API and publish the SDK before adopting this
+method in an installed integration; `0.2.2` remains the published release.
+
 New to Ragwell? Start with the [Python SDK quickstart](docs/quickstart.md) or browse
 [the documentation](docs/index.md). The [runnable async project](examples/async_project/README.md)
 uses the published package from PyPI.
@@ -79,11 +84,12 @@ loop, and close it at shutdown. Injected HTTPX clients are borrowed unless
 ## Public resource layout
 
 `client.project(project_id)` is local and performs no preflight request. Both client
-styles expose the same 27 contract operations:
+styles in the `0.2.3` candidate expose the same 28 contract operations:
 
 - `client.capabilities.get()` (since 0.2.2)
 - `client.upload_policy.get()`
-- `project.get()` and `project.embedding_connection.get()`
+- `project.get()`, `project.agent_description()`, and
+  `project.embedding_connection.get()`
 - `project.uploads.create()`, `.get()`, `.upload_content()`, and `.finalize()`
 - `project.documents.list()`, `.get()`, `.replace_metadata()`, `.delete()`,
   `.inspect()`, and `.activity()`
@@ -181,8 +187,8 @@ uv run --locked pytest
 uv run --locked python -m build --no-isolation
 ```
 
-The vendored artifact is `2026-10-03.1`, machine SHA-256
-`34fb0349b9a1c62eccde16e39d9d6e70ff7abca2fe72961eac64dd42f22feee9`.
+The vendored artifact is `2026-10-29.1`, machine SHA-256
+`9d92aa868fb134a8de534765f2bf41b6f7e45c871bbc425a12d566d6a3a3ff5a`.
 See [contract provenance](contracts/README.md),
 [generation qualification](docs/generation.md), and
 [operation mapping](contracts/operations.json). Ordinary tests require no service,
